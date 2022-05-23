@@ -9,6 +9,12 @@ class ProductService {
         const products = await this.productModel.findAll();
         return products;
     }
+ 
+    //상품 상세 정보를 받음
+    async getProduct(productId) {
+        const product = await this.productModel.findById(productId);
+        return product;
+    }
 }
 
 const productService = new ProductService(productModel);
