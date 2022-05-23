@@ -2,11 +2,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 30vh;
 }
 
 .login-form-box {
-  width: 30rem;
+  width: 28rem;
+  margin-top: 15vh;
+}
+
+.login-form-box .field{
+  display: flex;
+  margin-top: 50px;
+}
+
+.login-form-box .control{
+  flex-grow: 1
+}
+
+.login-form-box .label{
+  width: 100px;
+  margin-right: 30px;
+  margin-top: 10px;
+  color: #4A4F5A;
 }
 
 .login-form-box .title {
@@ -15,4 +32,31 @@
 
 .login-form-box .button {
   font-weight: bold;
+}
+
+.login-form-box .input:focus {
+  border-color: #fea7ab;
+  box-shadow: 0 0 0 0.125em #ffe9ea;
+}
+
+
+.login-greeting{
+  text-align: center;
+  font-size: 30px;
+  color:#4A4F5A;
+  margin-top: 15vh
+}
+
+.login-button-container{
+  margin-top: 50px;
+  text-align: center;
+}
+
+#submitButton{
+  color: #fff;
+  border: 1px solid #ff9690;
+  border-bottom-color: #ff9690;
+  text-shadow: 0 0 2px rgb(0 0 0 / 20%);
+  box-shadow: 0 2px 2px rgb(0 0 0 / 4%);
+  background: #ff9690;
 }
