@@ -36,8 +36,8 @@ const UserSchema = new Schema(
       required: false,
       default: 'basic-user',
     },
-    gender:{
-        type:String,
+    gender: {
+        type: String,
         required: true,
     },
   },
