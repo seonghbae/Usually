@@ -55,7 +55,15 @@ userRouter.post('/login', async function (req, res, next) {
 
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, password });
-    console.log("token : "+userToken);
+    
+
+    //만료 시간을 따로 정해줌 24시간 * 3일
+    var expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 24 * 3); 
+
+    //httponly 옵션을 넣어 보안을 강화한 쿠키 사용
+    res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true });
+    
+
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
   } catch (error) {
