@@ -1,0 +1,20 @@
+.header-search-input {
+    width: 20rem
+}
+
+.navbar-menu .is-info:focus {
+    box-shadow: none;
+    outline: none
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1rem;
+}
+
+.product-item {
+    display: grid;
+    cursor: pointer;
+    place-items: center;
+}
