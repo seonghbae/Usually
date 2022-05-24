@@ -1,0 +1,23 @@
+.mypage-greeting {
+    text-align: center;
+    font-size: 30px;
+    color: #4a4f5a;
+    margin-top: 10vh;
+}
+
+.mypage-modify-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin-top: 5vh;
+}
+
+.mypage-modify-form-box {
+    width: 28rem;
+}
+
+.modify-button-container {
+    margin-top: 50px;
+    text-align: center;
+}
