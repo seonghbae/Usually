@@ -55,7 +55,7 @@ userRouter.post('/login', async function (req, res, next) {
 
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, password });
-
+    console.log("token : "+userToken);
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
   } catch (error) {
@@ -76,6 +76,7 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
     next(error);
   }
 });
+// *** +++ JWT로 admin 확인하고 유저 반환하기!
 
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
