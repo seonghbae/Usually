@@ -23,8 +23,8 @@
             crossorigin="anonymous"
         ></script>
         <!-- 커스텀 css, js -->
-        <link rel="stylesheet" href="mypage.css" />
-        <script src="mypage.js" type="module" defer></script>
+        <link rel="stylesheet" href="modify.css" />
+        <script src="modify.js" type="module" defer></script>
     </head>
     <body>
         <!-- 헤더 -->
@@ -69,10 +69,10 @@
             </div>
         </nav>
 
-        <h1 class="mypage-greeting">마이페이지</h1>
-        <div class="mypage-modify-form-container">
+        <h1 class="modify-greeting">회원정보 수정</h1>
+        <div class="modify-form-container">
             <form
-                class="mypage-modify-form-box"
+                class="modify-form-box"
                 action="/api/userModify"
                 method="POST"
                 id="modifyForm"
@@ -90,11 +90,14 @@
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-x"></i>
+                        </span>
                     </p>
                 </div>
                 <div class="field">
                     <label class="label" for="email-modify">이메일 수정</label>
-                    <p class="control has-icons-left has-icons-right">
+                    <p class="control has-icons-left">
                         <input
                             class="input"
                             type="email"
@@ -111,7 +114,7 @@
                     <label class="label" for="password-modify"
                         >비밀번호 수정</label
                     >
-                    <p class="control has-icons-left has-icons-right">
+                    <p class="control has-icons-left">
                         <input
                             class="input"
                             type="text"
@@ -137,7 +140,7 @@
                         id="delete-button"
                         type="submit"
                     >
-                        계정삭제
+                        회원 탈퇴
                     </button>
                 </div>
             </form>

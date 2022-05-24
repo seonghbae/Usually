@@ -46,6 +46,13 @@
     margin-top: 10vh;
 }
 
+hr {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+}
+
 .login-button-container {
     margin-top: 50px;
     text-align: center;

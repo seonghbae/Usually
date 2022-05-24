@@ -1,11 +1,11 @@
-.mypage-greeting {
+.modify-greeting {
     text-align: center;
     font-size: 30px;
     color: #4a4f5a;
     margin-top: 10vh;
 }
 
-.mypage-modify-form-container {
+.modify-form-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,7 +13,7 @@
     margin-top: 5vh;
 }
 
-.mypage-modify-form-box {
+.modify-form-box {
     width: 28rem;
 }
 

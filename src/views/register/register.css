@@ -55,6 +55,12 @@
     color: #4a4f5a;
     margin-top: 10vh;
 }
+hr {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+}
 
 .genderRadio {
     margin-top: 10px;
