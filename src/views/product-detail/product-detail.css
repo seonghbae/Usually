@@ -1,67 +1,64 @@
-.header-search-input {
-    width:20rem
+/* .product-detail-card .product-image {
+    padding: 0
 }
 
-.navbar-menu .is-info:focus {
-    box-shadow:none;
-    outline:none
+.product-detail-card .box {
+    box-shadow: none;
+    max-width: 100%
 }
 
-/* .product-item {
-    padding: 1rem;
-    background-color: #ddd;
-    display: flex;
-    justify-content: center;
-} */
-
-.product-item {
-    cursor:pointer
+.product-detail {
+    margin-bottom: 0;
+    padding-bottom: 0
 }
 
-.product-item .image {
-    height:200px;
-    margin:.5rem 1rem .5rem .5rem;
-    width:200px
+.product-detail .tag {
+    display: inline-block;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+    margin-left: .5rem
 }
 
-.product-item .image img {
-    height:200px
+.detail-description {
+    margin-top: 2rem;
+    white-space: pre-line
 }
 
-.product-item p.name {
-    margin:1rem 0
+.buttons-container {
+    flex-grow: 0;
+    padding-bottom: 0;
+    padding-right: 0
 }
 
-.product-item p.name .tag {
-    display:inline-block;
-    line-height:1.5rem;
-    margin-bottom:1rem;
-    margin-left:.5rem
+.buttons-container button {
+    font-size: 1.3rem;
+    font-weight: 800;
+    height: 4rem;
+    padding: 0;
+    width: 48%
 }
 
-.product-item p.description {
-    font-size:1.2rem
+.buttons-container button.is-warning {
+    line-height: 3rem;
+    padding-top: .3rem
 }
 
-.product-item p.price {
-    font-size:2rem;
-    margin-top:3.5rem
+.content p:not(:last-child) {
+    margin-bottom: .5rem
 }
 
-.media+.media {
-    margin-top:.5rem;
-    padding-top:0
-}
-
-.message:not(:last-child) {
-    margin-bottom:1rem
+.content h1:not(:first-child) {
+    margin-top: 0
 }
 
 @media only screen and (max-width:500px) {
-    .product-item {
-        display:block
+    .product-detail-card .buttons-container button {
+        font-size: 1.3rem;
+        font-weight: 800;
+        height: 4rem;
+        margin: .3rem;
+        margin-left: 0 !important;
+        padding: 0;
+        width: 90%
     }
-    .product-item .image {
-        margin:.5rem auto
-    }
-}
+} */
