@@ -9,11 +9,28 @@ class ProductService {
         const products = await this.productModel.findAll();
         return products;
     }
- 
+
     //상품 상세 정보를 받음
     async getProduct(productId) {
         const product = await this.productModel.findById(productId);
         return product;
+    }
+
+    //상품을 생성함
+    async addProduct(productInfo) {
+        const {
+            name,
+            price,
+            description,
+            madeBy,
+            category,
+            inventory,
+            sellCount,
+        } = productInfo;
+
+        const createNewProduct = await this.productModel.create(productInfo);
+
+        return createNewProduct;
     }
 }
 

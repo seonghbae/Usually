@@ -8,10 +8,15 @@ export class ProductModel {
         const products = await Product.find({});
         return products;
     }
- 
+
     async findById(productId) {
-        const product = await Product.findOne({ _id : productId });
+        const product = await Product.findOne({ _id: productId });
         return product;
+    }
+
+    async create(productInfo) {
+        const createdNewProduct = await Product.create(productInfo);
+        return createdNewProduct;
     }
 }
 
