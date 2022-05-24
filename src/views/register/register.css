@@ -1,66 +1,65 @@
 .register-user-form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
 }
 
 .register-user-form-box {
-  width: 28rem;
+    width: 28rem;
 }
 
 .register-user-form-box .title {
-  text-align: center;
+    text-align: center;
 }
 
 .register-user-form-box .button {
-  font-weight: bold;
+    font-weight: bold;
 }
 
-.register-user-form-box #submitButton{
-  color: #fff;
-  border: 1px solid #ff9690;
-  border-bottom-color: #ff9690;
-  text-shadow: 0 0 2px rgb(0 0 0 / 20%);
-  box-shadow: 0 2px 2px rgb(0 0 0 / 4%);
-  background: #ff9690;
+.register-user-form-box #submitButton {
+    color: #fff;
+    border: 1px solid #ff9690;
+    border-bottom-color: #ff9690;
+    text-shadow: 0 0 2px rgb(0 0 0 / 20%);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 4%);
+    background: #ff9690;
 }
 
 .register-user-form-box .input:focus {
-  border-color: #fea7ab;
-  box-shadow: 0 0 0 0.125em #ffe9ea;
+    border-color: #fea7ab;
+    box-shadow: 0 0 0 0.125em #ffe9ea;
 }
 
-.register-user-form-box .field{
-  display: flex;
-  margin-top: 20px;
+.register-user-form-box .field {
+    display: flex;
+    margin-top: 20px;
 }
 
-.register-user-form-box .label{
-  width: 100px;
-  margin-right: 30px;
-  margin-top: 10px;
-  color:#4A4F5A;
+.register-user-form-box .label {
+    width: 100px;
+    margin-right: 30px;
+    margin-top: 10px;
+    color: #4a4f5a;
 }
 
-.register-user-form-box p{
-  margin-top: 5px;
-  flex-grow: 1
+.register-user-form-box p {
+    margin-top: 5px;
+    flex-grow: 1;
 }
 
-.register-greeting{
-  text-align: center;
-  font-size: 30px;
-  color:#4A4F5A;
-  margin-top: 15vh
+.register-greeting {
+    text-align: center;
+    font-size: 30px;
+    color: #4a4f5a;
+    margin-top: 15vh;
 }
 
-.genderRadio{
-  margin-top: 10px;
+.genderRadio {
+    margin-top: 10px;
 }
 
-.register-submit-container{
-  margin-top: 50px;
-  text-align: center;
+.register-submit-container {
+    margin-top: 50px;
+    text-align: center;
 }
-
