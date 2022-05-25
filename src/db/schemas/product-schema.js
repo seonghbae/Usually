@@ -4,6 +4,11 @@ import { shortId } from './types/short-id';
 const ProductSchema = new Schema(
     {
         shortId,
+        category: {
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
+            required: true,
+        },
         name: {
             type: String,
             required: true,
@@ -20,11 +25,6 @@ const ProductSchema = new Schema(
             type: String,
             required: true,
         },
-        category: {
-            type: Schema.Types.ObjectId,
-            ref: "Category",
-            required: true,
-        },
         inventory: {
             type: Number,
             required: true,
@@ -34,6 +34,11 @@ const ProductSchema = new Schema(
             type: Number,
             required: true,
             default: 0,
+        },
+        src: {
+            type: String,
+            required: true,
+            default: '',
         },
     },
     {
