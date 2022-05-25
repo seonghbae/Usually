@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>쇼핑-n팀</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="my-page.css" />
+        <script src="my-page.js" type="module" defer></script>
+    </head>
+    <!-- 헤더 -->
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container mt-3">
+              <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                  <img src="/elice-rabbit.png" width="30" height="30" />
+                  <span class="has-text-link">쇼핑-n팀</span>
+                </a>
+      
+                <a
+                  role="button"
+                  class="navbar-burger"
+                  aria-label="menu"
+                  aria-expanded="false"
+                  data-target="navbarBasicExample"
+                >
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </a>
+              </div>
+      
+                <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                  <ul id="navbar">
+                    <li><a href="/login">로그인</a></li>
+                    <li><a href="/register">회원가입</a></li>
+                    <li>
+                      <a href="#cart" aria-current="page">
+                        <span class="icon">
+                          <i class="fas fa-cart-shopping"></i>
+                        </span>
+                        <span>카트</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+        <div class="my-page-content-container">
+            <div class="my-page-menu-container">
+                <div class="my-page-menu-title">
+                    <h1>MYPAGE</h1>
+                    <hr>
+                </div>
+
+                <h2>❇︎회원정보</h2>
+                <hr>
+                <ul class="my-page-menu-list">
+                    <li><a href="/modify">회원정보 수정</a></li>
+                </ul>
+                <h2>❇︎구매정보</h2>
+                <hr>
+                <ul class="my-page-menu-list">
+                    <li><a href="/cart">내 장바구니</a></li>
+                    <li><a href="/my-order">구매내역</a></li>
+                </ul>
+            </div>
+
+            <div class="my-page-info-container">
+                <div class="my-page-info">
+                    <h3>구매한 제품 수</h3>
+                    <hr>
+                    <p>3</p>
+                </div>
+
+                <div class="my-page-info">
+                    <h3>총 가격</h3>
+                    <hr>
+                    <p>320,000</p>
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>
