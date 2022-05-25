@@ -7,6 +7,17 @@ adminRouter.get('/', (req, res, next) => {
     res.send('admin main page');
 });
 
+//전체 카테고리 목록을 가져옴
+adminRouter.get('/category', (req, res, next) => {
+    try {
+        const categories = await categoryService.getCategories();
+
+        res.status(200).json(categories);
+    } catch (error) {
+        next(error);
+    }
+})
+
 //전체 상품 목록을 가져옴
 adminRouter.get('/product', async (req, res, next) => {
     try {
