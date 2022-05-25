@@ -34,7 +34,7 @@ adminRouter.get('/category/:categoryId', async (req, res, next) => {
 adminRouter.post('/category/create', async (req, res, next) => {
     try {
         const { name } = req.body;
-        const newCategory = await categoryService.AddCategory(name);
+        const newCategory = await categoryService.AddCategory({ name });
 
         res.status(200).json(newCategory);
     } catch (error) {

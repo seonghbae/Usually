@@ -15,7 +15,7 @@ export class CategoryModel {
     }
 
     async create(categoryInfo) {
-        const createdNewCategory = await Category.create({ categoryInfo });
+        const createdNewCategory = await Category.create(categoryInfo);
         return createdNewCategory;
     }
 
