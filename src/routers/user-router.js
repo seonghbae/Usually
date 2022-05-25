@@ -63,10 +63,8 @@ userRouter.post('/login', async function (req, res, next) {
     const expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 24 * 3); 
 
     //httponly 옵션을 넣어 보안을 강화한 쿠키 사용
-    res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true });
-          
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    res.status(200).json(userToken);
+    res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true }).status(200);
   } catch (error) {
     next(error);
   }
