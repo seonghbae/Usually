@@ -43,9 +43,6 @@
     text-align: center;
     font-size: 30px;
     color: #4a4f5a;
-<<<<<<< HEAD
-    margin-top: 15vh;
-=======
     margin-top: 10vh;
 }
 
@@ -54,7 +51,6 @@ hr {
     margin-left: auto;
     margin-right: auto;
     background-color: black;
->>>>>>> dev
 }
 
 .login-button-container {

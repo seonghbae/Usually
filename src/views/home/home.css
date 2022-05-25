@@ -1,19 +1,65 @@
-.div-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+/* 이미지 슬라이더 구현부분 */
+.slider-container {
+    position: relative;
+}
+  
+.slider-container:hover {
+    cursor: pointer;
 }
 
-.landing {
-    cursor: pointer;
-    border: 1px solid red;
-    padding: 10px;
+.slider {
+    overflow: hidden;
+    width: 300vw;
 }
 
-.greeting {
-    cursor: pointer;
-    border: 1px solid blue;
-    padding: 10px;
-    margin-left: 3rem;
+.slider-image {
+    width: 100vw;
+    float: left;
 }
+
+.slider-image img {
+    width: 100%;
+    height: 30vw;
+}
+
+.slider-prev-button {
+    position: absolute;
+    background: url("slider-arrow.png");
+    background-size: cover;
+    width: 3vw;
+    height: 3vw;
+    left: 5%;
+    top: 13vw;
+    transform: rotate(180deg);
+    z-index: 10;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.slider-next-button {
+    position: absolute;
+    background: url("slider-arrow.png");
+    background-size: cover;
+    width: 3vw;
+    height: 3vw;
+    right: 5%;
+    top: 13vw;
+    z-index: 10;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.slider-number-button {
+    position: absolute;
+    background-color: white;
+    width: 3vw;
+    height: 1vw;
+    border: black solid 1px;
+    border-radius: 50px;
+    top: 28vw;
+    z-index: 10;
+    cursor: pointer;
+}
+  
