@@ -63,7 +63,6 @@ userRouter.post('/login', async function (req, res, next) {
 
     //httponly 옵션을 넣어 보안을 강화한 쿠키 사용
     res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true });
-    
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
@@ -76,9 +75,8 @@ userRouter.post('/login', async function (req, res, next) {
 //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
 userRouter.get('/logout', async function(req, res, next) {
     //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
-    //res.clearCookie('token');
     try{
-      await res.cookie('token', req.signedCookies, {expiresIn: 0});
+      res.clearCookie('token');
       res.redirect('/');
     }catch(error){
       next(error);
@@ -125,6 +123,7 @@ userRouter.patch(
       const address = req.body.address;
       const phoneNumber = req.body.phoneNumber;
       const role = req.body.role;
+      const gender = req.body.gender;
 
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
       const currentPassword = req.body.currentPassword;
@@ -176,7 +175,7 @@ userRouter.delete('/unregister/:userId', loginRequired, async function (req, res
       // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
       const password = req.body.password;
 
-      // currentPassword 없을 시, 진행 불가
+      // password 없을 시, 진행 불가
       if (!password) {
         throw new Error('탈퇴를 위해서는 비밀번호가 필요합니다.');
       }
