@@ -70,9 +70,6 @@ class UserService {
 
     // 2개 프로퍼티를 jwt 토큰에 담음
     const token = jwt.sign({ userId: user._id, role: user.role }, secretKey);
-    
-    // **********************
-    console.log("getUserToken : "+token);
 
     return token ;
   }
@@ -135,6 +132,8 @@ class UserService {
      // 객체 destructuring
      const { userId, currentPassword } = userInfoRequired;
 
+     console.log("currentPassword" +currentPassword);
+
      // 우선 해당 id의 유저가 db에 있는지 확인
      let user = await this.userModel.findById(userId);
  
@@ -159,8 +158,8 @@ class UserService {
      }
  
      // 유저 삭제 시작
-     user = await this.userModel.deleteOne({
-       userId,
+     user = await this.userModel.deleteOneUser({
+       userId
      });
  
      return user;

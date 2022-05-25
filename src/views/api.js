@@ -36,7 +36,7 @@ async function post(endpoint, data) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${document.cookie.token}`,
+      Authorization: `Bearer ${document.cookie}`,
     },
     body: bodyData,
   });

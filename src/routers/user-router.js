@@ -173,14 +173,14 @@ userRouter.delete('/unregister/:userId', loginRequired, async function (req, res
       const userId = req.params.userId;
 
       // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
-      const password = req.body.password;
+      const currentPassword = req.body.password;
 
       // password 없을 시, 진행 불가
-      if (!password) {
+      if (!currentPassword) {
         throw new Error('탈퇴를 위해서는 비밀번호가 필요합니다.');
       }
 
-      const userInfoRequired = { userId, password };
+      const userInfoRequired = { userId, currentPassword };
 
       // 사용자 정보를 삭제함
       const deletedUser = await userService.deleteUser(
