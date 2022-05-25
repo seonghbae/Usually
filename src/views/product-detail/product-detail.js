@@ -8,17 +8,51 @@ const name = document.querySelector('#name');
 const price = document.querySelector('#price');
 const inventoryButton = document.querySelector('#inventoryButton');
 const buyButton = document.querySelector('#buyButton');
-// const button = ""; // 카테고리나 홈에서 사진 등
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
+async function addAllElements() {
+  showProduct();
+}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  // button.addEventListener('click', showProductList);
+  inventoryButton.addEventListener("click", addToInventory);
+  // buyButton.addEventListener("click", () => newPage("/buy"));
+}
+
+function showProduct() {
+  const data = {
+    shortId: "1",
+    img: "/ring.jpg",
+    madeBy: "company",
+    name: "The Loop",
+    price: 20000,
+  }
+
+  image.src = data.img;
+  madeBy.innerHTML = data.madeBy;
+  name.innerHTML = data.name;
+  price.innerHTML = addCommas(data.price)+"원";
+}
+
+function addToInventory() {
+  const data = {
+    shortId: "1",
+    img: "/ring.jpg",
+    madeBy: "company",
+    name: "The Loop",
+    price: 20000,
+  }
+
+  localStorage.setItem(data.shortId, JSON.stringify(data));
+}
+
+// 입력으로 들어오는 주소로 이동
+function newPage(address) {
+  location.pathname = address;
 }
 
 // 회원가입 진행
