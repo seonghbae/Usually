@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
+    <title>사이트이름</title>
     <!-- 아이콘 -->
     <link
       rel="icon"
@@ -27,54 +27,85 @@
     <script src="home.js" type="module" defer></script>
   </head>
   <body>
-    <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+    
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+          <a href="/login" class="navbar-item">
+            로그인
+          </a>
+    
+          <a href="/register" class="navbar-item">
+            회원가입
           </a>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+          <a href="/my-page" class="navbar-item">
+            마이페이지
           </a>
-        </div>
-
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li><a href="/login">로그인</a></li>
-              <li><a href="/register">회원가입</a></li>
-              <li>
-                <a href="#cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+  
+          <a href="#cart" aria-current="page" class="navbar-item">
+            <span class="icon">
+              <i class="fas fa-cart-shopping"></i>
+            </span>
+            <span>장바구니</span>
+          </a>
+          
         </div>
       </div>
     </nav>
-
-    <div class="div-container">
+    <div class="logo-div" style="height: 70px"></div>
+    <nav class="main-nav">
+      <ul class="main-nav-menu-container">
+        <li><a href="" class="main-nav-manu navbar-item">1번</a></li>
+        <li><a href="" class="main-nav-manu navbar-item">2번</a></li>
+        <li><a href="" class="main-nav-manu navbar-item">3번</a></li>
+        <li><a href="" class="main-nav-manu navbar-item">4번</a></li>
+        <li><a href="" class="main-nav-manu navbar-item">5번</a></li>
+      </ul>
+    </nav>
+    <div class="slider-container">
+      <button class="slider-button slider-prev-button"></button>
+      <button class="slider-button slider-next-button"></button>
+      <div class="slider-number-button-list">
+        <button class="slider-button slider-number-button"></button>
+        <button class="slider-button slider-number-button"></button>
+        <button class="slider-button slider-number-button"></button>
+      </div>
+  
+      <div class="slider">
+          <div class="slider-image">
+              <img src="1.jpg" alt="">
+          </div>
+          <div class="slider-image">
+              <img src="2.jpg" alt="">
+          </div>
+          <div class="slider-image">
+              <img src="3.jpg" alt="">
+          </div>
+      </div>
+    </div>
+    <div style="height: 1000px">
+      임시 div
+    </div>
+    <!-- <div class="div-container">
       <div class="landing" id="landingDiv">
         <h1>랜딩 페이지</h1>
       </div>
       <div class="greeting" id="greetingDiv">
         <h1>안녕하세요!</h1>
       </div>
-    </div>
+    </div> -->
 
   </body>
 </html>
