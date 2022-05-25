@@ -40,6 +40,7 @@ function loginRequired(req, res, next) {
 
     return;
   }
+
 }
 
 export { loginRequired };

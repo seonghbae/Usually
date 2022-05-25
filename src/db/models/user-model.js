@@ -4,6 +4,7 @@ import { UserSchema } from '../schemas/user-schema';
 const User = model('users', UserSchema);
 
 export class UserModel {
+
   async findByEmail(email) {
     const user = await User.findOne({ email });
     return user;
@@ -38,6 +39,7 @@ export class UserModel {
     const deletedUser = await User.deleteOne(filter);
     return deletedUser;
   }
+
 }
 
 const userModel = new UserModel();

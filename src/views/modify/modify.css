@@ -1,0 +1,32 @@
+.modify-greeting {
+    text-align: center;
+    font-size: 30px;
+    color: #4a4f5a;
+    margin-top: 10vh;
+}
+
+.modify-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin-top: 5vh;
+}
+
+.modify-form-box {
+    width: 28rem;
+}
+
+.modify-button-container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.modify-button-container .button {
+    color: #fff;
+    border: 1px solid #ff9690;
+    border-bottom-color: #ff9690;
+    text-shadow: 0 0 2px rgb(0 0 0 / 20%);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 4%);
+    background: #ff9690;
+}

@@ -1,0 +1,69 @@
+.my-page-content-container {
+    display: flex;
+    height: 60vh;
+    width: 120vh;
+    margin-top: 10vh;
+    margin-left: 10vh;
+}
+
+.my-page-menu-container {
+    width: 30%;
+    margin-top: 5vh;
+    margin-left: 10vh;
+}
+
+.my-page-menu-list {
+    height: 50px;
+}
+
+.my-page-menu-container h1 {
+    font-size: 25px;
+}
+
+.my-page-menu-container h2 {
+    font-size: 21px;
+}
+
+.my-page-menu-container ul {
+    margin-bottom: 30px;
+}
+
+.my-page-menu-container hr {
+    background-color: lightgray;
+    width: 90%;
+}
+
+.my-page-menu-title hr {
+    background-color: black;
+}
+
+.my-page-menu-list li {
+    list-style: disc;
+    font-size: 15px;
+    margin-left: 20%;
+}
+.my-page-menu-list a {
+    color: black;
+}
+.my-page-info-container {
+    margin-left: 10%;
+    width: 100%;
+}
+.my-page-info-container hr {
+    background-color: black;
+    width: 100%;
+}
+
+.my-page-info-container p {
+    font-size: 50px;
+    color: pink;
+}
+
+.my-page-info-container .my-page-info {
+    margin-bottom: 100px;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: bold;
+}
