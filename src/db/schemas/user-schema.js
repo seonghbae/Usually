@@ -1,7 +1,9 @@
 import { Schema } from 'mongoose';
+import { shortId } from './types/short-id';
 
 const UserSchema = new Schema(
     {
+        shortId,
         email: {
             type: String,
             required: true,
@@ -36,11 +38,15 @@ const UserSchema = new Schema(
             required: false,
             default: 'basic-user',
         },
-    },
-    {
-        collection: 'users',
-        timestamps: true,
-    }
+        gender: {
+        type: String,
+        required: true,
+         },
+  },
+  {
+    collection: 'users',
+    timestamps: true,
+  }
 );
 
 export { UserSchema };
