@@ -21,3 +21,12 @@
     margin-top: 50px;
     text-align: center;
 }
+
+.modify-button-container .button {
+    color: #fff;
+    border: 1px solid #ff9690;
+    border-bottom-color: #ff9690;
+    text-shadow: 0 0 2px rgb(0 0 0 / 20%);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 4%);
+    background: #ff9690;
+}
