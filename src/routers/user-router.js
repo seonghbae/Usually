@@ -18,7 +18,6 @@ userRouter.post('/register', async (req, res, next) => {
         }
 
     // req (request)의 body 에서 데이터 가져오기
-    const shortId = req.body.shortId;
     const fullName = req.body.fullName;
     const email = req.body.email;
     const password = req.body.password;
@@ -26,7 +25,6 @@ userRouter.post('/register', async (req, res, next) => {
 
        // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
-      shortId,
       fullName,
       email,
       password,
@@ -131,12 +129,11 @@ userRouter.patch('/edit/:shortId', loginRequired, async function (req, res, next
         throw new Error('정보를 변경하려면, 현재의 비밀번호가 필요합니다.');
       }
 
-      const userInfoRequired = { userId, currentPassword };
+      const userInfoRequired = { shortId, currentPassword };
 
       // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
       // 보내주었다면, 업데이트용 객체에 삽입함.
       const toUpdate = {
-        ...(shortId && { shortId }),
         ...(fullName && { fullName }),
         ...(password && { password }),
         ...(address && { address }),
