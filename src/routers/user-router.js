@@ -18,6 +18,7 @@ userRouter.post('/register', async (req, res, next) => {
         }
 
     // req (request)의 body 에서 데이터 가져오기
+    const shortId = req.body.shortId;
     const fullName = req.body.fullName;
     const email = req.body.email;
     const password = req.body.password;
@@ -25,6 +26,7 @@ userRouter.post('/register', async (req, res, next) => {
 
        // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
+      shortId,
       fullName,
       email,
       password,
@@ -62,7 +64,7 @@ userRouter.post('/login', async function (req, res, next) {
     //만료 시간을 임의로 정해줌 24시간 * 3일
     const expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 24 * 3); 
 
-    //httponly 옵션을 넣어 보안을 강화한 쿠키 사용
+    //httponly 옵션을 넣어 보안을 강화한 쿠키 사용 -> web한정
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true }).status(200);
   } catch (error) {
@@ -100,7 +102,7 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
 
 // 사용자 정보 수정
 // (예를 들어 /users/edit/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
-userRouter.patch('/edit/:userId', loginRequired, async function (req, res, next) {
+userRouter.patch('/edit/:shortId', loginRequired, async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
       // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -111,7 +113,7 @@ userRouter.patch('/edit/:userId', loginRequired, async function (req, res, next)
       }
 
       // params로부터 id를 가져옴
-      const userId = req.params.userId;
+      const shortId = req.params.shortId;
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const fullName = req.body.fullName;
@@ -134,6 +136,7 @@ userRouter.patch('/edit/:userId', loginRequired, async function (req, res, next)
       // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
       // 보내주었다면, 업데이트용 객체에 삽입함.
       const toUpdate = {
+        ...(shortId && { shortId }),
         ...(fullName && { fullName }),
         ...(password && { password }),
         ...(address && { address }),
@@ -156,7 +159,7 @@ userRouter.patch('/edit/:userId', loginRequired, async function (req, res, next)
     }
   });
 
-userRouter.delete('/unregister/:userId', loginRequired, async function (req, res, next){
+userRouter.delete('/unregister/:shortId', loginRequired, async function (req, res, next){
   try{
     // content-type 을 application/json 로 프론트에서
       // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -167,7 +170,7 @@ userRouter.delete('/unregister/:userId', loginRequired, async function (req, res
       }
 
       // params로부터 id를 가져옴
-      const userId = req.params.userId;
+      const shortId = req.params.shortId;
 
       // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
       const currentPassword = req.body.password;
@@ -177,7 +180,7 @@ userRouter.delete('/unregister/:userId', loginRequired, async function (req, res
         throw new Error('탈퇴를 위해서는 비밀번호가 필요합니다.');
       }
 
-      const userInfoRequired = { userId, currentPassword };
+      const userInfoRequired = { shortId, currentPassword };
 
       // 사용자 정보를 삭제함
       const deletedUser = await userService.deleteUser(

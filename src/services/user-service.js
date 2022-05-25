@@ -12,7 +12,7 @@ class UserService {
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
-    const { email, fullName, password, gender } = userInfo;
+    const { shortId, email, fullName, password, gender } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -27,7 +27,7 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { fullName, email, password: hashedPassword, gender };
+    const newUserInfo = { shortId, fullName, email, password: hashedPassword, gender };
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -69,7 +69,7 @@ class UserService {
     const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
     // 2개 프로퍼티를 jwt 토큰에 담음
-    const token = jwt.sign({ userId: user._id }, secretKey);
+    const token = jwt.sign({ shortId: user.shortId }, secretKey);
 
     return token ;
   }
@@ -83,10 +83,10 @@ class UserService {
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
-    const { userId, currentPassword } = userInfoRequired;
+    const { shortId, currentPassword } = userInfoRequired;
 
     // 우선 해당 id의 유저가 db에 있는지 확인
-    let user = await this.userModel.findById(userId);
+    let user = await this.userModel.findById(shortId);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
@@ -120,7 +120,7 @@ class UserService {
 
     // 업데이트 진행
     user = await this.userModel.update({
-      userId,
+      shortId,
       update: toUpdate,
     });
 
@@ -130,12 +130,12 @@ class UserService {
   async deleteUser(userInfoRequired){
 
      // 객체 destructuring
-     const { userId, currentPassword } = userInfoRequired;
+     const { shortId, currentPassword } = userInfoRequired;
 
      console.log("currentPassword" +currentPassword);
 
      // 우선 해당 id의 유저가 db에 있는지 확인
-     let user = await this.userModel.findById(userId);
+     let user = await this.userModel.findById(shortId);
  
      // db에서 찾지 못한 경우, 에러 메시지 반환
      if (!user) {
@@ -159,7 +159,7 @@ class UserService {
  
      // 유저 삭제 시작
      user = await this.userModel.deleteOneUser({
-       userId
+       shortId
      });
  
      return user;
