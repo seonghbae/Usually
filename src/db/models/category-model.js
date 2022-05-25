@@ -30,6 +30,13 @@ export class CategoryModel {
         });
         return updateCategory;
     }
+
+    async delete({ categoryId }) {
+        const filter = { _id: categoryId };
+
+        const deleteCategory = await Category.deleteOne(filter);
+        return deleteCategory;
+    }
 }
 
 const categoryModel = new CategoryModel();

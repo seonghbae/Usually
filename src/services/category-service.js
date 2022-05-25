@@ -40,6 +40,19 @@ class CategoryService {
 
         return category;
     }
+
+    async deleteCategory(categoryId) {
+        let category = await this.categoryModel.findById(categoryId);
+
+        if (!category) {
+            throw new Error(
+                '카테고리 내역이 없습니다. 다시 한 번 확인해 주세요.'
+            );
+        }
+
+        category = await this.categoryModel.delete({ categoryId });
+        return category;
+    }
 }
 
 const categoryService = new CategoryService(categoryModel);

@@ -60,6 +60,21 @@ adminRouter.patch('/category/:categoryId', async (req, res, next) => {
     }
 });
 
+//카테고리 삭제
+adminRouter.delete('/category/:categoryId', async (req, res, next) => {
+    try {
+        const { categoryId } = req.params;
+
+        const deleteCategoryInfo = await categoryService.deleteCategory(
+            categoryId
+        );
+
+        res.status(200).json(deleteCategoryInfo);
+    } catch (error) {
+        next(error);
+    }
+});
+
 //전체 상품 목록을 가져옴
 adminRouter.get('/product', async (req, res, next) => {
     try {
