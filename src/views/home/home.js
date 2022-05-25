@@ -104,7 +104,7 @@ let sliderLength = slideList.length;
 
 // 넘버 버튼 각각마다 클릭 이벤트리스너 추가
 for (let i = 0; i < sliderLength; i++){
-    numberButtons[i].style.left = (46 + 4*i) + '%'
+    numberButtons[i].style.left = (45 + 4*i) + '%'
     numberButtons[i].addEventListener('click', function(){
         slider.style.transform = `translate(-${i * 100}vw)`;
         slider.animate({

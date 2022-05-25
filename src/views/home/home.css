@@ -59,6 +59,9 @@ input, button{
   color: #FFAE96 !important;
 }
 
+.navbar-end a{
+  text-align: right;
+}
 
 /* sticky-nav메뉴 css */
 .main-nav{
