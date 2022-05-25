@@ -16,6 +16,12 @@ class CategoryService {
         const category = await this.categoryModel.findById(categoryId);
         return category;
     }
+
+    //카테고리를 생성함
+    async AddCategory(categoryInfo) {
+        const createNewCategory = await this.categoryModel.create(categoryInfo);
+        return createNewCategory;
+    }
 }
 
 const categoryService = new CategoryService(categoryModel);

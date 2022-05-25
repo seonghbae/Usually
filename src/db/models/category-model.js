@@ -13,6 +13,11 @@ export class CategoryModel {
         const category = await Category.findOne({ _id: categoryId });
         return category;
     }
+
+    async create(categoryInfo) {
+        const createdNewCategory = await Category.create({ categoryInfo });
+        return createdNewCategory;
+    }
 }
 
 const categoryModel = new CategoryModel();
