@@ -24,13 +24,10 @@
 
 .slider-prev-button {
     position: absolute;
-    background: url("slider-arrow.png");
-    background-size: cover;
     width: 3vw;
     height: 3vw;
     left: 5%;
     top: 13vw;
-    transform: rotate(180deg);
     z-index: 10;
     cursor: pointer;
     opacity: 0;
@@ -39,8 +36,6 @@
 
 .slider-next-button {
     position: absolute;
-    background: url("slider-arrow.png");
-    background-size: cover;
     width: 3vw;
     height: 3vw;
     right: 5%;
@@ -51,15 +46,21 @@
     transition: opacity 0.5s;
 }
 
+.slider-button i {
+    font-size: 3em;
+}
+
+.slider-button:hover {
+    color: gray;
+}
+
 .slider-number-button {
     position: absolute;
-    background-color: white;
     width: 3vw;
-    height: 1vw;
-    border: black solid 1px;
-    border-radius: 50px;
+    height: 0.5vw;
     top: 28vw;
     z-index: 10;
     cursor: pointer;
+    background-color: gray;
 }
   
