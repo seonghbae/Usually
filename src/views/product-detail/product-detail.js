@@ -52,7 +52,7 @@ function addToInventory() {
 
 // 입력으로 들어오는 주소로 이동
 function newPage(address) {
-  location.pathname = address;
+  window.location.href = address;
 }
 
 // 회원가입 진행
