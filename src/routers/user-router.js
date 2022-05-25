@@ -6,7 +6,7 @@ import { userService } from '../services';
 
 const userRouter = Router();
 
-// 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
+// 회원가입 api (아래는 /register이지만, 실제로는 /users/register로 요청해야 함.)
 userRouter.post('/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
@@ -39,7 +39,7 @@ userRouter.post('/register', async (req, res, next) => {
   }
 });
 
-// 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
+// 로그인 api (아래는 /login 이지만, 실제로는 /users/login로 요청해야 함.)
 userRouter.post('/login', async function (req, res, next) {
   try {
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -57,8 +57,9 @@ userRouter.post('/login', async function (req, res, next) {
     const userToken = await userService.getUserToken({ email, password });
     
 
-    //만료 시간을 따로 정해줌 24시간 * 3일
-    var expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 24 * 3); 
+
+    //만료 시간을 임의로 정해줌 24시간 * 3일
+    const expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 24 * 3); 
 
     //httponly 옵션을 넣어 보안을 강화한 쿠키 사용
     res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true });
@@ -71,7 +72,17 @@ userRouter.post('/login', async function (req, res, next) {
   }
 });
 
-// 전체 유저 목록을 가져옴 (배열 형태임)
+//로그아웃 api (아래는 /logout 이지만, 실제로는 /users/logout으로 요청해야 함.)
+//쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
+userRouter.get('/logout', async function(req, res, next) {
+    //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
+    res.clearCookie('token');
+
+    //awiat res.cookie('token', req.signedCookies, {expiresIn: 0});
+    res.redirect('/');
+})
+
+// 전체 유저 목록을 가져옴 (배열 형태임) (아래는 /userlist 이지만, 실제로는 /users/userlist 요청해야 함.)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 userRouter.get('/userlist', loginRequired, async function (req, res, next) {
   try {
@@ -87,9 +98,9 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
 // *** +++ JWT로 admin 확인하고 유저 반환하기!
 
 // 사용자 정보 수정
-// (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
+// (예를 들어 /users/edit/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
-  '/users/:userId',
+  '/edit/:userId',
   loginRequired,
   async function (req, res, next) {
     try {
@@ -144,5 +155,49 @@ userRouter.patch(
     }
   }
 );
+
+userRouter.delete('/unregister/:userId', loginRequired, async function (req, res, next){
+  try{
+    // content-type 을 application/json 로 프론트에서
+      // 설정 안 하고 요청하면, body가 비어 있게 됨.
+      if (is.emptyObject(req.body)) {
+        throw new Error(
+          'headers의 Content-Type을 application/json으로 설정해주세요'
+        );
+      }
+
+      // params로부터 id를 가져옴
+      const userId = req.params.userId;
+
+      // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
+      const password = req.body.password;
+
+      // currentPassword 없을 시, 진행 불가
+      if (!password) {
+        throw new Error('탈퇴를 위해서는 비밀번호가 필요합니다.');
+      }
+
+      const userInfoRequired = { userId, password };
+
+      // 사용자 정보를 삭제함
+      const deletedUser = await userService.deleteUser(
+        userInfoRequired,
+      );
+
+      if(!user){
+        throw new Error(
+          '유저가 존재하지 않습니다.'
+        );
+      }
+
+    res.status(200).json({
+      success:true,
+      data: '성공적으로 탈퇴되었습니다.',
+    })
+
+  }catch (error){
+    next(error);
+  }
+})
 
 export { userRouter };
