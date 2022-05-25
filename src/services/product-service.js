@@ -48,6 +48,19 @@ class ProductService {
 
         return product;
     }
+
+    //상품을 삭제함
+    async deleteProduct(productId) {
+        let product = await this.productModel.findById(productId);
+
+        if (!product) {
+            throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
+        }
+
+        product = await this.productModel.delete({ productId });
+
+        return product;
+    }
 }
 
 const productService = new ProductService(productModel);

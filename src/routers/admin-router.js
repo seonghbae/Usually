@@ -95,4 +95,17 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
     }
 });
 
+//상품 삭제
+adminRouter.remove('/product/:productId', async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+
+        const deleteProductInfo = await productService.deleteProduct(productId);
+
+        res.status(200).json(deleteProductInfo);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export { adminRouter };
