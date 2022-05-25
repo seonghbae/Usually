@@ -1,4 +1,4 @@
-const timer = setTimeout(function() {
+const navFunc = function() {
     const navbarBurger = document.querySelector('.navbar-burger')
     const navbarBasicExample = document.querySelector('#navbarBasicExample')
     let burgerClicker = false;
@@ -24,4 +24,4 @@ const timer = setTimeout(function() {
         navbar.classList.remove('stickyToTop');
       }
     })
-}, 500)
+  }

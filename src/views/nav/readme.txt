@@ -16,8 +16,10 @@ html 파일에 nav, footer 적용하기
     <div id="nav-placeholder"></div>
 
     <script>
-      $(function () {
-        $("#nav-placeholder").load("../nav/nav.html");
+      $(document).ready(function() {
+        $('#nav-placeholder').load("../nav/nav.html", () => {
+          navFunc()
+        });
       });
     </script>
     
