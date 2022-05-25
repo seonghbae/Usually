@@ -25,10 +25,18 @@
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="home.css" />
     <script src="home.js" type="module" defer></script>
+<<<<<<< HEAD
     <!-- navbar 활용을 위한 css, js -->
     <link rel="stylesheet" href="../nav/nav.css">
     <script defer src="../nav/nav.js"></script>
     <!-- navbar 활용을 위한 jquery -->
+=======
+    <!-- navbar, footer 활용을 위한 css, js -->
+    <link rel="stylesheet" href="../nav/nav.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <script src="../nav/nav.js"></script>
+    <!-- navbar, footer 활용을 위한 jquery -->
+>>>>>>> dev
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   </head>
   <body>
@@ -36,6 +44,7 @@
     <div id="nav-placeholder"></div>
 
     <script>
+<<<<<<< HEAD
       $(function () {
         $("#nav-placeholder").load("../nav/nav.html");
       });
@@ -71,6 +80,23 @@
         <h1>안녕하세요!</h1>
       </div>
     </div> -->
+=======
+      $(document).ready(function() {
+        $('#nav-placeholder').load("../nav/nav.html", () => {
+          navFunc()
+        });
+      });
+    </script>
+
+    <!--footer-->
+    <div id="footer-placeholder"></div>
+
+    <script>
+      $(function () {
+        $("#footer-placeholder").load("../footer/footer.html");
+      });
+    </script>
+>>>>>>> dev
   </body>
 
 </html>

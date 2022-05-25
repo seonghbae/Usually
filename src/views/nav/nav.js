@@ -1,6 +1,6 @@
-async function navFunc() {
-    const navbarBurger = await document.querySelector('.navbar-burger')
-    const navbarBasicExample = await document.querySelector('#navbarBasicExample')
+const navFunc = function() {
+    const navbarBurger = document.querySelector('.navbar-burger')
+    const navbarBasicExample = document.querySelector('#navbarBasicExample')
     let burgerClicker = false;
     navbarBurger.addEventListener('click', function(){
       if (!burgerClicker) {
@@ -15,7 +15,7 @@ async function navFunc() {
     })
     
     // sticky nav메뉴 구현
-    const navbar = await document.querySelector('.main-nav')
+    const navbar = document.querySelector('.main-nav')
     window.addEventListener("scroll", () => {
       let y = window.pageYOffset;
       if (y > 150) {
@@ -25,4 +25,3 @@ async function navFunc() {
       }
     })
 }
-

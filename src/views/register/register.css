@@ -3,6 +3,10 @@
     align-items: center;
     justify-content: center;
     height: 60vh;
+<<<<<<< HEAD
+=======
+    margin-top: 5vh;
+>>>>>>> dev
 }
 
 .register-user-form-box {
@@ -52,14 +56,28 @@
     text-align: center;
     font-size: 30px;
     color: #4a4f5a;
+<<<<<<< HEAD
     margin-top: 15vh;
+=======
+    margin-top: 10vh;
+}
+hr {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+>>>>>>> dev
 }
 
 .genderRadio {
     margin-top: 10px;
 }
 
+<<<<<<< HEAD
 .register-submit-container {
+=======
+.register-submit-button-container {
+>>>>>>> dev
     margin-top: 50px;
     text-align: center;
 }
