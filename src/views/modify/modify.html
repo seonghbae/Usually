@@ -25,50 +25,23 @@
         <!-- 커스텀 css, js -->
         <link rel="stylesheet" href="modify.css" />
         <script src="modify.js" type="module" defer></script>
+            <!-- navbar, footer 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../nav/nav.css">
+        <link rel="stylesheet" href="../footer/footer.css">
+        <script src="../nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
     <body>
-        <!-- 헤더 -->
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="container mt-3">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="/">
-                        <img src="/elice-rabbit.png" width="30" height="30" />
-                        <span class="has-text-link">쇼핑-데모</span>
-                    </a>
-                    <a
-                        role="button"
-                        class="navbar-burger"
-                        aria-label="menu"
-                        aria-expanded="false"
-                        data-target="navbarBasicExample"
-                    >
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
-
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div
-                        class="navbar-end breadcrumb my-auto"
-                        aria-label="breadcrumbs"
-                    >
-                        <ul id="navbar">
-                            <li><a href="/register">회원가입</a></li>
-                            <li>
-                                <a href="/cart" aria-current="page">
-                                    <span class="icon">
-                                        <i class="fas fa-cart-shopping"></i>
-                                    </span>
-                                    <span>카트</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(document).ready(function() {
+              $('#nav-placeholder').load("../nav/nav.html", () => {
+                navFunc()
+              });
+            });
+        </script>
         <h1 class="modify-greeting">회원정보 수정</h1>
         <div class="modify-form-container">
             <form
@@ -161,5 +134,13 @@
                 </div>
             </form>
         </div>
+        <!--footer-->
+        <div id="footer-placeholder"></div>
+
+        <script>
+        $(function () {
+            $("#footer-placeholder").load("../footer/footer.html");
+        });
+        </script>
     </body>
 </html>
