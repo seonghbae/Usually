@@ -188,7 +188,7 @@ userRouter.delete('/unregister/:userId', loginRequired, async function (req, res
         userInfoRequired,
       );
 
-      if(!user){
+      if(!deletedUser){
         throw new Error(
           '유저가 존재하지 않습니다.'
         );
