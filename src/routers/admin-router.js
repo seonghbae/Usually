@@ -41,6 +41,7 @@ adminRouter.post('/product/create', async (req, res, next) => {
             category,
             inventory,
             sellCount,
+            src,
         } = req.body;
 
         const newProduct = await productService.addProduct({
@@ -51,6 +52,7 @@ adminRouter.post('/product/create', async (req, res, next) => {
             category,
             inventory,
             sellCount,
+            src,
         });
 
         res.status(201).json(newProduct);
