@@ -18,6 +18,23 @@ export class ProductModel {
         const createdNewProduct = await Product.create(productInfo);
         return createdNewProduct;
     }
+
+    async findById(productId) {
+        const product = await Product.findOne({ _id: productId });
+        return product;
+    }
+
+    async update({ productId, update }) {
+        const filter = { _id: productId };
+        const option = { returnOriginal: false };
+
+        const updateProduct = await Product.findOneAndUpdate(
+            filter,
+            update,
+            option
+        );
+        return updateProduct;
+    }
 }
 
 const productModel = new ProductModel();

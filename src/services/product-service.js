@@ -32,6 +32,22 @@ class ProductService {
 
         return createNewProduct;
     }
+
+    //상품을 수정함
+    async setProduct(productId, toUpdate) {
+        let product = await this.productModel.findById(productId);
+
+        if (!product) {
+            throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
+        }
+
+        product = await this.productModel.update({
+            productId,
+            update: toUpdate,
+        });
+
+        return product;
+    }
 }
 
 const productService = new ProductService(productModel);

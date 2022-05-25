@@ -30,7 +30,7 @@ adminRouter.get('/product/:productId', async (req, res, next) => {
     }
 });
 
-//상품을 생성함
+//상품 생성
 adminRouter.post('/product/create', async (req, res, next) => {
     try {
         const {
@@ -54,6 +54,42 @@ adminRouter.post('/product/create', async (req, res, next) => {
         });
 
         res.status(201).json(newProduct);
+    } catch (error) {
+        next(error);
+    }
+});
+
+//상품 수정
+adminRouter.patch('/product/:productId', async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+
+        const {
+            name,
+            price,
+            description,
+            madeBy,
+            category,
+            inventory,
+            sellCount,
+        } = req.body;
+
+        const toUpdate = {
+            ...(name && { name }),
+            ...(price && { price }),
+            ...(description && { description }),
+            ...(madeBy && { madeBy }),
+            ...(category && { category }),
+            ...(inventory && { inventory }),
+            ...(sellCount && { sellCount }),
+        };
+
+        const updatedProductInfo = await productService.setProduct(
+            productId,
+            toUpdate
+        );
+
+        res.status(200).json(updatedProductInfo);
     } catch (error) {
         next(error);
     }
