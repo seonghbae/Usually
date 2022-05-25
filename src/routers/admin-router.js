@@ -166,7 +166,7 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
 });
 
 //상품 삭제
-adminRouter.remove('/product/:productId', async (req, res, next) => {
+adminRouter.delete('/product/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
 
