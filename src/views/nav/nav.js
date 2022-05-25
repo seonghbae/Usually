@@ -1,6 +1,6 @@
-const timer = setTimeout(function() {
-    const navbarBurger = document.querySelector('.navbar-burger')
-    const navbarBasicExample = document.querySelector('#navbarBasicExample')
+async function navFunc() {
+    const navbarBurger = await document.querySelector('.navbar-burger')
+    const navbarBasicExample = await document.querySelector('#navbarBasicExample')
     let burgerClicker = false;
     navbarBurger.addEventListener('click', function(){
       if (!burgerClicker) {
@@ -15,7 +15,7 @@ const timer = setTimeout(function() {
     })
     
     // sticky nav메뉴 구현
-    const navbar = document.querySelector('.main-nav')
+    const navbar = await document.querySelector('.main-nav')
     window.addEventListener("scroll", () => {
       let y = window.pageYOffset;
       if (y > 150) {
@@ -24,4 +24,5 @@ const timer = setTimeout(function() {
         navbar.classList.remove('stickyToTop');
       }
     })
-}, 500)
+}
+
