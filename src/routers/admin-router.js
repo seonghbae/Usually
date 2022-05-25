@@ -42,6 +42,24 @@ adminRouter.post('/category/create', async (req, res, next) => {
     }
 });
 
+//카테고리 수정
+adminRouter.patch('/category/:categoryId', async (req, res, next) => {
+    try {
+        const { categoryId } = req.params;
+        const { name } = req.body;
+        const toUpdate = { ...(name && { name }) };
+
+        const UpdatedCategoryInfo = await categoryService.setCategory(
+            categoryId,
+            toUpdate
+        );
+
+        res.status(200).json(UpdatedCategoryInfo);
+    } catch (error) {
+        next(error);
+    }
+});
+
 //전체 상품 목록을 가져옴
 adminRouter.get('/product', async (req, res, next) => {
     try {

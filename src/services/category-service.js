@@ -22,6 +22,24 @@ class CategoryService {
         const createNewCategory = await this.categoryModel.create(categoryInfo);
         return createNewCategory;
     }
+
+    //카테고리를 수정함
+    async setCategory(categoryId, toUpdate) {
+        let category = await this.categoryModel.findById(categoryId);
+
+        if (!category) {
+            throw new Error(
+                '카테고리 내역이 없습니다. 다시 한 번 확인해 주세요.'
+            );
+        }
+
+        category = await this.categoryModel.update({
+            categoryId,
+            update: toUpdate,
+        });
+
+        return category;
+    }
 }
 
 const categoryService = new CategoryService(categoryModel);

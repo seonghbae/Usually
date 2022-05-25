@@ -18,6 +18,18 @@ export class CategoryModel {
         const createdNewCategory = await Category.create({ categoryInfo });
         return createdNewCategory;
     }
+
+    async update({ categoryId, update }) {
+        const filter = { _id: categoryId };
+        const option = { returnOriginal: false };
+
+        const updateCategory = await Category.findOneAndUpdate({
+            filter,
+            update,
+            option,
+        });
+        return updateCategory;
+    }
 }
 
 const categoryModel = new CategoryModel();
