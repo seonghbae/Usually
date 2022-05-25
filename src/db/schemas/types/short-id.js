@@ -1,12 +1,11 @@
-import nanoid from 'nanoid';
+import { customAlphabet } from 'nanoid';
 
+const nanoid = customAlphabet('01234567899abcedf', 6);
 const shortId = {
     type: String,
-    default: () => {
-        return nanoid();
-    },
+    default: nanoid(),
     require: true,
     index: true,
-}
+};
 
 export { shortId };
