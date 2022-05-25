@@ -8,6 +8,11 @@ export class CategoryModel {
         const categories = await Category.find({});
         return categories;
     }
+
+    async findById(categoryId) {
+        const category = await Category.findOne({ _id: categoryId });
+        return category;
+    }
 }
 
 const categoryModel = new CategoryModel();

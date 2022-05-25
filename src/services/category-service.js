@@ -10,6 +10,12 @@ class CategoryService {
         const categories = await this.categoryModel.findAll();
         return categories;
     }
+
+    //상세 카테고리 정보를 받음
+    async getCategory(categoryId) {
+        const category = await this.categoryModel.findById(categoryId);
+        return category;
+    }
 }
 
 const categoryService = new CategoryService(categoryModel);

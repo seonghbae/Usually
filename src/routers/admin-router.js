@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { productService } from '../services';
+import { categoryService, productService } from '../services';
 
 const adminRouter = Router();
 
@@ -14,6 +14,18 @@ adminRouter.get('/category', (req, res, next) => {
 
         res.status(200).json(categories);
     } catch (error) {
+        next(error);
+    }
+})
+
+//선택한 카테고리의 상세 정보를 가져옴
+adminRouter.get('/category/:categoryId', (req, res, next) => {
+    try {
+        const { categoryId } = req.params;
+        const category = await categoryService.getCategory(categoryId);
+
+        res.status(200).json(category);
+    } catch(error) {
         next(error);
     }
 })
