@@ -76,10 +76,14 @@ userRouter.post('/login', async function (req, res, next) {
 //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
 userRouter.get('/logout', async function(req, res, next) {
     //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
-    res.clearCookie('token');
-
-    //awiat res.cookie('token', req.signedCookies, {expiresIn: 0});
-    res.redirect('/');
+    //res.clearCookie('token');
+    try{
+      await res.cookie('token', req.signedCookies, {expiresIn: 0});
+      res.redirect('/');
+    }catch(error){
+      next(error);
+    }
+    
 })
 
 // 전체 유저 목록을 가져옴 (배열 형태임) (아래는 /userlist 이지만, 실제로는 /users/userlist 요청해야 함.)
