@@ -8,7 +8,7 @@ addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
+function addAllElements() {
     showProductList();
 }
 
@@ -22,33 +22,6 @@ function newPage(productId) {
 
 // 상품 목록
 async function showProductList() {
-    // // 로그인 api 요청
-    // try {
-    //     const data = { email, password };
-
-    //     const result = await Api.post('/api/login', data);
-    //     const token = result.token;
-
-    //     // 로그인 성공, 토큰을 세션 스토리지에 저장
-    //     // 물론 다른 스토리지여도 됨
-    //     sessionStorage.setItem('token', token);
-
-    //     alert(`정상적으로 로그인되었습니다.`);
-
-    //     // 로그인 성공
-
-    //     // 기본 페이지로 이동
-    //     window.location.href = '/';
-    // } catch (err) {
-    //     console.error(err.stack);
-    //     alert(
-    //         `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-    //     );
-    // }
-
-    // const res = await fetch('/product');
-    // const datas = await res.json();
-
     const data = {
         shortId: '1',
         img: '/ring.jpg',
@@ -84,6 +57,7 @@ async function showProductList() {
           </div>
         </article>`;
 
+        // 상품 클릭시 해당 상품 상세 페이지로 이동
         productItem.addEventListener('click', () => newPage(data.shortId));
 
         tileAncestor.appendChild(productItem);
@@ -91,6 +65,8 @@ async function showProductList() {
         if (index % 4 === 3) {
             productItemContainer.appendChild(tileAncestor);
         } else if (index === array.length - 1 && index % 4 !== 3) {
+            // Bulma css tile로 구성하니까 한 줄에 4개 들어가도록 구성
+            // 한 줄에 넣은 개수대로 1/n 로 한 줄을 채워서 4개 되도록 빈공간 삽입
             for (let i = index % 4; i < 3; i++) {
                 tileAncestor.innerHTML += `<div class="tile is-parent"></div>`;
             }
