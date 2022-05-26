@@ -12,7 +12,7 @@ class UserService {
     // 회원가입
     async addUser(userInfo) {
         // 객체 destructuring
-        const { email, fullName, password, gender } = userInfo;
+        const { shortId, email, fullName, password, gender } = userInfo;
 
         // 이메일 중복 확인
         const user = await this.userModel.findByEmail(email);
@@ -132,9 +132,10 @@ class UserService {
 
     async deleteUser(userInfoRequired) {
         // 객체 destructuring
-        const { shortId, currentPassword } = userInfoRequired;
+        // const { shortId, currentPassword } = userInfoRequired;
+        const { shortId } = userInfoRequired;
 
-        console.log('currentPassword' + currentPassword);
+        // console.log('currentPassword' + currentPassword);
 
         // 우선 해당 id의 유저가 db에 있는지 확인
         let user = await this.userModel.findById(shortId);
@@ -147,23 +148,23 @@ class UserService {
         // 이제, 정보 수정을 위해 사용자가 입력한 비밀번호가 올바른 값인지 확인해야 함
 
         // 비밀번호 일치 여부 확인
-        const correctPasswordHash = user.password;
-        const isPasswordCorrect = await bcrypt.compare(
-            currentPassword,
-            correctPasswordHash
-        );
+        // const correctPasswordHash = user.password;
+        // const isPasswordCorrect = await bcrypt.compare(
+        //     currentPassword,
+        //     correctPasswordHash
+        // );
 
-        if (!isPasswordCorrect) {
-            throw new Error(
-                '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
-            );
-        }
+        // if (!isPasswordCorrect) {
+        //     throw new Error(
+        //         '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
+        //     );
+        // }
 
         // 유저 삭제 시작
         user = await this.userModel.deleteOneUser({
             shortId,
         });
-
+        console.log('삭제 성공 ~_~');
         return user;
     }
 }
