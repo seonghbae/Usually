@@ -1,4 +1,8 @@
 // 문자열+숫자로 이루어진 랜덤 5글자 반환
+import dotenv from 'dotenv';
+dotenv.config();
+import jwt from 'jsonwebtoken';
+
 export const randomId = () => {
     return Math.random().toString(36).substring(2, 7);
 };
@@ -29,17 +33,18 @@ export const wait = (ms) => {
 };
 
 export const jwtDecoder = (userToken) => {
-        if(!userToken){
-            throw Error("토큰이 없습니다!");
-            return;
-        }
-    
-        const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-        const jwtDecoded = jwt.verify(userToken, secretKey);
-        
-        const shortId = jwtDecoded.shortId;
-        
-            // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
-        return shortId;   
-       
-}
+    if (!userToken) {
+        throw Error('토큰이 없습니다!');
+    }
+    const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+    const jwtDecoded = jwt.verify(userToken, secretKey);
+
+    const shortId = jwtDecoded.shortId;
+
+    // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
+    return shortId;
+};
+export const getCookie = (name) => {
+    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value ? unescape(value[2]) : null;
+};

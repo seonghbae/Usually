@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-import { validateEmail } from '/useful-functions.js';
+import { validateEmail, jwtDecoder, getCookie } from '../useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const emailModify = document.querySelector('#email-modify');
@@ -8,19 +8,16 @@ const passwordModify = document.querySelector('#password-modify');
 const modifyButton = document.querySelector('#modify-button');
 const deleteButton = document.querySelector('#delete-button');
 
-addAllElements();
-addAllEvents();
-
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
+const token = getCookie('token');
+const shortId = jwtDecoder(token);
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-    modifyButton.addEventListener('click', handleSubmit);
-}
+
+modifyButton.addEventListener('click', handleModify);
+deleteButton.addEventListener('click', handleDelete);
 
 // 회원정보 수정 진행
-async function handleSubmit(e) {
+async function handleModify(e) {
     e.preventDefault();
 
     const email = emailModify.value;
@@ -35,7 +32,6 @@ async function handleSubmit(e) {
             '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.'
         );
     }
-
     // 로그인 api 요청
     try {
         const data = { email, password };
@@ -56,6 +52,23 @@ async function handleSubmit(e) {
         console.error(err.stack);
         alert(
             `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
+}
+
+async function handleDelete(e) {
+    e.preventDefault();
+
+    try {
+        await fetch(`/users/unregister/${shortId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    } catch (err) {
+        alert(
+            `삭제가 되지 않았습니다. 확인 후 다시 시도해주세요: ${err.message}`
         );
     }
 }

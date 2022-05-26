@@ -1,7 +1,7 @@
-function getCookie(name) {
+const getCookie = (name) => {
     var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return value ? unescape(value[2]) : null;
-}
+};
 
 const navFunc = function () {
     const navbarComponent = document.querySelector('.navbar-end');
@@ -26,7 +26,7 @@ const navFunc = function () {
         mypageNav.setAttribute('href', '/my-page');
         mypageNav.innerText = '마이페이지';
         logoutNav.setAttribute('class', 'navbar-item');
-        logoutNav.setAttribute('href', '/logout');
+        logoutNav.setAttribute('href', '/users/logout');
         logoutNav.innerText = '로그아웃';
         cartNav.setAttribute('class', 'navbar-item');
         cartNav.setAttribute('href', '/cart');
