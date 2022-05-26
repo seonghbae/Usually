@@ -12,7 +12,7 @@ class UserService {
     // 회원가입
     async addUser(userInfo) {
         // 객체 destructuring
-        const { shortId, email, fullName, password, gender } = userInfo;
+        const { email, fullName, password, gender } = userInfo;
 
         // 이메일 중복 확인
         const user = await this.userModel.findByEmail(email);
@@ -21,9 +21,6 @@ class UserService {
                 '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.'
             );
         }
-
-        // 이메일 중복은 이제 아니므로, 회원가입을 진행함
-
         // 우선 비밀번호 해쉬화(암호화)
         const hashedPassword = await bcrypt.hash(password, 10);
 
