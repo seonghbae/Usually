@@ -1,3 +1,11 @@
+
+
+div {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
 /* 이미지 슬라이더 구현부분 */
 .slider-container {
     position: relative;
@@ -50,10 +58,11 @@
 
 .slider-button i {
     font-size: 3em;
+    color: white;
 }
 
-.slider-button:hover {
-    color: gray;
+.slider-button i:hover {
+    color: #ffae96;
 }
 
 .slider-number-button-list {
@@ -66,14 +75,13 @@
 }
 
 .slider-number-button {
-    margin-left: 0.5vw;
-    margin-right: 0.5vw;
+    margin: 0.5vw;
     justify-content: center;
     width: 3vw;
     height: 0.5vw;
     z-index: 10;
     cursor: pointer;
-    background-color: gray;
+    background-color: white;
 }
   
 /* main 시작 */
@@ -85,10 +93,10 @@
 
 .main-title-container {
     transform: translateY(-50%);
-    left: 42.5vw;
+    left: 36vw;
     position: absolute;
     display: inline-block;
-    width: 15vw;
+    width: 26vw;
     height: 5vw;
     border: 1px solid gray;
     background: white;
@@ -105,10 +113,10 @@
 
 .main-title-border {
     transform: translateY(-40%);
-    left: 43vw;
+    left: 36.5vw;
     position: absolute;
     display: inline-block;
-    width: 15vw;
+    width: 26vw;
     height: 5vw;
     border: 1px solid gray;
     background: white;
@@ -116,15 +124,14 @@
 
 .main-content {
     margin:  5vw 10vw 0;
-    height : 35vw;
-    border: 1px solid black;
+    height : 30vw;
 }
 
-/* main 좌측 nav메뉴 */
+/* main nav메뉴 */
 .main-navmenu-container {
     position: relative;
     float: left;
-    width: 15%;
+    width: 18%;
     height: 100%;
 }
 
@@ -135,9 +142,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-left: 3vw;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.main-navmenu-list-right {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main-navmenu-title {
+    font-size: 2.3rem;
+    font-weight: bold;
 }
 
 .main-navmenu {
@@ -145,29 +167,39 @@
     padding-top: 2vw;
 }
 
-.main-navmenu-first{
-    padding-top: 0;
-}
-
 .main-navmenu-clicked a {
     color: #ffae96 !important;
     text-decoration: underline;
 }
 
-.main-images-container {
+.main-products-container {
     float: left;
     height: 100%;
-    width: 85%;
+    width: 82%;
 }
-.main-image-container {
+
+.main-product-container {
     float: left;
     height: 100%;
     width: 33.3%;
     padding: 3vw 1vw 0;
-    border-left: 1px solid black;
+}
+
+.main-product-image-container{
+    overflow: hidden;
+}
+
+.main-product-image {
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out 0s;
+}
+.main-product-image:hover {
+    transform: scale(1.05);
 }
 
 .main-product-name {
+    margin-top: 1vw;
     text-align: center;
     font-weight: bold;
     font-size: 1.3rem;

@@ -11,15 +11,15 @@ const slideList = document.querySelectorAll('.slider-image')
 const sliderButton = document.querySelectorAll('.slider-button')
 // 넘버 버튼 리스트
 const numberButtons = document.querySelectorAll('.slider-number-button');
-numberButtons[0].style.background = 'black';
+numberButtons[0].style.background = '#ffae96';
 let sliderLength = slideList.length;
 
 // 넘버 버튼 각각마다 클릭 이벤트리스너 추가
 for (let i = 0; i < sliderLength; i++){
     numberButtons[i].addEventListener('click', function(){
-        numberButtons[currentSlide - 1].style.background = 'gray';
+        numberButtons[currentSlide - 1].style.background = 'white';
         currentSlide = i+1;
-        numberButtons[i].style.background = 'black';
+        numberButtons[i].style.background = '#ffae96';
         slider.style.transform = `translate(-${i * 100}vw)`;
         slider.animate({
             opacity: [0.6, 1]
@@ -35,12 +35,12 @@ for (let i = 0; i < sliderLength; i++){
 
 // 이전 이미지를 보여주는 함수
 const slidePrev = function () {
-    numberButtons[currentSlide - 1].style.background = 'gray';
+    numberButtons[currentSlide - 1].style.background = 'white';
     currentSlide--
     if (currentSlide == 0){
         currentSlide = sliderLength;
     }
-    numberButtons[currentSlide - 1].style.background = 'black';
+    numberButtons[currentSlide - 1].style.background = '#ffae96';
     nextTranslate = (currentSlide - 1) * 100 + 'vw';
     slider.style.transform = `translate(-${nextTranslate})`;
     slider.animate({
@@ -55,12 +55,12 @@ const slidePrev = function () {
 
 // 다음 이미지를 보여주는 함수
 const slideNext = function (){
-    numberButtons[currentSlide - 1].style.background = 'gray';
+    numberButtons[currentSlide - 1].style.background = 'white';
     currentSlide++
     if (currentSlide == sliderLength + 1){
         currentSlide = 1;
     }
-    numberButtons[currentSlide - 1].style.background = 'black';
+    numberButtons[currentSlide - 1].style.background = '#ffae96';
     nextTranslate = (currentSlide - 1) * 100 + 'vw'; 
     slider.style.transform = `translate(-${nextTranslate})`;
     slider.animate({
