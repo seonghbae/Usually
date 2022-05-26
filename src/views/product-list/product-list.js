@@ -22,55 +22,90 @@ function newPage(productId) {
 
 // 상품 목록
 async function showProductList() {
+    // const categoryId = location.pathname.split("/")[3];
+    // try {
+    //     const datas = await Api.get('/product/category', categoryId);
+    //     console.log(datas);
+    // } catch (err) {
+    //     console.error(err.stack);
+    //     alert(
+    //         `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    //     );
+    // }
+
     const data = {
         shortId: '1',
-        img: '/ring.jpg',
-        madeBy: 'company',
         name: 'The Loop',
         price: 20000,
+        description: 'The Loop ring',
+        madeBy: 'company',
+        categoryId: '000001',
+        inventory: 10,
+        sellCount: 0,
+        src: '/ring.jpg',
     };
 
     const datas = [];
+    datas.push({
+        shortId: '2',
+        name: 'The Cross',
+        price: 22000,
+        description: 'The Cross necklace',
+        madeBy: 'company',
+        categoryId: '000001',
+        inventory: 10,
+        sellCount: 0,
+        src: '/necklace.jpg',
+    });
     for (let i = 0; i < 10; i++) datas.push(data);
 
     productItemContainer.innerHTML = '';
-    let tileAncestor;
+    let tileAncestorTag;
 
     datas.forEach((data, index, array) => {
         if (index % 4 === 0) {
-            tileAncestor = document.createElement('div');
-            tileAncestor.classList.add('tile', 'is-ancestor');
-            tileAncestor.innerHTML = '';
+            tileAncestorTag = document.createElement('div');
+            tileAncestorTag.classList.add('tile', 'is-ancestor');
+            tileAncestorTag.innerHTML = '';
         }
 
-        const productItem = document.createElement('div');
-        productItem.classList.add('tile', 'is-parent');
-        productItem.innerHTML = `<article class="tile is-child" id="${
-            data.shortId
-        }">
-          <figure class="image">
-            <img src="${data.img}" alt="${data.name}">
-          </figure>
-          <div class="content has-text-centered">
-            <strong>${data.name}</strong>
-            <p>${addCommas(data.price)}원</p>
-          </div>
-        </article>`;
+        const tileParentTag = document.createElement('div');
+        tileParentTag.classList.add('tile', 'is-parent');
 
+        const tileChildTag = document.createElement('article');
+        tileChildTag.classList.add('tile', 'is-child');
+        tileChildTag.setAttribute('id', data.shortId);
+
+        const imageTag = document.createElement('figure');
+        imageTag.classList.add('image', 'is-square');
+        imageTag.innerHTML = `<img src="${data.src}" alt="${data.name}">`;
         // 상품 클릭시 해당 상품 상세 페이지로 이동
-        productItem.addEventListener('click', () => newPage(data.shortId));
+        imageTag.addEventListener('click', () => newPage(data.shortId));
 
-        tileAncestor.appendChild(productItem);
+        const contentTag = document.createElement('div');
+        contentTag.classList.add('content', 'has-text-centered');
+        contentTag.innerHTML = 
+        `<strong>${data.name}</strong>
+        <p>${addCommas(data.price)}원</p>`;
+
+        tileChildTag.appendChild(imageTag);
+        tileChildTag.appendChild(contentTag);
+
+        tileParentTag.appendChild(tileChildTag);
+
+        tileAncestorTag.appendChild(tileParentTag);
 
         if (index % 4 === 3) {
-            productItemContainer.appendChild(tileAncestor);
+            productItemContainer.appendChild(tileAncestorTag);
         } else if (index === array.length - 1 && index % 4 !== 3) {
             // Bulma css tile로 구성하니까 한 줄에 4개 들어가도록 구성
             // 한 줄에 넣은 개수대로 1/n 로 한 줄을 채워서 4개 되도록 빈공간 삽입
+            const emptyDivTag = document.createElement('div');
+            emptyDivTag.classList.add('tile', 'is-parent');
             for (let i = index % 4; i < 3; i++) {
-                tileAncestor.innerHTML += `<div class="tile is-parent"></div>`;
+                tileAncestorTag.appendChild(emptyDivTag);
             }
-            productItemContainer.appendChild(tileAncestor);
+            productItemContainer.appendChild(tileAncestorTag);
         }
     });
 }

@@ -10,6 +10,22 @@ const price = document.querySelector('#price');
 const inventoryButton = document.querySelector('#inventoryButton');
 const buyButton = document.querySelector('#buyButton');
 
+const datas = [ {
+    shortId: '1',
+    src: '/ring.jpg',
+    madeBy: 'company',
+    name: 'The Loop',
+    description: "The Loop ring made by company",
+    price: 20000,
+}, {
+    shortId: '2',
+    src: '/necklace.jpg',
+    madeBy: 'company',
+    name: 'The Cross',
+    description: "The Cross necklace made by company",
+    price: 22000,
+} ];
+
 addAllElements();
 addAllEvents();
 
@@ -24,28 +40,16 @@ function addAllEvents() {
 }
 
 function addToInventory() {
-    const data = {
-        shortId: '1',
-        src: '/ring.jpg',
-        madeBy: 'company',
-        name: 'The Loop',
-        description: "The Loop ring made by company",
-        price: 20000,
-    };
+    const productId = location.pathname.split("/")[2];
+    const data = datas[productId-1];
 
     localStorage.setItem(data.shortId, JSON.stringify(data));
 }
 
 // 상품 상세
 async function showProductDetail() {
-    const data = {
-        shortId: '1',
-        src: '/ring.jpg',
-        madeBy: 'company',
-        name: 'The Loop',
-        description: "The Loop ring made by company",
-        price: 20000,
-    };
+    const productId = location.pathname.split("/")[2];
+    const data = datas[productId-1];
 
     image.src = data.src;
     madeBy.innerHTML = data.madeBy;
