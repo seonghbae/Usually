@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { customAlphabet } from 'nanoid';
 
 const nanoid = customAlphabet('01234567899abcedf', 6);
@@ -10,17 +9,3 @@ const shortId = {
 };
 
 export { shortId };
-=======
-import { nanoid } from 'nanoid';
-
-const shortId = {
-  type: String,
-  default: () => {
-    return nanoid()
-  },
-  require: true,
-  index: true,
-}
-
-export { shortId };
->>>>>>> origin/dev
