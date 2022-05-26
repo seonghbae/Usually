@@ -135,7 +135,7 @@ orderRouter.get('/list/:shortId', loginRequired, async function(req, res, next){
 
 // 주문을 하나 취소함 (아래는 /cancel 이지만, 실제로는 /order/cancel 요청해야 함.)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-orderRouter.get('/cancel/:shortId', loginRequired, async function (req, res, next) {
+orderRouter.delete('/cancel/:shortId', loginRequired, async function (req, res, next) {
     try {
        
         // content-type 을 application/json 로 프론트에서
