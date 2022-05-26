@@ -6,10 +6,15 @@ const Order = model('orders', OrderSchema);
 export class OrderModel {
 
   async findByUser(userId) {
-    const orders = await Order.findOne({ shortId:userId });
+    const orders = await Order.findOne({ user:userId });
     return orders;
   }
   //User의 shortId로 주문 내역 찾기
+
+  async findById(shortId){
+    const order = await Order.findOne({shortId});
+    return order;
+  }
 
   async create(orderInfo) {
     const createdNewOrder = await Order.create(orderInfo);

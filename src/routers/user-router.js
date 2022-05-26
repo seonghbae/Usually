@@ -170,7 +170,7 @@ userRouter.delete('/unregister/:shortId', loginRequired, async function (req, re
       }
 
       // params로부터 id를 가져옴
-      const shortId = req.req.currentUserId;
+      const shortId = req.currentUserId;
 
       // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
       const currentPassword = req.body.password;
