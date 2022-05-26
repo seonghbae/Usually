@@ -20,6 +20,11 @@ button {
     background: none;
 }
 
+.navbar {
+    margin-left: 12vh;
+    margin-right: 12vh;
+}
+
 /* 세로 가운데 정렬용 */
 .my-auto {
     margin-top: auto !important;
