@@ -1,7 +1,5 @@
 import { orderModel } from '../db';
 
-import bcrypt from 'bcrypt';
-
 class OrderService {
   // 본 파일의 맨 아래에서, new OrderService(orderModel) 하면, 이 함수의 인자로 전달됨
   constructor(orderModel) {
@@ -28,6 +26,10 @@ class OrderService {
     return orders;
   }
 
+  async getOrder(shortId){
+    const order = await this.orderModel.findById(shortId);
+    return order;
+  }
 
   async deleteOrder(shortId){
 

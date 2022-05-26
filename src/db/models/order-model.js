@@ -15,6 +15,7 @@ export class OrderModel {
     const order = await Order.findOne({shortId});
     return order;
   }
+  //Order의 shortId로 주문 내역 찾기
 
   async create(orderInfo) {
     const createdNewOrder = await Order.create(orderInfo);
