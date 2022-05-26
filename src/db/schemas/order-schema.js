@@ -11,7 +11,7 @@ const OrderSchema = new Schema(
         },
         phoneNumber: {
             type: String,
-            required: false,
+            required: true,
         },
         address: {
             type: new Schema(
@@ -24,7 +24,7 @@ const OrderSchema = new Schema(
                     _id: false,
                 }
             ),
-            required: false,
+            required: true,
         },
         message: { //배송시 요청 사항
             type:String,

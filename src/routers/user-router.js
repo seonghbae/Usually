@@ -62,8 +62,9 @@ userRouter.post('/login', async function (req, res, next) {
 
     //httponly 옵션을 넣어 보안을 강화한 쿠키 사용 -> web한정
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true });
-    console.log("**"+res);
+    //res.cookie('token', userToken, { expires: expiryDate, httpOnly: true, signed:true });
+    res.cookie('token', userToken);
+    res.cookie('login', 'true');
     res.status(200).json(userToken);
     
   } catch (error) {
@@ -77,6 +78,7 @@ userRouter.get('/logout', async function(req, res, next) {
     //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
     try{
       res.clearCookie('token');
+      res.clearCookie('login');
       res.redirect('/');
     }catch(error){
       next(error);
