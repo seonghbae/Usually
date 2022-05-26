@@ -1,3 +1,4 @@
+
 // 문자열+숫자로 이루어진 랜덤 5글자 반환
 export const randomId = () => {
     return Math.random().toString(36).substring(2, 7);
@@ -39,7 +40,7 @@ export const jwtDecoder = (userToken) => {
         
         const shortId = jwtDecoded.shortId;
         
-            // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
+        //front에서 shortId 접근 가능하게 함
         return shortId;   
        
 }
