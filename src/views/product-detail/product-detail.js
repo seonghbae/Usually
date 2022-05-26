@@ -5,6 +5,7 @@ import { addCommas } from '/useful-functions.js';
 const image = document.querySelector('#image');
 const madeBy = document.querySelector('#madeBy');
 const name = document.querySelector('#name');
+const description = document.querySelector('#description');
 const price = document.querySelector('#price');
 const inventoryButton = document.querySelector('#inventoryButton');
 const buyButton = document.querySelector('#buyButton');
@@ -25,9 +26,10 @@ function addAllEvents() {
 function addToInventory() {
     const data = {
         shortId: '1',
-        img: '/ring.jpg',
+        src: '/ring.jpg',
         madeBy: 'company',
         name: 'The Loop',
+        description: "The Loop ring made by company",
         price: 20000,
     };
 
@@ -38,14 +40,16 @@ function addToInventory() {
 async function showProductDetail() {
     const data = {
         shortId: '1',
-        img: '/ring.jpg',
+        src: '/ring.jpg',
         madeBy: 'company',
         name: 'The Loop',
+        description: "The Loop ring made by company",
         price: 20000,
     };
 
-    image.src = data.img;
+    image.src = data.src;
     madeBy.innerHTML = data.madeBy;
     name.innerHTML = data.name;
     price.innerHTML = addCommas(data.price) + '원';
+    description.innerHTML = data.description;
 }

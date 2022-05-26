@@ -15,9 +15,9 @@
   <link rel="stylesheet" href="product-list.css" />
   <script src="product-list.js" type="module" defer></script>
   <!-- navbar, footer 활용을 위한 css, js -->
-  <link rel="stylesheet" href="../nav/nav.css">
-  <link rel="stylesheet" href="../footer/footer.css">
-  <script src="../nav/nav.js"></script>
+  <link rel="stylesheet" href="../../../nav/nav.css">
+  <link rel="stylesheet" href="../../../footer/footer.css">
+  <script src="../../../nav/nav.js"></script>
   <!-- navbar, footer 활용을 위한 jquery -->
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
@@ -28,7 +28,7 @@
 
   <script>
     $(document).ready(function() {
-      $('#nav-placeholder').load("../nav/nav.html", () => {
+      $('#nav-placeholder').load("../../../nav/nav.html", () => {
         navFunc()
       });
     });
@@ -46,7 +46,7 @@
 
   <script>
     $(function () {
-      $("#footer-placeholder").load("../footer/footer.html");
+      $("#footer-placeholder").load("../../../footer/footer.html");
     });
   </script>
 </body>
