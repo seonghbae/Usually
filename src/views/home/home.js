@@ -153,10 +153,23 @@ async function showProductList(productItemContainer) {
         `;
         // 상품 클릭시 해당 상품 상세 페이지로 이동
         productItem.addEventListener('click', () => newPage(data.shortId));
+        // 오류 코드
+        // productItem.innerHTML = `
+        // <div class="main-product-image-container">
+        //     <img class="main-product-image" src="${data.img}" alt="" onclick="newPage(data.shortId)">
+        // </div>
+        // <div class="main-product-name" onclick="${newPage(data.shortId)}">
+        //     ${data.name}
+        // </div>
+        // <div class="main-product-price">
+        //     ${addCommas(data.price)+'원'}
+        // </div>
+        // `;
         productItemContainer.appendChild(productItem);
     })
     
 }
+// main 메뉴 버튼을 클릭했을 때, html 요소들을 파싱해주는 함수.
 async function addProductInfo(menus, productItemContainer){
     for (let i = 0; i < menus.length; i++){
         menus[i].addEventListener('click', (e) => {
