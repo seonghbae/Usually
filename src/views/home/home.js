@@ -16,7 +16,6 @@ let sliderLength = slideList.length;
 
 // 넘버 버튼 각각마다 클릭 이벤트리스너 추가
 for (let i = 0; i < sliderLength; i++){
-    numberButtons[i].style.left = (42 + 4*i) + '%'
     numberButtons[i].addEventListener('click', function(){
         numberButtons[currentSlide - 1].style.background = 'gray';
         currentSlide = i+1;
