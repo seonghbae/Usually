@@ -23,11 +23,11 @@ export class CategoryModel {
         const filter = { categoryId };
         const option = { returnOriginal: false };
 
-        const updateCategory = await Category.findOneAndUpdate({
+        const updateCategory = await Category.findOneAndUpdate(
             filter,
             update,
-            option,
-        });
+            option
+        );
         return updateCategory;
     }
 
