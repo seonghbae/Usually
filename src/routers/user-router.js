@@ -175,7 +175,7 @@ userRouter.delete(
             }
 
             // params로부터 id를 가져옴
-            const shortId = req.params.shortId;
+            const shortId = req.req.currentUserId;
 
             // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
             const currentPassword = req.body.password;
@@ -203,5 +203,22 @@ userRouter.delete(
         }
     }
 );
+
+userRouter.get('/token', async (req, res, next) => {
+    const userToken = req.body.token;
+
+    if (!userToken) {
+        throw Error('토큰이 없습니다!');
+        return;
+    }
+
+    const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+    const jwtDecoded = jwt.verify(userToken, secretKey);
+
+    const shortId = jwtDecoded.shortId;
+
+    //front에서 shortId 접근 가능하게 함
+    res.json(shortId);
+});
 
 export { userRouter };

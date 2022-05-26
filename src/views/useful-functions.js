@@ -31,20 +31,3 @@ export const convertToNumber = (string) => {
 export const wait = (ms) => {
     return new Promise((r) => setTimeout(r, ms));
 };
-
-export const jwtDecoder = (userToken) => {
-    if (!userToken) {
-        throw Error('토큰이 없습니다!');
-    }
-    const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-    const jwtDecoded = jwt.verify(userToken, secretKey);
-
-    const shortId = jwtDecoded.shortId;
-
-    // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
-    return shortId;
-};
-export const getCookie = (name) => {
-    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return value ? unescape(value[2]) : null;
-};
