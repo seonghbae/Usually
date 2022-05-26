@@ -27,6 +27,7 @@ orderRouter.post('/purchase', loginRequired, async (req, res, next) => {
     }
 
     // req (request)의 body 에서 데이터 가져오기
+
     const phoneNumber = req.body.phoneNumber;
     const address = req.body.address;
     const message = req.body.message;
@@ -35,6 +36,7 @@ orderRouter.post('/purchase', loginRequired, async (req, res, next) => {
 
        // 위 데이터를 유저 db에 추가하기
     const newOrder = await orderService.addOrder({
+      user,
       phoneNumber,
       address,
       message,
@@ -64,7 +66,7 @@ orderRouter.get('/orderlist', loginRequired, async function (req, res, next) {
 
     //관리자가 아닐 경우 접근할 수 없도록 return
     if(user.role != 'admin'){
-        console.log('서비스 사용 요청이 있습니다.하지만, admin이 아닙니다.');
+        console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
     res.status(403).json({
       result: 'forbidden-approach',
       reason: '관리자만 사용할 수 있는 서비스입니다.',
@@ -100,7 +102,7 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
         }
     
         // 주문 목록 전부 반환
-        const orders = await orderService.getOrdersByUser(user.shortId);
+        const orders = await orderService.getOrdersByUser(user.id);
         
         //주묵 목록(배열)을 JSON 형태로 프론트에 보냄
         res.status(200).json(orders);
@@ -110,7 +112,7 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
       }
 });
 
-//회원의 주문 목록 확인 api (아래는 /list 이지만, 실제로는 /purchase/list으로 요청해야 함.)
+//회원의 주문 목록 상세 확인 api (아래는 /list 이지만, 실제로는 /purchase/list으로 요청해야 함.)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 orderRouter.get('/list/:shortId', loginRequired, async function(req, res, next){
     try {
@@ -138,13 +140,6 @@ orderRouter.get('/list/:shortId', loginRequired, async function(req, res, next){
 orderRouter.delete('/cancel/:shortId', loginRequired, async function (req, res, next) {
     try {
        
-        // content-type 을 application/json 로 프론트에서
-        // 설정 안 하고 요청하면, body가 비어 있게 됨.
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요'
-        );
-      }
 
     const shortId  = req.params.shortId;
 

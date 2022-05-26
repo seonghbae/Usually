@@ -12,7 +12,7 @@ class OrderService {
     // db에 저장
     const createdNewOrder = await this.orderModel.create(orderInfo);
 
-    return createdNewOrder;
+   return createdNewOrder;
   }
 
   // 관리자가 모든 주문 목록을 받음.
