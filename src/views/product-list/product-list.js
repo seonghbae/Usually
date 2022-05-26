@@ -87,14 +87,10 @@ async function showProductList() {
         contentTag.innerHTML = 
         `<strong>${data.name}</strong>
         <p>${addCommas(data.price)}원</p>`;
-        // 상품 클릭시 해당 상품 상세 페이지로 이동
-        contentTag.addEventListener('click', () => newPage(data.shortId));
 
         tileChildTag.appendChild(imageTag);
         tileChildTag.appendChild(contentTag);
-
         tileParentTag.appendChild(tileChildTag);
-
         tileAncestorTag.appendChild(tileParentTag);
 
         if (index % 4 === 3) {
