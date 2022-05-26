@@ -10,7 +10,7 @@ export class CategoryModel {
     }
 
     async findById(categoryId) {
-        const category = await Category.findOne({ _id: categoryId });
+        const category = await Category.findOne({ categoryId });
         return category;
     }
 
@@ -20,7 +20,7 @@ export class CategoryModel {
     }
 
     async update({ categoryId, update }) {
-        const filter = { _id: categoryId };
+        const filter = { categoryId };
         const option = { returnOriginal: false };
 
         const updateCategory = await Category.findOneAndUpdate({
@@ -32,7 +32,7 @@ export class CategoryModel {
     }
 
     async delete({ categoryId }) {
-        const filter = { _id: categoryId };
+        const filter = { categoryId };
 
         const deleteCategory = await Category.deleteOne(filter);
         return deleteCategory;

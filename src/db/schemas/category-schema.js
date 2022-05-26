@@ -3,8 +3,12 @@ import { shortId } from './types/short-id';
 
 const CategorySchema = new Schema(
     {
-        shortId,
+        categoryId: shortId,
         name: {
+            type: String,
+            required: true,
+        },
+        gender: {
             type: String,
             required: true,
         },

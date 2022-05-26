@@ -33,8 +33,8 @@ adminRouter.get('/category/:categoryId', async (req, res, next) => {
 //카테고리 생성
 adminRouter.post('/category/create', async (req, res, next) => {
     try {
-        const { name } = req.body;
-        const newCategory = await categoryService.AddCategory({ name });
+        const { name, gender } = req.body;
+        const newCategory = await categoryService.AddCategory({ name, gender });
 
         res.status(200).json(newCategory);
     } catch (error) {
@@ -46,8 +46,8 @@ adminRouter.post('/category/create', async (req, res, next) => {
 adminRouter.patch('/category/:categoryId', async (req, res, next) => {
     try {
         const { categoryId } = req.params;
-        const { name } = req.body;
-        const toUpdate = { ...(name && { name }) };
+        const { name, gender } = req.body;
+        const toUpdate = { ...(name && { name }), ...(gender && gender) };
 
         const UpdatedCategoryInfo = await categoryService.setCategory(
             categoryId,

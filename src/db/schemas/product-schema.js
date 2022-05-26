@@ -3,9 +3,9 @@ import { shortId } from './types/short-id';
 
 const ProductSchema = new Schema(
     {
-        shortId,
+        productId: shortId,
         category: {
-            type: Schema.Types.ObjectId,
+            type: String,
             ref: 'Category',
             required: true,
         },
