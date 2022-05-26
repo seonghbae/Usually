@@ -1,6 +1,38 @@
 const navFunc = function () {
-    // const navbarComponent = document.querySelector('.navbar-end');
-    // const user = document.cookie.
+    const navbarComponent = document.querySelector('.navbar-end');
+    const User = document.cookie.match('user');
+    if (!User) {
+        const loginNav = document.createElement('a');
+        const registerNav = document.createElement('a');
+        loginNav.setAttribute('class', 'navbar-item');
+        loginNav.setAttribute('href', '/login');
+        loginNav.innerText = '로그인';
+        registerNav.setAttribute('class', 'navbar-item');
+        registerNav.setAttribute('href', '/register');
+        registerNav.innerText = '회원가입';
+        navbarComponent.appendChild(loginNav);
+        navbarComponent.appendChild(registerNav);
+    } else if (User) {
+        navbarComponent.removeChild('loginNav');
+        navbarComponent.removeChild('registerNav');
+        // 처음 들어왔을 때 로그인 전에 만들어졌던 노드들 삭제
+
+        const mypageNav = document.createElement('a');
+        const logoutNav = document.createElement('a');
+        const cartNav = document.createElement('a');
+        mypageNav.setAttribute('class', 'navbar-item');
+        mypageNav.setAttribute('href', '/my-page');
+        mypageNav.innerText = '마이페이지';
+        logoutNav.setAttribute('class', 'navbar-item');
+        logoutNav.setAttribute('href', '/logout');
+        logoutNav.innerText = '로그아웃';
+        cartNav.setAttribute('class', 'navbar-item');
+        cartNav.setAttribute('href', '/cart');
+        cartNav.innerText = '장바구니';
+        navbarComponent.appendChild(mypageNav);
+        navbarComponent.appendChild(logoutNav);
+        navbarComponent.appendChild(cartNav);
+    }
 
     const navbarBurger = document.querySelector('.navbar-burger');
     const navbarBasicExample = document.querySelector('#navbarBasicExample');
