@@ -4,7 +4,7 @@ import { shortId } from './types/short-id';
 const ProductSchema = new Schema(
     {
         productId: shortId,
-        category: {
+        categoryId: {
             type: String,
             ref: 'Category',
             required: true,

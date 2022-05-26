@@ -5,9 +5,17 @@ class ProductService {
         this.productModel = productModel;
     }
     //상품 목록을 받음
-    async getProducts() {
+    async getProducts(categoryId) {
         const products = await this.productModel.findAll();
         return products;
+    }
+
+    //카테고리의 상품 목록을 받음
+    async getCategoryProducts(categoryId) {
+        const categoryProducts = await this.productModel.findByCategory(
+            categoryId
+        );
+        return categoryProducts;
     }
 
     //상품 상세 정보를 받음

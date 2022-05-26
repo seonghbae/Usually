@@ -12,7 +12,19 @@ productRouter.get('/', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
+
+//선택한 카테고리의 상품 목록을 가져옴
+productRouter.get('/category/:categoryId', async (req, res, next) => {
+    try {
+        const { categoryId } = req.params;
+        const products = await productService.getCategoryProducts(categoryId);
+
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+});
 
 //선택한 상품의 상세 정보를 가져옴
 productRouter.get('/:productId', async (req, res, next) => {
@@ -24,6 +36,6 @@ productRouter.get('/:productId', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
-export { productRouter }
+export { productRouter };

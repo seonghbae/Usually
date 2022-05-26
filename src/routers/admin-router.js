@@ -102,22 +102,22 @@ adminRouter.get('/product/:productId', async (req, res, next) => {
 adminRouter.post('/product/create', async (req, res, next) => {
     try {
         const {
+            categoryId,
             name,
             price,
             description,
             madeBy,
-            category,
             inventory,
             sellCount,
             src,
         } = req.body;
 
         const newProduct = await productService.addProduct({
+            categoryId,
             name,
             price,
             description,
             madeBy,
-            category,
             inventory,
             sellCount,
             src,
@@ -135,23 +135,25 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
         const { productId } = req.params;
 
         const {
+            categoryId,
             name,
             price,
             description,
             madeBy,
-            category,
             inventory,
             sellCount,
+            src,
         } = req.body;
 
         const toUpdate = {
+            ...(categoryId && { categoryId }),
             ...(name && { name }),
             ...(price && { price }),
             ...(description && { description }),
             ...(madeBy && { madeBy }),
-            ...(category && { category }),
             ...(inventory && { inventory }),
             ...(sellCount && { sellCount }),
+            ...(src && { src }),
         };
 
         const updatedProductInfo = await productService.setProduct(
