@@ -24,8 +24,8 @@ function newPage(productId) {
 async function showProductList() {
     // const categoryId = location.pathname.split("/")[3];
     // try {
-    //     const datas = await Api.get('/product/category', categoryId);
-    //     console.log(datas);
+    //     const test = await Api.get('/product/category', categoryId);
+    //     console.log(test);
     // } catch (err) {
     //     console.error(err.stack);
     //     alert(
@@ -87,6 +87,8 @@ async function showProductList() {
         contentTag.innerHTML = 
         `<strong>${data.name}</strong>
         <p>${addCommas(data.price)}원</p>`;
+        // 상품 클릭시 해당 상품 상세 페이지로 이동
+        contentTag.addEventListener('click', () => newPage(data.shortId));
 
         tileChildTag.appendChild(imageTag);
         tileChildTag.appendChild(contentTag);
