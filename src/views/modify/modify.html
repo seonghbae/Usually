@@ -25,9 +25,9 @@
         <!-- 커스텀 css, js -->
         <link rel="stylesheet" href="modify.css" />
         <script src="modify.js" type="module" defer></script>
-            <!-- navbar, footer 활용을 위한 css, js -->
-        <link rel="stylesheet" href="../nav/nav.css">
-        <link rel="stylesheet" href="../footer/footer.css">
+        <!-- navbar, footer 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../nav/nav.css" />
+        <link rel="stylesheet" href="../footer/footer.css" />
         <script src="../nav/nav.js"></script>
         <!-- navbar, footer 활용을 위한 jquery -->
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -36,20 +36,15 @@
         <!--Navigation bar-->
         <div id="nav-placeholder"></div>
         <script>
-            $(document).ready(function() {
-              $('#nav-placeholder').load("../nav/nav.html", () => {
-                navFunc()
-              });
+            $(document).ready(function () {
+                $('#nav-placeholder').load('../nav/nav.html', () => {
+                    navFunc();
+                });
             });
         </script>
         <h1 class="modify-greeting">회원정보 수정</h1>
         <div class="modify-form-container">
-            <form
-                class="modify-form-box"
-                action="/api/userModify"
-                method="POST"
-                id="modifyForm"
-            >
+            <form class="modify-form-box" id="modifyForm">
                 <div class="field">
                     <label class="label" for="fullNameInput">이름</label>
                     <p class="control has-icons-left has-icons-right">
@@ -120,14 +115,12 @@
                     <button
                         class="button is-danger is-large"
                         id="modify-button"
-                        type="submit"
                     >
                         수정하기
                     </button>
                     <button
                         class="button is-danger is-large"
                         id="delete-button"
-                        type="submit"
                     >
                         회원 탈퇴
                     </button>
@@ -138,9 +131,9 @@
         <div id="footer-placeholder"></div>
 
         <script>
-        $(function () {
-            $("#footer-placeholder").load("../footer/footer.html");
-        });
+            $(function () {
+                $('#footer-placeholder').load('../footer/footer.html');
+            });
         </script>
     </body>
 </html>

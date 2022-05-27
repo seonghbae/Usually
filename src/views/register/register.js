@@ -9,7 +9,6 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const genderInput = document.querySelector('#gender');
 const submitButton = document.querySelector('#submitButton');
 
-
 addAllElements();
 addAllEvents();
 
