@@ -1,7 +1,22 @@
 import { Router } from 'express';
-import { productService } from '../services';
+import { productService, categoryService } from '../services';
 
 const productRouter = Router();
+
+//선택한 type으로 구분된 target 카테고리의 상품 목록을 가져옴
+productRouter.get('/:type/:target', async (req, res, next) => {
+    try {
+        const { type, target } = req.params;
+        const products = await categoryService.getTypeTargetProducts({
+            type,
+            target,
+        });
+
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+});
 
 //전체 상품 목록을 가져옴
 productRouter.get('/', async (req, res, next) => {

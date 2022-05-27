@@ -5,7 +5,7 @@ class ProductService {
         this.productModel = productModel;
     }
     //상품 목록을 받음
-    async getProducts(categoryId) {
+    async getProducts() {
         const products = await this.productModel.findAll();
         return products;
     }
