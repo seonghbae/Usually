@@ -4,6 +4,8 @@ import { addCommas } from '/useful-functions.js';
 // 요소(element), input 혹은 상수
 const productItemContainer = document.querySelector('#productItemContainer');
 
+const purchaseButton = document.querySelector('#purchaseButton');
+
 addAllElements();
 addAllEvents();
 
@@ -28,8 +30,4 @@ async function showCartList() {
         const item = localStorage.getItem(key);
         items.push(item);
     }
-
-    items.forEach((item) => {
-
-    });
 }
