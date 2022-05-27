@@ -23,10 +23,12 @@ function newPage(productId) {
 // 상품 목록
 async function showProductList() {
     // /product/category/:categoryId 형식이라 split으로 productId만 가져오기
-    const categoryId = location.pathname.split("/")[3];
+    const splitLocation = location.pathname.split("/");
+    const type = splitLocation[2];
+    const target = splitLocation[3];
     try {
         // api로 데이터를 받아옴
-        const datas = await Api.get('/product/category', categoryId);
+        const datas = await Api.get('/productInfo', `${type}/${target}`);
 
         productItemContainer.innerHTML = '';
         let tileAncestorTag;
