@@ -110,28 +110,30 @@ adminRouter.get('/product/:productId', async (req, res, next) => {
 adminRouter.post('/product/create', async (req, res, next) => {
     try {
         const {
-            categoryId,
+            // categoryId,
             name,
             price,
+            gender,
             description,
             madeBy,
             inventory,
             sellCount,
             src,
         } = req.body;
+        console.log(req.body.name);
+        // const newProduct = await productService.addProduct({
+        //     // categoryId,
+        //     name,
+        //     price,
+        //     gender,
+        //     description,
+        //     madeBy,
+        //     inventory,
+        //     sellCount,
+        //     src,
+        // });
 
-        const newProduct = await productService.addProduct({
-            categoryId,
-            name,
-            price,
-            description,
-            madeBy,
-            inventory,
-            sellCount,
-            src,
-        });
-
-        res.status(201).json(newProduct);
+        // res.status(201).json(newProduct);
     } catch (error) {
         next(error);
     }
