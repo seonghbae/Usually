@@ -1,4 +1,3 @@
-
 // 문자열+숫자로 이루어진 랜덤 5글자 반환
 export const randomId = () => {
     return Math.random().toString(36).substring(2, 7);
@@ -27,4 +26,9 @@ export const convertToNumber = (string) => {
 // ms만큼 기다리게 함.
 export const wait = (ms) => {
     return new Promise((r) => setTimeout(r, ms));
+};
+
+export const getCookie = (name) => {
+    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value ? unescape(value[2]) : null;
 };
