@@ -42,7 +42,7 @@ const OrderSchema = new Schema(
         totalPrice:{
             type:Number,
             required:true,
-        }
+        },
   },
   {
     collection: 'orders',
