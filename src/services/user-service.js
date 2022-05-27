@@ -4,39 +4,40 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 class UserService {
-    // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
-    constructor(userModel) {
-        this.userModel = userModel;
-    }
+  // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
+  constructor(userModel) {
+    this.userModel = userModel;
+  }
 
-    // 회원가입
-    async addUser(userInfo) {
-        // 객체 destructuring
-        const { shortId, email, fullName, password, gender } = userInfo;
+
+// 회원가입
+async addUser(userInfo) {
+    // 객체 destructuring
+    const { email, fullName, password, gender, role } = userInfo;
 
         // 이메일 중복 확인
-        const user = await this.userModel.findByEmail(email);
-        if (user) {
-            throw new Error(
+    const user = await this.userModel.findByEmail(email);
+    if (user) {
+        throw new Error(
                 '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.'
-            );
-        }
+        );
+    }
         // 우선 비밀번호 해쉬화(암호화)
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUserInfo = {
-            shortId,
-            fullName,
-            email,
-            password: hashedPassword,
-            gender,
-        };
+    const newUserInfo = { 
+        fullName, 
+        email, 
+        password: hashedPassword, 
+        gender,
+        role,
+    };
 
         // db에 저장
-        const createdNewUser = await this.userModel.create(newUserInfo);
+    const createdNewUser = await this.userModel.create(newUserInfo);
 
-        return createdNewUser;
-    }
+    return createdNewUser;
+}
 
     // 로그인
     async getUserToken(loginInfo) {
@@ -81,6 +82,12 @@ class UserService {
     async getUsers() {
         const users = await this.userModel.findAll();
         return users;
+    }
+
+    //사용자 하나를 받음
+    async getUser(shortId){
+        const user = await this.userModel.findById(shortId);
+        return user;
     }
 
     // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
@@ -167,6 +174,7 @@ class UserService {
         console.log('삭제 성공 ~_~');
         return user;
     }
+
 }
 
 const userService = new UserService(userModel);

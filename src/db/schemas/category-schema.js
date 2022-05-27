@@ -12,6 +12,10 @@ const CategorySchema = new Schema(
             type: String,
             required: true,
         },
+        recommendAge: {
+            type: Number,
+            required: true,
+        },
     },
     {
         collection: 'categories',
