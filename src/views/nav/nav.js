@@ -55,7 +55,7 @@ const navFunc = function () {
     const navbar = document.querySelector('.main-nav');
     window.addEventListener('scroll', () => {
         let y = window.pageYOffset;
-        if (y > 150) {
+        if (y > 40) {
             navbar.classList.add('stickyToTop');
         } else {
             navbar.classList.remove('stickyToTop');

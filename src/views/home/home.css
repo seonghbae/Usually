@@ -1,8 +1,4 @@
 
-html {
-    font-size: 11px;
-}
-
 div {
     margin: 0;
     padding: 0;
@@ -108,7 +104,7 @@ div {
 
 .main-title {
     position: absolute;
-    font-size: 2rem;
+    font-size: 1.5rem;
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
@@ -161,12 +157,12 @@ div {
 }
 
 .main-navmenu-title {
-    font-size: 2.3rem;
+    font-size: 1.7rem;
     font-weight: bold;
 }
 
 .main-navmenu {
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding-top: 2vw;
 }
 
@@ -211,10 +207,10 @@ div {
     margin-top: 1vw;
     text-align: center;
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .main-product-price {
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
