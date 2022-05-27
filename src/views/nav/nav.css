@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 11px;
+}
+
+
 li {
   text-decoration: none;
 }
@@ -20,16 +25,45 @@ button {
   background: none;
 }
 
+.nav-icon{
+  padding-right: 0.5vw;
+}
+
 /* 세로 가운데 정렬용 */
 .my-auto {
   margin-top: auto !important;
   margin-bottom: auto !important;
 }
 
+/* top-navbar */
+.navbar-end {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.navbar-burger {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.navbar-item {
+  font-size: 1.5rem;
+}
+
+.navbar-item:hover {
+  color: #ffae96 !important;
+}
+
+.navbar-end a {
+  text-align: right;
+}
+
+
 /* sticky-nav메뉴 css */
 .main-nav {
-  height: 52px;
+  height: 55px;
   width: 100vw;
+  border-bottom: 1px solid black;
 }
 
 .stickyToTop {
@@ -49,7 +83,7 @@ button {
 
 .main-nav-manu {
   padding: 15px 5vw 15px 5vw;
-  font-size: 1rem;
+  font-size: 1.5rem;
   height: 100%;
 }
 
@@ -57,19 +91,3 @@ button {
   color: #ffae96;
 }
 
-.navbar-end {
-  justify-content: flex-end;
-  margin-left: auto;
-}
-
-.navbar-burger {
-  justify-content: flex-end;
-  margin-left: auto;
-}
-.navbar-item:hover {
-  color: #ffae96 !important;
-}
-
-.navbar-end a {
-  text-align: right;
-}
