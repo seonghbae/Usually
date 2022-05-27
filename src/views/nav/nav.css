@@ -7,11 +7,6 @@ html {
     font-size: 11px;
 }
 
-html {
-  font-size: 11px;
-}
-
-
 li {
     text-decoration: none;
 }
@@ -33,8 +28,8 @@ button {
     margin-right: 12vh;
 }
 
-.nav-icon{
-  padding-right: 0.5vw;
+.nav-icon {
+    padding-right: 0.5vw;
 }
 
 /* 세로 가운데 정렬용 */
@@ -45,33 +40,32 @@ button {
 
 /* top-navbar */
 .navbar-end {
-  justify-content: flex-end;
-  margin-left: auto;
+    justify-content: flex-end;
+    margin-left: auto;
 }
 
 .navbar-burger {
-  justify-content: flex-end;
-  margin-left: auto;
+    justify-content: flex-end;
+    margin-left: auto;
 }
 
 .navbar-item {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .navbar-item:hover {
-  color: #ffae96 !important;
+    color: #ffae96 !important;
 }
 
 .navbar-end a {
-  text-align: right;
+    text-align: right;
 }
-
 
 /* sticky-nav메뉴 css */
 .main-nav {
-  height: 55px;
-  width: 100vw;
-  border-bottom: 1px solid black;
+    display: flex;
+    height: 55px;
+    border-bottom: 1px solid black;
 }
 
 .stickyToTop {
@@ -95,13 +89,12 @@ button {
 }
 
 .main-nav-manu {
-  padding: 15px 5vw 15px 5vw;
-  font-size: 1.5rem;
-  height: 100%;
+    padding: 15px 5vw 15px 5vw;
+    font-size: 1.5rem;
+    height: 100%;
 }
 
 .main-nav-recommend-menu-container {
     display: flex;
     margin-left: 3vw;
 }
-
