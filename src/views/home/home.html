@@ -1,56 +1,191 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>쇼핑-n팀</title>
-        <!-- 아이콘 -->
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/elice-rabbit-favicon.png"
-        />
-        <!-- bulma css -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-        />
-        <!-- 폰트 어썸: 아이콘 -->
-        <script
-            defer
-            src="https://kit.fontawesome.com/7630448495.js"
-            crossorigin="anonymous"
-        ></script>
-        <!-- 커스텀 css, js -->
-        <link rel="stylesheet" href="home.css" />
-        <script src="home.js" type="module" defer></script>
-        <!-- navbar, footer 활용을 위한 css, js -->
-        <link rel="stylesheet" href="../nav/nav.css" />
-        <link rel="stylesheet" href="../footer/footer.css" />
-        <script src="../nav/nav.js"></script>
-        <!-- navbar, footer 활용을 위한 jquery -->
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    </head>
-    <body>
-        <!--Navigation bar-->
-        <div id="nav-placeholder"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>사이트이름</title>
+    <!-- 아이콘 -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/elice-rabbit-favicon.png"
+    />
+    <!-- bulma css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script
+      defer
+      src="https://kit.fontawesome.com/7630448495.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="home.css" />
+    <script src="home.js" type="module" defer></script>
+    <!-- navbar, footer 활용을 위한 css, js -->
+    <link rel="stylesheet" href="../nav/nav.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <script src="../nav/nav.js"></script>
+    <!-- navbar, footer 활용을 위한 jquery -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  </head>
+  <body>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
 
-        <script>
-            $(document).ready(function () {
-                $('#nav-placeholder').load('../nav/nav.html', () => {
-                    navFunc();
-                });
-            });
-        </script>
+    <script>
+      $(document).ready(function() {
+        $('#nav-placeholder').load("../nav/nav.html", () => {
+          navFunc()
+        });
+      });
+    </script>
+    <!-- image slider -->
+    <div class="slider-container">
+      <!-- 좌우 버튼 -->
+      <button class="slider-button slider-prev-button"><i class="fas fa-chevron-left"></i></button>
+      <button class="slider-button slider-next-button"><i class="fas fa-chevron-right"></i></button>
+      <!-- 아래 이미지 선택 버튼 -->
+      <div class="slider-number-button-list">
+        <button class="slider-number-button"></button>
+        <button class="slider-number-button"></button>
+        <button class="slider-number-button"></button>
+      </div>
+      <div class="slider">
+        <div class="slider-image">
+          <img src="1.jpg" alt="" />
+        </div>
+        <div class="slider-image">
+          <img src="2.jpg" alt="" />
+        </div>
+        <div class="slider-image">
+          <img src="3.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <!-- main division -->
+    <div class="main-division">
+      <div class="main-title-border"></div>
+      <div class="main-title-container">
+        <div class="main-title">종류별 신상</div>
+      </div>
+    </div>
+    <!-- Main-Trand  -->
+    <div class="main-content">
+      <div class="main-navmenu-container">
+        <ul class="main-navmenu-list">
+          <li><h3 class="main-navmenu-title my-auto">Category</h3></li>
+          <li class="main-navmenu main-navmenu-first"><a href="" class="main-navmenu-clicked main-navmenu-category">반지</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-category">목걸이</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-category">귀걸이</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-category">팔찌</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-category">시계</a></li>
+        </ul>
+      </div>
+      <div class="main-products-container main-category">
+        <div class="main-product-container">
+          <div class="main-product-image-container">
+            <img class="main-product-image" src="bracelet7.jpg" alt="">
+          </div>
+          <div class="main-product-name">
+            이름
+          </div>
+          <div class="main-product-price">
+            가격
+          </div>
+      </div>
+        <div class="main-product-container">
+          <div class="main-product-image-container">
+            <img class="main-product-image" src="bracelet7.jpg" alt="">
+          </div>
+          <div class="main-product-name">
+            이름
+          </div>
+          <div class="main-product-price">
+            가격
+          </div>
+        </div>
+        <div class="main-product-container">
+          <div class="main-product-image-container">
+            <img class="main-product-image" src="bracelet7.jpg" alt="">
+          </div>
+          <div class="main-product-name">
+            이름
+          </div>
+          <div class="main-product-price">
+            가격
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main division -->
+    <div class="main-division">
+      <div class="main-title-border"></div>
+      <div class="main-title-container">
+        <div class="main-title">연령별 신상</div>
+      </div>
+    </div>
+    <!-- Main-byAge  -->
+    <div class="main-content">
+      <div class="main-products-container main-age">
+        <div class="main-product-container">
+          <div class="main-product-image-container">
+            <img class="main-product-image" src="bracelet7.jpg" alt="">
+          </div>
+          <div class="main-product-name">
+            이름
+          </div>
+          <div class="main-product-price">
+            가격
+          </div>
+        </div>
+        <div class="main-product-container">
+          <div class="main-product-image-container">
+            <img class="main-product-image" src="bracelet7.jpg" alt="">
+          </div>
+          <div class="main-product-name">
+            이름
+          </div>
+          <div class="main-product-price">
+            가격
+          </div>
+        </div>
+        <div class="main-product-container">
+          <div class="main-product-image-container">
+            <img class="main-product-image" src="bracelet7.jpg" alt="">
+          </div>
+          <div class="main-product-name">
+            이름
+          </div>
+          <div class="main-product-price">
+            가격
+          </div>
+        </div>
+      </div>
+      <div class="main-navmenu-container">
+        <ul class="main-navmenu-list-right">
+          <li><h3 class="main-navmenu-title my-auto">연령별</h3></li>
+          <li class="main-navmenu main-navmenu-first"><a href="" class="main-navmenu-age main-navmenu-clicked">10대</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-age">20대</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-age">30대</a></li>
+          <li class="main-navmenu"><a href="" class="main-navmenu-age">40대</a></li>
+        </ul>
+      </div>
+    </div>
+
 
         <!--footer-->
         <div id="footer-placeholder"></div>
 
-        <script>
-            $(function () {
-                $('#footer-placeholder').load('../footer/footer.html');
-            });
-        </script>
-    </body>
+    <script>
+      $(function () {
+        $("#footer-placeholder").load("../footer/footer.html");
+      });
+    </script>
+  </body>
+
 </html>
