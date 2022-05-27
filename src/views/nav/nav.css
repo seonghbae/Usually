@@ -50,7 +50,7 @@ button {
 }
 
 .navbar-item {
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .navbar-item:hover {
@@ -73,7 +73,6 @@ button {
     top: 0;
     left: 0;
     z-index: 10000000;
-    width: 100%;
     background-color: white;
 }
 
@@ -85,11 +84,15 @@ button {
 
 .main-nav-menu {
     padding: 15px 3vw 15px 3vw;
-    font-size: 1.2rem;
-    
+    font-size: 0.85rem;
     font-weight: bold;
 }
 
+.main-nav-manu {
+    padding: 15px 5vw 15px 5vw;
+    font-size: 1.5rem;
+    height: 100%;
+}
 
 .main-nav-recommend-menu-container {
     display: flex;
