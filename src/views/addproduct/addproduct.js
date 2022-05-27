@@ -10,18 +10,18 @@ fileInput.onchange = () => {
 
 
 // 상품 등록 함수
-function registerProduct(e) {
+async function registerProduct(e) {
     e.preventDefault();
-    console.log(e.target);
-    console.log(e.target.name.value);
-    console.log(e.target.category.value);
-    console.log(e.target.gender.value);
-    console.log(e.target.age.value);
-    console.log(e.target.madeBy.value);
-    console.log(e.target.description.value);
-    // console.log(e.target.image-file.value);
-    console.log(e.target.inventory.value);
-    console.log(e.target.price.value);
+    // console.log(e.target);
+    // console.log(e.target.name.value);
+    // console.log(e.target.category.value);
+    // console.log(e.target.gender.value);
+    // console.log(e.target.age.value);
+    // console.log(e.target.madeBy.value);
+    // console.log(e.target.description.value);
+    // // console.log(e.target.image-file.files[0]);
+    // console.log(e.target.inventory.value);
+    // console.log(e.target.price.value);
 
     const name = e.target.name.value;
     if (!name) {
@@ -53,8 +53,8 @@ function registerProduct(e) {
         return alert('상품 설명을 작성해주세요');
     };
 
-    const imageInput = document.querySelector('#imageInput')
-    if (!imageInput.files[0]){
+    const src = document.querySelector('#imageInput')
+    if (!src.files[0]){
         return alert('사진을 업로드해주세요')
     }
 
@@ -68,53 +68,28 @@ function registerProduct(e) {
         return alert('가격을 입력해주세요');
     };
     
-    const categoryId = getCategoryId(category, gender, age);
-    console.log(categoryId);
-    // const url = '/admin/product/create/';
-    // const data = { name, price, description, madeBy, inventory, categoryId };
-    // fetch('/food', {
-    //   method: 'POST',
-    //   body: JSON.stringify(data),
-    // });
+    let formData = new FormData(myForm);
+
+    fetch("http://localhost:5000/admin/product/create/",
+    {
+        body: formData,
+        method: "post"
+    });
+
+    // /* key 확인하기 */
+    // for (let key of formData.keys()) {
+    //     console.log(key);
+    // }
+
+    // /* value 확인하기 */
+    // for (let value of formData.values()) {
+    //     console.log(value);
+    // }
 }
 
-// 카테고리id 받아오는 함수
-function getCategoryId(name, gender, recommendAge){
-    const url = 'http://localhost:5000/admin/category';
-    fetch(url)
-        .then(res => {
-            return res.json;
-        })
-        .then(parsingData)
-        .then((data) => {
-            console.log(data);
-            const categoryId = data.findCategoryId(name, gender, recommendAge);
-            console.log(categoryId);
-        })
-}
 
-// 카테고리id 찾는 함수
-function findCategoryId(name, gender, recommendAge){
-    if (data.name === name && data.gender === gender && data.recommendAge){
-        return true;
-    }
-}
 
-// json 파싱 함수
-function parsingData(data){
-    return new Promise((res, rej) => {
-      const newDatas = [];
-      data.data.movies.map(m => {
-        const newData = {
-          name: m.name,
-          gender: m.gender,
-          recommendAge: m.recommendAge,
-          categoryId: m.categoryId
-        }
-        newDatas.push(newData);
-      });
-      res(newDatas);
-    })
-}
 
-document.querySelector('form').addEventListener('submit', registerProduct)
+
+let myForm = document.querySelector('form')
+myForm.addEventListener('submit', registerProduct)
