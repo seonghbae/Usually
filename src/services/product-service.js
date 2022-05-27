@@ -4,6 +4,11 @@ class ProductService {
     constructor(productModel) {
         this.productModel = productModel;
     }
+
+    async getProductsByCategoryIds(categoryIds) {
+        const products = await this.productModel.findByCategoryIds(categoryIds);
+        return products;
+    }
     //상품 목록을 받음
     async getProducts() {
         const products = await this.productModel.findAll();
