@@ -55,18 +55,125 @@
                                 <p>선택 삭제</p>
                             </label>
                         </div>
+                        <!-- 장바구니에 담긴 상품들이 주입되는 곳 -->
                         <div class="cart-product-item" id="productItem1">
                             <label class="checkbox">
                                 <input type="checkbox" checked>
                             </label>
-                            <button class="delete-button"></button>
-                            <figure class="image is-96x96"></figure>
-                            <div class="content"></div>
-                            <div class="calculation"></div>
+                            <button class="delete-button">
+                                <span class="icon">
+                                    <i class="fas fa-trash-can" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                            <figure class="image is-96x96">
+                                <img src="/ring.jpg" alt="임시 메세지">
+                            </figure>
+                            <div class="content">
+                                <p>The Loop</p>
+                                <div class="quantity">
+                                    <button class="button is-rounded">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-thin fa-minus" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                    <input class="input" type="number" min="1" max="99" value="1">
+                                    <button class="button is-rounded">
+                                        <span class="icon">
+                                            <i class="fas fa-lg fa-plus" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="calculation">
+                                <p>34,000원</p>
+                                <p>
+                                    <span class="icon">
+                                        <i class="fas fa-thin fa-xmark" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <p>1</p>
+                                <p>
+                                    <span class="icon">
+                                        <i class="fas fa-thin fa-equals" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <p>34,000원</p>
+                            </div>
+                        </div>
+                        <div class="cart-product-item" id="productItem1">
+                            <label class="checkbox">
+                                <input type="checkbox" checked>
+                            </label>
+                            <button class="delete-button">
+                                <span class="icon">
+                                    <i class="fas fa-trash-can" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                            <figure class="image is-96x96">
+                                <img src="/elice-rabbit.png" alt="임시 메세지">
+                            </figure>
+                            <div class="content">
+                                <p>The Rabbit</p>
+                                <div class="quantity">
+                                    <button class="button is-rounded">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-thin fa-minus" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                    <input class="input" type="number" min="1" max="99" value="1">
+                                    <button class="button is-rounded">
+                                        <span class="icon">
+                                            <i class="fas fa-lg fa-plus" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="calculation">
+                                <p>29,000원</p>
+                                <p>
+                                    <span class="icon">
+                                        <i class="fas fa-thin fa-xmark" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <p>1</p>
+                                <p>
+                                    <span class="icon">
+                                        <i class="fas fa-thin fa-equals" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <p>29,000원</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="tile is-parent order"></div>
+                <div class="tile is-parent tile-order">
+                    <div class="box order">
+                        <div class="header">
+                            <p>결제정보</p>
+                        </div>
+                        <div class="order-info">
+                            <div class="info">
+                                <p>상품수</p>
+                                <p>2개</p>
+                            </div>
+                            <div class="info">
+                                <p>상품금액</p>
+                                <p>63,000원</p>
+                            </div>
+                            <div class="info">
+                                <p>배송비</p>
+                                <p>3,000원</p>
+                            </div>
+                        </div>
+                        <div class="total">
+                            <p>총 결제금액</p>
+                            <p>66,000원</p>
+                        </div>
+                        <div class="purchase">
+                            <button class="button is-danger">구매하기</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

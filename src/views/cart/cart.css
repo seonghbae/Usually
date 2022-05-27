@@ -1,3 +1,7 @@
+* {
+    box-sizing: inherit;
+}
+
 .cart-header {
     display: flex;
     border-bottom: 1px solid;
@@ -11,6 +15,10 @@
     padding: 3rem 1rem 0;
 }
 
+.cart-products-container {
+    width: 100%;
+}
+
 .cart-products-header {
     display: flex;
     border-bottom: 1px solid;
@@ -19,6 +27,8 @@
 
 .checkbox {
     cursor: pointer;
+    cursor: pointer;
+    position: relative;
 }
 
 .delete-checked {
@@ -27,4 +37,93 @@
 
 .cart-product-item {
     display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.cart-product-item label {
+    position: absolute;
+    left: 0;
+}
+
+.delete-button {
+    cursor: pointer;
+    position: absolute;
+    right: -0.5rem;
+}
+
+.image {
+    cursor: pointer;
+    position: relative;
+    margin-left: 4rem;
+}
+
+
+.quantity {
+    display: flex;
+}
+
+.content {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-left: 4rem;
+}
+
+.input {
+    text-align: center;
+}
+
+.calculation {
+    display: flex;
+    margin-left: 4rem;
+}
+
+.calculation p {
+    display: block;
+    font-size: 1.4rem;
+}
+
+.order {
+    background-color: rgb(250, 245, 245);
+    width: 100%;
+}
+
+.header {
+    border-bottom: 1px solid;
+    font-size: 2rem;
+}
+
+.order-info {
+    border-bottom: 1px solid;
+    padding-bottom: 1.2rem;
+}
+
+.info {
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+}
+
+.info .p {
+    display: block;
+}
+
+.total {
+    display: flex;
+    font-size: 1.7rem;
+    font-weight: 700;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.purchase {
+    margin-top: 3rem;
+}
+
+.purchase button {
+    font-size: 1.6rem;
+    font-weight: 800;
+    height: 4rem;
+    width: 100%;
 }
