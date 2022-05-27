@@ -5,9 +5,10 @@ const OrderSchema = new Schema(
     {
         shortId,
         user:{
-            type:String,
+            type: Schema.Types.ObjectId,
             ref:'User',
             required: true,
+            index: true,
         },
         phoneNumber: {
             type: String,
