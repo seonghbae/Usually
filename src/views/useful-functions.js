@@ -27,3 +27,8 @@ export const convertToNumber = (string) => {
 export const wait = (ms) => {
     return new Promise((r) => setTimeout(r, ms));
 };
+
+export const getCookie = (name) => {
+    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value ? unescape(value[2]) : null;
+};
