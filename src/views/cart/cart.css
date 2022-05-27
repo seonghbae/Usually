@@ -1,0 +1,30 @@
+.cart-header {
+    display: flex;
+    border-bottom: 1px solid;
+}
+
+.title {
+    padding: 1rem 0 0 1rem;
+}
+
+.subtitle {
+    padding: 3rem 1rem 0;
+}
+
+.cart-products-header {
+    display: flex;
+    border-bottom: 1px solid;
+    margin-bottom: 1rem;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+
+.delete-checked {
+    cursor: pointer;
+}
+
+.cart-product-item {
+    display: flex;
+}
