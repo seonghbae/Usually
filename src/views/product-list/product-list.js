@@ -69,9 +69,9 @@ async function showProductList() {
             } else if (index === array.length - 1 && index % 4 !== 3) {
                 // Bulma css tile로 구성하니까 한 줄에 4개 들어가도록 구성
                 // 한 줄에 넣은 개수대로 1/n 로 한 줄을 채워서 4개 되도록 빈공간 삽입
-                const emptyDivTag = document.createElement('div');
-                emptyDivTag.classList.add('tile', 'is-parent');
                 for (let i = index % 4; i < 3; i++) {
+                    const emptyDivTag = document.createElement('div');
+                    emptyDivTag.classList.add('tile', 'is-parent');
                     tileAncestorTag.appendChild(emptyDivTag);
                 }
                 productItemContainer.appendChild(tileAncestorTag);
