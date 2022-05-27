@@ -4,6 +4,15 @@ import { CategorySchema } from '../schemas/category-schema';
 const Category = model('category', CategorySchema);
 
 export class CategoryModel {
+    async findByTypeTarget(categoryInfo) {
+        let { type, target } = categoryInfo;
+        let query = {};
+        query[type] = target;
+
+        const categories = await Category.find(query);
+        return categories;
+    }
+
     async findAll() {
         const categories = await Category.find({});
         return categories;
