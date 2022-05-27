@@ -7,11 +7,14 @@ const productRouter = Router();
 productRouter.get('/:type/:target', async (req, res, next) => {
     try {
         const { type, target } = req.params;
-        const products = await categoryService.getTypeTargetProducts({
+        const categories = await categoryService.getTypeTargetProducts({
             type,
             target,
         });
-
+        let categoryIds = categories.map((category) => category.categoryId);
+        let products = await productService.getProductsByCategoryIds(
+            categoryIds
+        );
         res.status(200).json(products);
     } catch (error) {
         next(error);

@@ -4,6 +4,13 @@ import { ProductSchema } from '../schemas/product-schema';
 const Product = model('product', ProductSchema);
 
 export class ProductModel {
+    async findByCategoryIds(categoryIds) {
+        const products = await Product.find({
+            categoryId: { $in: categoryIds },
+        });
+        return products;
+    }
+
     async findAll() {
         const products = await Product.find({});
         return products;

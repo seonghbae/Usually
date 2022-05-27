@@ -3,9 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-html {
-    font-size: 11px;
-}
+
 
 li {
     text-decoration: none;
@@ -50,7 +48,7 @@ button {
 }
 
 .navbar-item {
-    font-size: 1.5rem;
+    font-size: 0.8rem;
 }
 
 .navbar-item:hover {
@@ -73,6 +71,7 @@ button {
     top: 0;
     left: 0;
     z-index: 10000000;
+    width: 100%;
     background-color: white;
 }
 
@@ -84,15 +83,11 @@ button {
 
 .main-nav-menu {
     padding: 15px 3vw 15px 3vw;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    
     font-weight: bold;
 }
 
-.main-nav-manu {
-    padding: 15px 5vw 15px 5vw;
-    font-size: 1.5rem;
-    height: 100%;
-}
 
 .main-nav-recommend-menu-container {
     display: flex;
