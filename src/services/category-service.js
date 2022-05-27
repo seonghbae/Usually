@@ -5,6 +5,14 @@ class CategoryService {
         this.categoryModel = categoryModel;
     }
 
+    //선택한 type으로 구분된 target 카테고리의 상품 목록을 받음
+    async getTypeTargetProducts(categoryInfo) {
+        const TypeTargetCategories = await this.categoryModel.findByTypeTarget(
+            categoryInfo
+        );
+        return TypeTargetCategories;
+    }
+
     //상품 카테고리를 받음
     async getCategories() {
         const categories = await this.categoryModel.findAll();
