@@ -51,18 +51,18 @@ adminRouter.patch('/category/:categoryId', async (req, res, next) => {
     try {
         const { categoryId } = req.params;
         const { name, gender, recommendAge } = req.body;
-        const toUpdate = {
+        const UpdatedCategoryInfo = {
             ...(name && { name }),
             ...(gender && { gender }),
             ...(recommendAge && { recommendAge }),
         };
 
-        const UpdatedCategoryInfo = await categoryService.setCategory(
+        const UpdatedCategory = await categoryService.setCategory(
             categoryId,
-            toUpdate
+            UpdatedCategoryInfo
         );
 
-        res.status(200).json(UpdatedCategoryInfo);
+        res.status(200).json(UpdatedCategory);
     } catch (error) {
         next(error);
     }
@@ -73,11 +73,11 @@ adminRouter.delete('/category/:categoryId', async (req, res, next) => {
     try {
         const { categoryId } = req.params;
 
-        const deleteCategoryInfo = await categoryService.deleteCategory(
+        const deletedCategory = await categoryService.deleteCategory(
             categoryId
         );
 
-        res.status(200).json(deleteCategoryInfo);
+        res.status(200).json(deletedCategory);
     } catch (error) {
         next(error);
     }
@@ -152,10 +152,10 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
             madeBy,
             inventory,
             sellCount,
-            src,
+            mainImage,
         } = req.body;
 
-        const toUpdate = {
+        const updatedProductInfo = {
             ...(categoryId && { categoryId }),
             ...(name && { name }),
             ...(price && { price }),
@@ -163,15 +163,15 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
             ...(madeBy && { madeBy }),
             ...(inventory && { inventory }),
             ...(sellCount && { sellCount }),
-            ...(src && { src }),
+            ...(mainImage && { mainImage }),
         };
 
-        const updatedProductInfo = await productService.setProduct(
+        const updatedProduct = await productService.setProduct(
             productId,
-            toUpdate
+            updatedProductInfo
         );
 
-        res.status(200).json(updatedProductInfo);
+        res.status(200).json(updatedProduct);
     } catch (error) {
         next(error);
     }
@@ -182,9 +182,9 @@ adminRouter.delete('/product/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
 
-        const deleteProductInfo = await productService.deleteProduct(productId);
+        const deletedProduct = await productService.deleteProduct(productId);
 
-        res.status(200).json(deleteProductInfo);
+        res.status(200).json(deletedProduct);
     } catch (error) {
         next(error);
     }
