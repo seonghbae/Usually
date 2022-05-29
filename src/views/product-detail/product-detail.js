@@ -7,8 +7,8 @@ const madeBy = document.querySelector('#madeBy');
 const name = document.querySelector('#name');
 const description = document.querySelector('#description');
 const price = document.querySelector('#price');
-const inventoryButton = document.querySelector('#inventoryButton');
-const buyButton = document.querySelector('#buyButton');
+const inventoryButton = document.querySelector('#inventory-button');
+const buyButton = document.querySelector('#purchase-button');
 
 addAllElements();
 addAllEvents();
@@ -28,7 +28,7 @@ async function addToInventory() {
     const productId = location.pathname.split("/")[2];
 
     try {
-        const data = await Api.get('/product', productId);
+        const data = await Api.get('/productInfo', productId);
         localStorage.setItem(data.productId, JSON.stringify(data));
     } catch (err) {
         console.error(err.stack);
@@ -45,7 +45,7 @@ async function showProductDetail() {
     
     try {
         // api로 데이터를 받아옴
-        const data = await Api.get('/product', productId);
+        const data = await Api.get('/productInfo', productId);
         image.src = data.src;
         madeBy.innerHTML = data.madeBy;
         name.innerHTML = data.name;

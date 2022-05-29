@@ -2,7 +2,7 @@ import * as Api from '/api.js';
 import { addCommas } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
-const productItemContainer = document.querySelector('#productItemContainer');
+const productItemContainer = document.querySelector('#product-item-container');
 
 addAllElements();
 addAllEvents();
