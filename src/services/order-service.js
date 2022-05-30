@@ -26,15 +26,15 @@ class OrderService {
     return orders;
   }
 
-  async getOrder(shortId){
-    const order = await this.orderModel.findById(shortId);
+  async getOrder(orderId){
+    const order = await this.orderModel.findById(orderId);
     return order;
   }
 
-  async deleteOrder(shortId){
+  async deleteOrder(orderId){
 
      //해당 주문 정보가 존재하는지 확인
-     let order = await this.orderModel.findById(shortId);
+     let order = await this.orderModel.findById(orderId);
  
      // db에서 찾지 못한 경우, 에러 메시지 반환
      if (!order) {
@@ -43,7 +43,7 @@ class OrderService {
  
      // 주문 취소 시작
      order = await this.orderModel.deleteOneOrder({
-       shortId
+      orderId
      });
  
      return order;
