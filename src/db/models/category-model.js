@@ -4,6 +4,23 @@ import { CategorySchema } from '../schemas/category-schema';
 const Category = model('category', CategorySchema);
 
 export class CategoryModel {
+    async findByName() {
+        return await Category.distinct('name');
+    }
+
+    async findByGender() {
+        return await Category.distinct('gender');
+    }
+
+    async findByRecommendAge() {
+        return await Category.distinct('recommendAge');
+    }
+
+    async findCategoryId(categoryInfo) {
+        const category = await Category.find(categoryInfo);
+        return category.map((el) => el.categoryId)[0];
+    }
+
     async findByTypeTarget(categoryInfo) {
         let { type, target } = categoryInfo;
         let query = {};
