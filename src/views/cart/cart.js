@@ -12,6 +12,7 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
+    // prevPage();
     // addToInventory();
     showCartList();
     showOrder();
@@ -21,7 +22,30 @@ function addAllElements() {
 function addAllEvents() {
     selectAllCheckbox.addEventListener('change', changeAllCheckbox);
     deleteChecked.addEventListener('click', deleteSelectedProducts);
-    // purchaseButton.addEventListener('click', );
+    purchaseButton.addEventListener('click', purchaseCallback);
+}
+
+// 임시데이터 추가용
+async function addToInventory() {
+    try {
+        const data1 = await Api.get('/productInfo', '29c500');
+        const data2 = await Api.get('/productInfo', '6a980a');
+        const data3 = await Api.get('/productInfo', '604b1d');
+        localStorage.setItem(data1.productId, JSON.stringify(data1));
+        localStorage.setItem(data2.productId, JSON.stringify(data2));
+        localStorage.setItem(data3.productId, JSON.stringify(data3));
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
+}
+
+// 이전 페이지 주소 확인 테스트
+function prevPage() {
+    const previousPage = document.referrer;
+    console.log('이전페이지 URL:', previousPage);
 }
 
 // 모든 체크박스 전체 선택/해제 기능
@@ -49,20 +73,28 @@ function changeSelectAllCheckbox() {
 
 // 선택 상품들 장바구니에서 삭제
 function deleteSelectedProducts() {
+    // e.preventDefault();
+
     const checked = document.querySelectorAll('.product-checkbox:checked');
-    checked.forEach((item) => {
-        const id = item.parentNode.parentNode.id;
-        const productItem = document.querySelector(`#${id}`);
+    checked.forEach((product) => {
+        const id = product.parentNode.parentNode.id.split('-')[1];
+        const productItem = document.querySelector(`#item-${id}`);
         productItem.remove();
         localStorage.removeItem(id);
     });
+
+    showCartList()
 }
 
 // 해당 상품 장바구니에서 삭제
 function deleteProduct(id) {
-    const productItem = document.querySelector(`#${id}`);
+    // e.preventDefault();
+
+    const productItem = document.querySelector(`#item-${id}`);
     productItem.remove();
     localStorage.removeItem(id);
+
+    showCartList()
 }
 
 // 장바구니 상품 수량 변경
@@ -107,40 +139,17 @@ function applyQuantity(id) {
     showOrder();
 }
 
-// 입력으로 들어오는 주소로 이동
-function newPage(productId) {
-    window.location.href = `/product/${productId}`;
-}
-
-// 임시데이터 추가용
-async function addToInventory() {
-    try {
-        const data1 = await Api.get('/productInfo', '29c500');
-        const data2 = await Api.get('/productInfo', '6a980a');
-        const data3 = await Api.get('/productInfo', '604b1d');
-        localStorage.setItem(data1.productId, JSON.stringify(data1));
-        localStorage.setItem(data2.productId, JSON.stringify(data2));
-        localStorage.setItem(data3.productId, JSON.stringify(data3));
-    } catch (err) {
-        console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
-    }
-}
-
 // 장바구니 목록
 function showCartList() {
-    
-
-    const items = [];
+    const products = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        const item = JSON.parse(localStorage.getItem(key));
-        items.push(item);
+        if(key === 'productIds') continue;
+        const product = JSON.parse(localStorage.getItem(key));
+        products.push(product);
     }
 
-    items.forEach((item) => {
+    products.forEach((product) => {
         const checkbox = document.createElement('label');
         checkbox.className = 'checkbox';
         checkbox.innerHTML = `<input type="checkbox" class="product-checkbox" checked>`;
@@ -152,41 +161,41 @@ function showCartList() {
         `<span class="icon">
             <i class="fas fa-trash-can" aria-hidden="true"></i>
         </span>`;
-        deleteButton.addEventListener('click', () => deleteProduct(item.productId));
+        deleteButton.addEventListener('click', () => deleteProduct(product.productId));
         
         const image = document.createElement('figure');
         image.className = 'image is-96x96';
-        image.innerHTML = `<img src="${item.src}" alt="${item.name}">`;
+        image.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
         image.addEventListener('click', () => {});
 
         const minusButton = document.createElement('button');
         minusButton.className = 'button is-rounded';
-        minusButton.setAttribute('id', `minus-${item.productId}`);
+        minusButton.setAttribute('id', `minus-${product.productId}`);
         minusButton.setAttribute('disabled', true);
         minusButton.innerHTML = 
         `<span class="icon is-small">
             <i class="fas fa-thin fa-minus" aria-hidden="true"></i>
         </span>`;
-        minusButton.addEventListener('click', () => changeQuantity('minus', item.productId));
+        minusButton.addEventListener('click', () => changeQuantity('minus', product.productId));
 
         const input = document.createElement('input');
         input.className = 'input';
-        input.setAttribute('id', `input-${item.productId}`);
+        input.setAttribute('id', `input-${product.productId}`);
         input.setAttribute('type', 'number');
         input.setAttribute('min', '1');
         input.setAttribute('max', '99');
         input.setAttribute('value', '1');
-        input.addEventListener('change', () => applyQuantity(item.productId));
+        input.addEventListener('change', () => applyQuantity(product.productId));
 
         const plusButton = document.createElement('button');
         plusButton.className = 'button is-rounded';
-        plusButton.setAttribute('id', `plus-${item.productId}`);
+        plusButton.setAttribute('id', `plus-${product.productId}`);
         minusButton.setAttribute('disabled', false);
         plusButton.innerHTML = 
         `<span class="icon is-small">
             <i class="fas fa-lg fa-plus" aria-hidden="true"></i>
         </span>`;
-        plusButton.addEventListener('click', () => changeQuantity('plus', item.productId));
+        plusButton.addEventListener('click', () => changeQuantity('plus', product.productId));
 
         const quantity = document.createElement('div');
         quantity.className = 'quantity';
@@ -196,29 +205,29 @@ function showCartList() {
 
         const content = document.createElement('div');
         content.className = 'content';
-        content.innerHTML = `<p>${item.name}</p>`;
+        content.innerHTML = `<p>${product.name}</p>`;
         content.appendChild(quantity);
 
         const calculation = document.createElement('div');
         calculation.className = 'calculation';
         calculation.innerHTML = 
-        `<p id="unit-price-${item.productId}">${addCommas(item.price)}원</p>
+        `<p id="unit-price-${product.productId}">${addCommas(Number(product.price))}원</p>
         <p>
             <span class="icon">
                 <i class="fas fa-thin fa-xmark" aria-hidden="true"></i>
             </span>
         </p>
-        <p id="quantity-${item.productId}">${input.value}</p>
+        <p id="quantity-${product.productId}">${input.value}</p>
         <p>
             <span class="icon">
                 <i class="fas fa-thin fa-equals" aria-hidden="true"></i>
             </span>
         </p>
-        <p id="total-${item.productId}">${addCommas(Number(item.price) * Number(input.value))}원</p>`;
+        <p id="total-${product.productId}">${addCommas(Number(product.price) * Number(input.value))}원</p>`;
 
         const productItem = document.createElement('div');
         productItem.className = 'cart-product-item';
-        productItem.setAttribute('id', item.productId);
+        productItem.setAttribute('id', `item-${product.productId}`);
 
         productItem.appendChild(checkbox);
         productItem.appendChild(deleteButton);
@@ -241,14 +250,15 @@ function showOrder() {
     let quantity = 0; 
     let total = 0;
     let delivery = 0;
-    checked.forEach((item) => {
-        const id = item.parentNode.parentNode.id;
-        const itemQuantity = document.querySelector(`#quantity-${id}`);
-        const itemTotal = document.querySelector(`#total-${id}`);
+    checked.forEach((product) => {
+        const productId = product.parentNode.parentNode.id.split('-')[1];
+        const itemQuantity = document.querySelector(`#quantity-${productId}`);
+        const itemTotal = document.querySelector(`#total-${productId}`);
         quantity += Number(itemQuantity.innerHTML);
         total += convertToNumber(itemTotal.innerHTML);
     });
 
+    // 500,000원 이상 구매시 배송비 무료
     if(total > 0 && total < 500000) {
         delivery = 3000;
     }
@@ -257,4 +267,22 @@ function showOrder() {
     productsTotal.innerHTML = `${addCommas(total)}원`;
     deliveryFee.innerHTML = `${addCommas(delivery)}원`;
     totalPrice.innerHTML = `${addCommas(total + delivery)}원`;
+}
+
+// 선택 상품 아이디 배열 저장
+function saveProductIds() {
+
+}
+
+function goToOrderPage() {
+
+}
+
+function purchaseCallback() {
+    const checked = document.querySelectorAll('.product-checkbox:checked');
+    const productIds = [];
+    checked.forEach((product) => productIds.push(product.parentNode.parentNode.id.split('-')[1]));
+    localStorage.setItem('productIds', JSON.stringify(productIds));
+
+    location.href = '/order';
 }
