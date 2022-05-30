@@ -1,12 +1,27 @@
 import { Schema } from 'mongoose';
 import { shortId } from './types/short-id';
 
+const OrderedProductSchema = new Schema({
+    productId:{
+        type:Schema.Types.ObjectId,
+        ref:"products",
+        required:true,
+    },
+    quantity:{
+        type:Number,
+        required:true,
+    },
+},
+{
+    collection:'orderedProducts',
+});
+
 const OrderSchema = new Schema(
     {
         shortId,
-        user:{
+        userId:{
             type: Schema.Types.ObjectId,
-            ref:'User',
+            ref:'users',
             required: true,
             index: true,
         },
@@ -27,22 +42,30 @@ const OrderSchema = new Schema(
             ),
             required: true,
         },
-        message: { //배송시 요청 사항
-            type:String,
-            default: "배송 전 연락 주세요",
+        orderedProducts:[{ 
+            type:Schema.Types.ObjectId,
+            ref:'orderedProducts',
+            required:true,
         },
-        products:[{ 
-            type: new Schema({
-                itemId:String,      //itemId에 product.shortId로 넣는다 
-                itemName: String,   //아이템 이름
-                qty:Number,         //주문한 아이템의 양
-                price:Number,       //각각 가격
-            })
+        {
+            _id: false,
         }],
         totalPrice:{
             type:Number,
             required:true,
-        }
+        },
+        totalQuantity:{
+            type:Number,
+            required:true,
+        },
+        message: { //배송시 요청 사항
+            type:String,
+            default: "배송 전 연락 주세요",
+        },
+        status: {
+            type: String,
+            default: "상품준비중",
+        },
   },
   {
     collection: 'orders',
@@ -50,4 +73,6 @@ const OrderSchema = new Schema(
   }
 );
 
-export { OrderSchema };
+
+
+export { OrderSchema, OrderedProductSchema };

@@ -7,7 +7,7 @@ import { userService } from '../services';
 
 const orderRouter = Router();
 
-// 회원가입 api (아래는 /purchase이지만, 실제로는 /order/purchase로 요청해야 함.)
+// 주문 api (아래는 /purchase이지만, 실제로는 /order/purchase로 요청해야 함.)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 orderRouter.post('/purchase', loginRequired, async (req, res, next) => {
     try {
@@ -19,29 +19,20 @@ orderRouter.post('/purchase', loginRequired, async (req, res, next) => {
             );
         }
 
-    //loginRequired에서 로그인한 회원의 정보 가져오기
-    const user =  await userService.getUser(req.currentUserId);
-
-    if(!user){
-        throw new Error('없는 사용자입니다.');
-    }
-
     // req (request)의 body 에서 데이터 가져오기
 
-    const phoneNumber = req.body.phoneNumber;
-    const address = req.body.address;
-    const message = req.body.message;
-    const products = req.body.products;
-    const totalPrice = req.body.totalPrice;
+    const { phoneNumber, address, orderedProducts, totalPrice, totalQuantity, message, status } = req.body;
 
        // 위 데이터를 유저 db에 추가하기
     const newOrder = await orderService.addOrder({
-      user,
+      userId : req.currentUserId,
       phoneNumber,
       address,
-      message,
-      products,
+      orderedProducts,
       totalPrice,
+      totalQuantity,
+      message,
+      status,
     });
 
     // 추가된 주문 내역의 db 데이터를 프론트에 다시 보내줌
