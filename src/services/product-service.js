@@ -6,60 +6,40 @@ class ProductService {
     }
 
     async getProductsByCategoryIds(categoryIds) {
-        const products = await this.productModel.findByCategoryIds(categoryIds);
-        return products;
+        return await this.productModel.findByCategoryIds(categoryIds);
     }
     //상품 목록을 받음
     async getProducts() {
-        const products = await this.productModel.findAll();
-        return products;
+        return await this.productModel.findAll();
     }
 
     //카테고리의 상품 목록을 받음
     async getCategoryProducts(categoryId) {
-        const categoryProducts = await this.productModel.findByCategory(
-            categoryId
-        );
-        return categoryProducts;
+        return await this.productModel.findByCategory(categoryId);
     }
 
     //상품 상세 정보를 받음
     async getProduct(productId) {
-        const product = await this.productModel.findById(productId);
-        return product;
+        return this.productModel.findById(productId);
     }
 
     //상품을 생성함
     async addProduct(productInfo) {
-        const {
-            name,
-            price,
-            description,
-            madeBy,
-            category,
-            inventory,
-            sellCount,
-        } = productInfo;
-
-        const createNewProduct = await this.productModel.create(productInfo);
-
-        return createNewProduct;
+        return await this.productModel.create(productInfo);
     }
 
     //상품을 수정함
-    async setProduct(productId, toUpdate) {
+    async setProduct(productId, updatedProductInfo) {
         let product = await this.productModel.findById(productId);
 
         if (!product) {
             throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
 
-        product = await this.productModel.update({
+        return await this.productModel.update({
             productId,
-            update: toUpdate,
+            update: updatedProductInfo,
         });
-
-        return product;
     }
 
     //상품을 삭제함
@@ -70,9 +50,7 @@ class ProductService {
             throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
 
-        product = await this.productModel.delete({ productId });
-
-        return product;
+        return await this.productModel.delete({ productId });
     }
 }
 
