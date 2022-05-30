@@ -23,7 +23,6 @@ const OrderSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref:'users',
             required: true,
-            index: true,
         },
         phoneNumber: {
             type: String,

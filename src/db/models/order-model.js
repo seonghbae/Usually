@@ -11,8 +11,8 @@ export class OrderModel {
   }
   //User의 shortId로 주문 내역 전부 찾기
 
-  async findById(shortId){
-    const order = await Order.findOne({shortId});
+  async findById(orderId){
+    const order = await Order.findOne({shortId : orderId});
     return order;
   }
   //Order의 shortId로 주문 내역 찾기

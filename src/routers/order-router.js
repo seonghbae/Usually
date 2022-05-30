@@ -2,9 +2,7 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
-import { orderService } from '../services';
-import { userService } from '../services';
-
+import { orderService, userService } from '../services';
 const orderRouter = Router();
 
 // 주문 api (아래는 /purchase이지만, 실제로는 /order/purchase로 요청해야 함.)
@@ -58,7 +56,7 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
         }
     
         // 주문 목록 전부 반환
-        const orders = await orderService.getOrdersByUser(user.id);
+        const orders = await orderService.getOrdersByUser(user.shortId);
         
         //주묵 목록(배열)을 JSON 형태로 프론트에 보냄
         res.status(200).json(orders);
@@ -73,10 +71,10 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
 orderRouter.get('/list/:shortId', loginRequired, async function(req, res, next){
     try {
 
-        const shortId = req.params.shortId;
+        const orderId = req.params.shortId;
     
         // 주문 목록 전부 반환
-        const order = await orderService.getOrder(shortId);
+        const order = await orderService.getOrder(orderId);
 
         if(!order){
             throw new Error('존재하지 않는 주문 내역입니다.');
@@ -97,10 +95,10 @@ orderRouter.delete('/cancel/:shortId', loginRequired, async function (req, res, 
     try {
        
 
-    const shortId  = req.params.shortId;
+    const orderId  = req.params.shortId;
 
 
-    const deletedOrder = await orderService.deleteOrder(shortId);
+    const deletedOrder = await orderService.deleteOrder(orderId);
 
 
     if(!deletedOrder){
