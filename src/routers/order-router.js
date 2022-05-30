@@ -2,9 +2,7 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
-import { orderService } from '../services';
-import { userService } from '../services';
-
+import { orderService, userService } from '../services';
 const orderRouter = Router();
 
 // 주문 api (아래는 /purchase이지만, 실제로는 /order/purchase로 요청해야 함.)
@@ -43,41 +41,6 @@ orderRouter.post('/purchase', loginRequired, async (req, res, next) => {
   }
 });
 
-// 관리자가 주문 내역 전부 확인하는 api (아래는 /orderlist 이지만, 실제로는 /order/orderlist로 요청해야 함.)
-// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-orderRouter.get('/orderlist', loginRequired, async function (req, res, next) {
-    try {
-        
-    //loginRequired에서 로그인한 회원의 정보 가져오기
-    const user =  await userService.getUser(req.currentUserId);
-
-    if(!user){
-        throw new Error('없는 사용자입니다.');
-    }
-
-    //관리자가 아닐 경우 접근할 수 없도록 return
-    if(user.role != 'admin'){
-        console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
-    res.status(403).json({
-      result: 'forbidden-approach',
-      reason: '관리자만 사용할 수 있는 서비스입니다.',
-    });
-
-  
-    return;
-    }
-
-
-    // 주문 목록 전부 반환
-    const orders = await orderService.getOrders();
-    
-    //주묵 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json(orders);
-    
-  } catch (error) {
-    next(error);
-  }
-});
 
 //회원의 주문 목록 확인 api (아래는 /list 이지만, 실제로는 /purchase/list으로 요청해야 함.)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
@@ -93,7 +56,7 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
         }
     
         // 주문 목록 전부 반환
-        const orders = await orderService.getOrdersByUser(user.id);
+        const orders = await orderService.getOrdersByUser(user.shortId);
         
         //주묵 목록(배열)을 JSON 형태로 프론트에 보냄
         res.status(200).json(orders);
@@ -108,10 +71,10 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
 orderRouter.get('/list/:shortId', loginRequired, async function(req, res, next){
     try {
 
-        const shortId = req.params.shortId;
+        const orderId = req.params.shortId;
     
         // 주문 목록 전부 반환
-        const order = await orderService.getOrder(shortId);
+        const order = await orderService.getOrder(orderId);
 
         if(!order){
             throw new Error('존재하지 않는 주문 내역입니다.');
@@ -132,10 +95,10 @@ orderRouter.delete('/cancel/:shortId', loginRequired, async function (req, res, 
     try {
        
 
-    const shortId  = req.params.shortId;
+    const orderId  = req.params.shortId;
 
 
-    const deletedOrder = await orderService.deleteOrder(shortId);
+    const deletedOrder = await orderService.deleteOrder(orderId);
 
 
     if(!deletedOrder){

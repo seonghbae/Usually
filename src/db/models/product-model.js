@@ -5,54 +5,43 @@ const Product = model('product', ProductSchema);
 
 export class ProductModel {
     async findByCategoryIds(categoryIds) {
-        const products = await Product.find({
+        //Product의 categoryId가 categoryIds 배열에 속한 값과 같은 것을 찾기
+        return await Product.find({
             categoryId: { $in: categoryIds },
         });
-        return products;
     }
 
     async findAll() {
-        const products = await Product.find({});
-        return products;
+        return await Product.find({});
     }
 
     async findByCategory(categoryId) {
-        const products = await Product.find({ categoryId });
-        return products;
+        return await Product.find({ categoryId });
     }
 
     async findById(productId) {
-        const product = await Product.findOne({ productId });
-        return product;
+        return await Product.findOne({ productId });
     }
 
     async create(productInfo) {
-        const createdNewProduct = await Product.create(productInfo);
-        return createdNewProduct;
+        return await Product.create(productInfo);
     }
 
     async findById(productId) {
-        const product = await Product.findOne({ productId });
-        return product;
+        return await Product.findOne({ productId });
     }
 
     async update({ productId, update }) {
         const filter = { productId };
         const option = { returnOriginal: false };
-
-        const updateProduct = await Product.findOneAndUpdate(
-            filter,
-            update,
-            option
-        );
-        return updateProduct;
+        //updateOne, findByIdAndUpdate
+        return await Product.findOneAndUpdate(filter, update, option);
     }
 
     async delete({ productId }) {
         const filter = { productId };
-
-        const deleteProduct = await Product.deleteOne(filter);
-        return deleteProduct;
+        //findOneAndDelete
+        return await Product.deleteOne(filter);
     }
 }
 
