@@ -12,9 +12,15 @@ const upload = multer({
     storage: multerS3({
         s3,
         bucket: process.env.BUCKET,
-        acl: 'public-read-write',
+        acl: 'public-read',
         key: function (req, file, cb) {
-            cb(null, file.originalname);
+            cb(
+                null,
+                'images/origin/' +
+                    Date.now() +
+                    '.' +
+                    file.originalname.split('.').pop()
+            );
         },
     }),
 });
