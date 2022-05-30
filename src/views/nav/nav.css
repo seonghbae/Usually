@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 li {
     text-decoration: none;
 }
@@ -83,8 +82,7 @@ button {
 
 .main-nav-menu {
     padding: 15px 3vw 15px 3vw;
-    font-size: 0.9rem;
-    
+    font-size: 0.9rem; 
     font-weight: bold;
 }
 
