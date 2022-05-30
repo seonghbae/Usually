@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { userService } from '../services';
 
 function loginRequired(req, res, next) {
     // request 헤더로부터 authorization bearer 토큰을 받음.
