@@ -1,3 +1,4 @@
+import * as Api from '/api.js';
 import { addCommas, convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
@@ -11,6 +12,7 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
+    // addToInventory();
     showCartList();
     showOrder();
 }
@@ -110,8 +112,27 @@ function newPage(productId) {
     window.location.href = `/product/${productId}`;
 }
 
+// 임시데이터 추가용
+async function addToInventory() {
+    try {
+        const data1 = await Api.get('/productInfo', '29c500');
+        const data2 = await Api.get('/productInfo', '6a980a');
+        const data3 = await Api.get('/productInfo', '604b1d');
+        localStorage.setItem(data1.productId, JSON.stringify(data1));
+        localStorage.setItem(data2.productId, JSON.stringify(data2));
+        localStorage.setItem(data3.productId, JSON.stringify(data3));
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
+}
+
 // 장바구니 목록
 function showCartList() {
+    
+
     const items = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
