@@ -12,7 +12,6 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
-    // prevPage();
     // addToInventory();
     showCartList();
     showOrder();
@@ -42,12 +41,6 @@ async function addToInventory() {
     }
 }
 
-// 이전 페이지 주소 확인 테스트
-function prevPage() {
-    const previousPage = document.referrer;
-    console.log('이전페이지 URL:', previousPage);
-}
-
 // 모든 체크박스 전체 선택/해제 기능
 function changeAllCheckbox() {
     const checkboxes = document.querySelectorAll('.product-checkbox');
@@ -73,8 +66,6 @@ function changeSelectAllCheckbox() {
 
 // 선택 상품들 장바구니에서 삭제
 function deleteSelectedProducts() {
-    // e.preventDefault();
-
     const checked = document.querySelectorAll('.product-checkbox:checked');
     checked.forEach((product) => {
         const id = product.parentNode.parentNode.id.split('-')[1];
@@ -82,19 +73,15 @@ function deleteSelectedProducts() {
         productItem.remove();
         localStorage.removeItem(id);
     });
-
-    showCartList()
+    showOrder();
 }
 
 // 해당 상품 장바구니에서 삭제
 function deleteProduct(id) {
-    // e.preventDefault();
-
     const productItem = document.querySelector(`#item-${id}`);
     productItem.remove();
     localStorage.removeItem(id);
-
-    showCartList()
+    showOrder();
 }
 
 // 장바구니 상품 수량 변경
@@ -269,15 +256,7 @@ function showOrder() {
     totalPrice.innerHTML = `${addCommas(total + delivery)}원`;
 }
 
-// 선택 상품 아이디 배열 저장
-function saveProductIds() {
-
-}
-
-function goToOrderPage() {
-
-}
-
+// 선택 상품 아이디 배열 저장, 이동
 function purchaseCallback() {
     const checked = document.querySelectorAll('.product-checkbox:checked');
     const productIds = [];
