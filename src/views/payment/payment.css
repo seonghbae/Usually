@@ -7,80 +7,39 @@
     border-bottom: 1px solid;
 }
 
-.title {
-    padding: 1rem 0 0 1rem;
+.cart-header .title {
+    margin-bottom: 0;
+    padding-top: 2rem;
 }
 
-.subtitle {
+.title:not(.is-spaced)+.subtitle {
+    margin-top: 0;
+}
+
+.cart-header .subtitle {
     padding: 3rem 1rem 0;
+}
+
+.subtitle:not(.is-spaced)+.title {
+    margin-top: 0;
 }
 
 .cart-products-container {
     width: 100%;
 }
 
-.cart-products-header {
-    display: flex;
-    border-bottom: 1px solid;
-    margin-bottom: 1rem;
+.cart-products {
+    flex: none;
+    height: 100%;
+    width: 60%;
 }
 
-.checkbox {
-    cursor: pointer;
-    cursor: pointer;
-    position: relative;
+.delivery-info {
+    width: 100%;
 }
 
-.delete-checked {
-    cursor: pointer;
-}
-
-.cart-product-item {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.cart-product-item label {
-    position: absolute;
-    left: 0;
-}
-
-.delete-button {
-    cursor: pointer;
-    position: absolute;
-    right: -0.5rem;
-}
-
-.image {
-    cursor: pointer;
-    position: relative;
-    margin-left: 4rem;
-}
-
-
-.quantity {
-    display: flex;
-}
-
-.content {
-    text-align: center;
-    font-size: 1.4rem;
-    margin-left: 4rem;
-}
-
-.input {
-    text-align: center;
-}
-
-.calculation {
-    display: flex;
-    margin-left: 4rem;
-}
-
-.calculation p {
-    display: block;
-    font-size: 1.4rem;
+.label {
+    text-align: left;
 }
 
 .order {
@@ -88,9 +47,9 @@
     width: 100%;
 }
 
-.header {
+.order .header {
     border-bottom: 1px solid;
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
 .order-info {
@@ -100,7 +59,7 @@
 
 .info {
     display: flex;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     justify-content: space-between;
     margin-top: 1.2rem;
 }
@@ -111,18 +70,18 @@
 
 .total {
     display: flex;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 700;
     justify-content: space-between;
     margin-top: 1.5rem;
 }
 
-.purchase {
+.payment {
     margin-top: 3rem;
 }
 
-.purchase button {
-    font-size: 1.6rem;
+.payment button {
+    font-size: 1.4rem;
     font-weight: 800;
     height: 4rem;
     width: 100%;
