@@ -28,54 +28,30 @@ async function showProductList() {
     const target = splitLocation[3];
     try {
         // api로 데이터를 받아옴
-        const datas = await Api.get('/productInfo', `${type}/${target}`);
+        const products = await Api.get('/productInfo', `${type}/${target}`);
 
         productItemContainer.innerHTML = '';
-        let tileAncestorTag;
 
-        datas.forEach((data, index, array) => {
-            if (index % 4 === 0) {
-                tileAncestorTag = document.createElement('div');
-                tileAncestorTag.classList.add('tile', 'is-ancestor');
-                tileAncestorTag.innerHTML = '';
-            }
-
-            const tileParentTag = document.createElement('div');
-            tileParentTag.classList.add('tile', 'is-parent');
-
-            const tileChildTag = document.createElement('article');
-            tileChildTag.classList.add('tile', 'is-child');
-            tileChildTag.setAttribute('id', data.productId);
+        products.forEach((product) => {
+            const itemTag = document.createElement('div');
+            itemTag.className = 'item';
+            itemTag.setAttribute('id', product.productId);
 
             const imageTag = document.createElement('figure');
             imageTag.classList.add('image', 'is-square');
-            imageTag.innerHTML = `<img src="${data.src}" alt="${data.name}">`;
+            imageTag.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
             // 상품 클릭시 해당 상품 상세 페이지로 이동
-            imageTag.addEventListener('click', () => newPage(data.productId));
+            imageTag.addEventListener('click', () => newPage(product.productId));
 
             const contentTag = document.createElement('div');
             contentTag.classList.add('content', 'has-text-centered');
             contentTag.innerHTML = 
-            `<strong>${data.name}</strong>
-            <p>${addCommas(data.price)}원</p>`;
+            `<strong>${product.name}</strong>
+            <p>${addCommas(product.price)}원</p>`;
 
-            tileChildTag.appendChild(imageTag);
-            tileChildTag.appendChild(contentTag);
-            tileParentTag.appendChild(tileChildTag);
-            tileAncestorTag.appendChild(tileParentTag);
-
-            if (index % 4 === 3) {
-                productItemContainer.appendChild(tileAncestorTag);
-            } else if (index === array.length - 1 && index % 4 !== 3) {
-                // Bulma css tile로 구성하니까 한 줄에 4개 들어가도록 구성
-                // 한 줄에 넣은 개수대로 1/n 로 한 줄을 채워서 4개 되도록 빈공간 삽입
-                for (let i = index % 4; i < 3; i++) {
-                    const emptyDivTag = document.createElement('div');
-                    emptyDivTag.classList.add('tile', 'is-parent');
-                    tileAncestorTag.appendChild(emptyDivTag);
-                }
-                productItemContainer.appendChild(tileAncestorTag);
-            }
+            itemTag.appendChild(imageTag);
+            itemTag.appendChild(contentTag);
+            productItemContainer.appendChild(itemTag);
         });
     } catch (err) {
         console.error(err.stack);
