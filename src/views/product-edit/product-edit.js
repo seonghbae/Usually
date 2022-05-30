@@ -15,6 +15,7 @@ const productId = location.pathname.split("/")[4];
 async function getProductData(productId) {
     try {
         const data = await Api.get('/productInfo', productId);
+        console.log(data, productId);
         return data;
     } catch (err) {
         console.error(err.stack);
@@ -86,10 +87,33 @@ async function formValueSetting(productId){
     document.querySelector('#descriptionInput').value = description;
     // 사진의 경우 value를 설정해주지 않고 span의 text만 갱신해준다.
     document.querySelector('#fileNameSpan').innerText = src.split('.com/')[1];
+    const previewImage = document.getElementById("preview-image")
+    previewImage.src = src;
     document.querySelector('#inventoryInput').value = inventory;
     document.querySelector('#sellCountInput').value = sellCount;
     document.querySelector('#priceInput').value = price;
 };
+
+function readImage(input) {
+    // 인풋 태그에 파일이 있는 경우
+    if(input.files && input.files[0]) {
+        // FileReader 인스턴스 생성
+        const reader = new FileReader();
+        // 이미지가 로드가 된 경우
+        reader.onload = e => {
+            const previewImage = document.getElementById("preview-image")
+            previewImage.src = e.target.result
+        };
+        // reader가 이미지 읽도록 하기
+        reader.readAsDataURL(input.files[0]);
+    };
+};
+// input file에 change 이벤트 부여
+const inputImage = document.getElementById("imageInput")
+inputImage.addEventListener("change", e => {
+    readImage(e.target)
+});
+
 
 formValueSetting(productId);
 

@@ -112,6 +112,7 @@
 
 				<div class="field is-fullwidth">
 					<label class="label" for="imageInput">제품 사진</label>
+					<img id="preview-image" src="https://dummyimage.com/600x500/ffffff/000000.png&text=preview+image">
 					<div id="file-form-container" class="file has-name is-fullwidth">
 					<label class="file-label">
 						<input class="file-input" id="imageInput" type="file" name="src" accept=".png, .jpeg, .jpg">
@@ -131,7 +132,7 @@
 				<div class="field">
 					<label class="label" for="inventoryInput">재고 수</label>
 					<div class="control">
-						<input class="input" id="inventoryInput" name="inventory" type="number" placeholder="10" autocomplete="on">
+						<input class="input" id="inventoryInput" name="inventory" min="0" type="number" placeholder="10" autocomplete="on">
 					</div>
 				</div>
 
@@ -139,7 +140,7 @@
 					<label class="label" for="priceInput">가격</label>
 					<div class="field">
 						<div class="control has-icons-right">
-							<input class="input" id="priceInput" name="price" type="number" placeholder="10000" autocomplete="on">
+							<input class="input" id="priceInput" name="price" min="0" type="number" placeholder="10000" autocomplete="on">
 							<span class="icon is-small is-right"> 원 </span>
 						</div>
 					</div>
