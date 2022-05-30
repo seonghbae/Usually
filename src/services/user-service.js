@@ -171,7 +171,6 @@ async addUser(userInfo) {
         user = await this.userModel.deleteOneUser({
             shortId,
         });
-        console.log('삭제 성공 ~_~');
         return user;
     }
 

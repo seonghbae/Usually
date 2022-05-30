@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { categoryService, productService } from '../services';
+import { loginRequired } from '../middlewares';
+import { categoryService, productService, userService, orderService } from '../services';
+const jwt = require('jsonwebtoken'); 
 
 const adminRouter = Router();
 
@@ -7,9 +9,65 @@ adminRouter.get('/', (req, res, next) => {
     res.send('admin main page');
 });
 
-//전체 카테고리 목록을 가져옴
-adminRouter.get('/category', async (req, res, next) => {
+// ***********
+// USER API
+// 전체 유저 목록을 가져옴 (배열 형태임)
+// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+adminRouter.get('/userlist', loginRequired, async function (req, res, next) {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
+
+        // 전체 사용자 목록을 얻음
+        const users = await userService.getUsers();
+
+        // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+        res.status(200).json(users);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// ***********
+// CATEGORI API
+//전체 카테고리 목록을 가져옴
+adminRouter.get('/category', loginRequired, async (req, res, next) => {
+    try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
+
         const categories = await categoryService.getCategories();
 
         res.status(200).json(categories);
@@ -19,8 +77,26 @@ adminRouter.get('/category', async (req, res, next) => {
 });
 
 //선택한 카테고리의 상세 정보를 가져옴
-adminRouter.get('/category/:categoryId', async (req, res, next) => {
+adminRouter.get('/category/:categoryId', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { categoryId } = req.params;
         const category = await categoryService.getCategory(categoryId);
 
@@ -31,8 +107,26 @@ adminRouter.get('/category/:categoryId', async (req, res, next) => {
 });
 
 //카테고리 생성
-adminRouter.post('/category/create', async (req, res, next) => {
+adminRouter.post('/category/create', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { name, gender, recommendAge } = req.body;
         const newCategory = await categoryService.AddCategory({
             name,
@@ -47,8 +141,26 @@ adminRouter.post('/category/create', async (req, res, next) => {
 });
 
 //카테고리 수정
-adminRouter.patch('/category/:categoryId', async (req, res, next) => {
+adminRouter.patch('/category/:categoryId', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { categoryId } = req.params;
         const { name, gender, recommendAge } = req.body;
         const toUpdate = {
@@ -69,8 +181,26 @@ adminRouter.patch('/category/:categoryId', async (req, res, next) => {
 });
 
 //카테고리 삭제
-adminRouter.delete('/category/:categoryId', async (req, res, next) => {
+adminRouter.delete('/category/:categoryId', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { categoryId } = req.params;
 
         const deleteCategoryInfo = await categoryService.deleteCategory(
@@ -83,9 +213,29 @@ adminRouter.delete('/category/:categoryId', async (req, res, next) => {
     }
 });
 
+// ***********
+// PRODUCT API
 //전체 상품 목록을 가져옴
-adminRouter.get('/product', async (req, res, next) => {
+adminRouter.get('/product', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const products = await productService.getProducts();
 
         res.status(200).json(products);
@@ -95,8 +245,26 @@ adminRouter.get('/product', async (req, res, next) => {
 });
 
 //선택한 상품의 상세 정보를 가져옴
-adminRouter.get('/product/:productId', async (req, res, next) => {
+adminRouter.get('/product/:productId', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { productId } = req.params;
         const product = await productService.getProduct(productId);
 
@@ -107,8 +275,26 @@ adminRouter.get('/product/:productId', async (req, res, next) => {
 });
 
 //상품 생성
-adminRouter.post('/product/create', async (req, res, next) => {
+adminRouter.post('/product/create', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const {
             // categoryId,
             name,
@@ -134,8 +320,26 @@ adminRouter.post('/product/create', async (req, res, next) => {
 });
 
 //상품 수정
-adminRouter.patch('/product/:productId', async (req, res, next) => {
+adminRouter.patch('/product/:productId', loginRequired, async (req, res, next) => {
     try {
+
+        const user = await userService.getUser(req.currentUserId);
+
+        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        if(!user){
+            throw new Error("없는 회원입니다.");
+        }
+        if(user.role !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { productId } = req.params;
 
         const {
@@ -172,8 +376,21 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
 });
 
 //상품 삭제
-adminRouter.delete('/product/:productId', async (req, res, next) => {
+adminRouter.delete('/product/:productId', loginRequired, async (req, res, next) => {
     try {
+
+         //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+         if(req.currentUserRole !== 'admin'){
+            console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+        res.status(403).json({
+          result: 'forbidden-approach',
+          reason: '관리자만 사용할 수 있는 서비스입니다.',
+        });
+    
+      
+        return;
+        }
+
         const { productId } = req.params;
 
         const deleteProductInfo = await productService.deleteProduct(productId);
@@ -183,5 +400,46 @@ adminRouter.delete('/product/:productId', async (req, res, next) => {
         next(error);
     }
 });
+
+
+// ***********
+// ORDER API
+// 관리자가 주문 내역 전부 확인하는 api (아래는 /orderlist 이지만, 실제로는 /order/orderlist로 요청해야 함.)
+// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+adminRouter.get('/orderlist', loginRequired, async function (req, res, next) {
+    try {
+        
+    //loginRequired에서 로그인한 회원의 정보 가져오기
+    const user =  await userService.getUser(req.currentUserId);
+
+    if(!user){
+        throw new Error('없는 사용자입니다.');
+    }
+
+    //관리자가 아닐 경우 접근할 수 없도록 return
+    if(user.role !== 'admin'){
+        console.log('서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.');
+    res.status(403).json({
+      result: 'forbidden-approach',
+      reason: '관리자만 사용할 수 있는 서비스입니다.',
+    });
+
+  
+    return;
+    }
+
+
+    // 주문 목록 전부 반환
+    const orders = await orderService.getOrders();
+    
+    //주묵 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(orders);
+    
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 export { adminRouter };
