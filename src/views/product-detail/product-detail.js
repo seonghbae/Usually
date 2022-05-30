@@ -8,7 +8,7 @@ const name = document.querySelector('#name');
 const description = document.querySelector('#description');
 const price = document.querySelector('#price');
 const inventoryButton = document.querySelector('#inventory-button');
-const buyButton = document.querySelector('#purchase-button');
+const purchaseButton = document.querySelector('#purchase-button');
 
 addAllElements();
 addAllEvents();
@@ -21,6 +21,7 @@ function addAllElements() {
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
     inventoryButton.addEventListener('click', addToInventory);
+    purchaseButton.addEventListener('click', purchaseCallback);
 }
 
 // 장바구니 클릭시 localStorage에 항목 저장
@@ -57,4 +58,10 @@ async function showProductDetail() {
             `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
         );
     }
+}
+
+// 선택 상품 아이디 배열 저장, 이동
+function purchaseCallback() {
+    localStorage.setItem('productIds', JSON.stringify([ location.pathname.split("/")[2] ]));
+    location.href = '/payment';
 }
