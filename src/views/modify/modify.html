@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>쇼핑-데모</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css 관련 -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="modify.css" />
+        <script src="modify.js" type="module" defer></script>
+        <!-- navbar, footer 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../nav/nav.css" />
+        <link rel="stylesheet" href="../footer/footer.css" />
+        <script src="../nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(document).ready(function () {
+                $('#nav-placeholder').load('../nav/nav.html', () => {
+                    navFunc();
+                });
+            });
+        </script>
+        <h1 class="modify-greeting">회원정보 수정</h1>
+        <div class="modify-form-container">
+            <form class="modify-form-box" id="modifyForm">
+                <div class="field">
+                    <label class="label" for="fullNameInput">이름</label>
+                    <p class="control has-icons-left has-icons-right">
+                        <input
+                            class="input"
+                            type="text"
+                            id="full-name-modify"
+                            value="이름"
+                            readonly
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-x"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <label class="label" for="email-modify">이메일 수정</label>
+                    <p class="control has-icons-left">
+                        <input
+                            class="input"
+                            type="email"
+                            id="email-modify"
+                            placeholder="기존이메일"
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="password-check"
+                        >기존 비밀번호</label
+                    >
+                    <p class="control has-icons-left">
+                        <input
+                            class="input"
+                            type="text"
+                            id="password-check"
+                            placeholder="*****"
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <label class="label" for="password-modify"
+                        >새 비밀번호</label
+                    >
+                    <p class="control has-icons-left">
+                        <input
+                            class="input"
+                            type="text"
+                            id="password-modify"
+                            placeholder="*****"
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="modify-button-container">
+                    <button
+                        class="button is-danger is-large"
+                        id="modify-button"
+                    >
+                        수정하기
+                    </button>
+                    <button
+                        class="button is-danger is-large"
+                        id="delete-button"
+                    >
+                        회원 탈퇴
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!--footer-->
+        <div id="footer-placeholder"></div>
+
+        <script>
+            $(function () {
+                $('#footer-placeholder').load('../footer/footer.html');
+            });
+        </script>
+    </body>
+</html>

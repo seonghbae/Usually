@@ -4,13 +4,14 @@ import { UserSchema } from '../schemas/user-schema';
 const User = model('users', UserSchema);
 
 export class UserModel {
+
   async findByEmail(email) {
     const user = await User.findOne({ email });
     return user;
   }
 
-  async findById(userId) {
-    const user = await User.findOne({ _id: userId });
+  async findById(shortId) {
+    const user = await User.findOne({ shortId });
     return user;
   }
 
@@ -24,13 +25,21 @@ export class UserModel {
     return users;
   }
 
-  async update({ userId, update }) {
-    const filter = { _id: userId };
+  async update({ shortId, update }) {
+    const filter = { shortId };
     const option = { returnOriginal: false };
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
   }
+
+  async deleteOneUser({shortId}) {
+    const filter = { shortId };
+    
+    const deletedUser = await User.deleteOne(filter);
+    return deletedUser;
+  }
+
 }
 
 const userModel = new UserModel();

@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+li {
+    text-decoration: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input,
+button {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    background: none;
+}
+
+.navbar {
+    margin-left: 12vh;
+    margin-right: 12vh;
+}
+
+.nav-icon {
+    padding-right: 0.5vw;
+}
+
+/* 세로 가운데 정렬용 */
+.my-auto {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}
+
+/* top-navbar */
+.navbar-end {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.navbar-burger {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.navbar-item {
+    font-size: 0.8rem;
+}
+
+.navbar-item:hover {
+    color: #ffae96 !important;
+}
+
+.navbar-end a {
+    text-align: right;
+}
+
+/* sticky-nav메뉴 css */
+.main-nav {
+    display: flex;
+    height: 55px;
+    border-bottom: 1px solid black;
+}
+
+.stickyToTop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000000;
+    width: 100%;
+    background-color: white;
+}
+
+.main-nav-menu-container {
+    display: flex;
+    width: 60%;
+    margin-left: 10vh;
+}
+
+.main-nav-menu {
+    padding: 15px 3vw 15px 3vw;
+    font-size: 0.9rem;
+    
+    font-weight: bold;
+}
+
+
+.main-nav-recommend-menu-container {
+    display: flex;
+    margin-left: 3vw;
+}
