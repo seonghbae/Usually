@@ -1,5 +1,34 @@
-#category-container {
-    margin: 5rem auto;
-    width: 80%;
-    border: 1px solid black;
+#main-container {
+    max-width:1000px!important;
+    margin:8rem auto 2rem;
+}
+
+.title-container{
+    display: flex;
+}
+
+.title {
+    font-size: 2rem;
+}
+.category-add{
+    margin-left: auto;
+}
+
+.category-container{
+    margin-top: 2rem;
+}
+
+.category-top {
+    border-bottom:1px solid #aaa;
+    padding:0;
+    text-align:center;
+}
+
+.category-item {
+    align-items:center;
+    text-align:center;
+}
+
+#category-edit-container {
+    display: none;
 }
