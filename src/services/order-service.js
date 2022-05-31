@@ -10,7 +10,14 @@ class OrderService {
   async addOrder(orderInfo) {
 
     // db에 저장
-    const createdNewOrder = await this.orderModel.create(orderInfo);
+    const productIds = [];
+
+    for(var i = 0; i< orderInfo.orderedProducts.length; i++){
+      const orderedProduct = await this.orderModel.createOrderedProducts(orderInfo.orderedProducts[i]);
+      productIds.push(orderedProduct._id);
+    }
+    
+    const createdNewOrder = await this.orderModel.create(orderInfo, productIds);
 
    return createdNewOrder;
   }
@@ -30,6 +37,24 @@ class OrderService {
     const order = await this.orderModel.findById(orderId);
     return order;
   }
+
+  async setOrder(orderId, toUpdate){
+
+    //해당 id의 주문 내역이 db에 있는지 확인
+    let order = await this.orderModel.findById(orderId);
+
+    if(!order){
+      throw new Error('주문 내역이 없습니다. 다시 한 번 확인해 주세요.');
+    }
+
+    order = await this.userModel.update({
+      orderId,
+      update: toUpdate,
+  });
+
+    return order;
+  }
+
 
   async deleteOrder(orderId){
 

@@ -65,7 +65,7 @@ userRouter.post('/login', async function (req, res, next) {
             expires: expiryDate,
             httpOnly: true,
             signed: true,
-        }).cookie('login', 'true').status.json(userToken);
+        }).cookie('login', 'true').status(200).json(userToken);
     } catch (error) {
         next(error);
     }
@@ -98,12 +98,7 @@ userRouter.patch('/edit', loginRequired, async function (req, res, next) {
       const userId = req.currentUserId;
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
-      const fullName = req.body.fullName;
-      const password = req.body.password;
-      const address = req.body.address;
-      const phoneNumber = req.body.phoneNumber;
-      const role = req.body.role;
-      const gender = req.body.gender;
+      const { fullName, password, address, phoneNumber, role, gender } = req.body;
 
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
       const currentPassword = req.body.currentPassword;
