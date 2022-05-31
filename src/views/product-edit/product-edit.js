@@ -9,6 +9,27 @@ fileInput.onchange = () => {
     }
 }
 
+
+// 카테고리로 선택 태그를 만들어주는 함수
+async function makeCategoryOptions() {
+    // 카테고리의 종류대로 option을 추가
+    // gender 남/녀 recommendAge는 10/20/30으로 팀끼리 고정하기로 합의함
+    try {
+    const categorySelectBox = document.querySelector('#categorySelectBox');
+    const options = await Api.get('/category/getName');
+    options.forEach((option) => {
+        categorySelectBox.insertAdjacentElement('beforeend', `
+            <option value="${option}" class="notification"> ${option} </option>
+        `)
+    });
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    };   
+};
+
 // localhost:5000/admin/product/edit/:productId/ split으로 productId만 가져오기
 const productId = location.pathname.split("/")[4];
 // productId로 정보 받아오는 함수
@@ -55,18 +76,6 @@ async function getCategoryId(name, gender, recommendAge) {
     };
 };
 
-// form 내의 select태그 option을 category정보로 갱신하는 함수 (아직 구현못함)
-async function changeSelectOptions() {
-    try {
-        const selectNode = document.querySelectorAll('select');
-        
-    } catch (err) {
-        console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
-    };
-};
 // db와 form 형식의 차이를 해결하기 위해 데이터 형식을 form쪽으로 맞춰주는 함수
 async function getProductDataToFormType(productId){
     const { categoryId, name, price, description, madeBy, inventory, sellCount, src } = await getProductData(productId);
@@ -109,9 +118,9 @@ function readImage(input) {
     };
 };
 // input file에 change 이벤트 부여
-const inputImage = document.getElementById("imageInput")
+const inputImage = document.getElementById("imageInput");
 inputImage.addEventListener("change", e => {
-    readImage(e.target)
+    readImage(e.target);
 });
 
 
@@ -121,9 +130,9 @@ const checkFormDataLength = function(formData) {
     let formDataLength = 0;
     for(const pair of formData.entries()) {
         formDataLength++;
-    }
+    };
     return formDataLength;
-}
+};
 // 상품 수정 함수
 async function editProduct(e) {
     try {
@@ -229,7 +238,7 @@ async function deleteProduct() {
         const productId = location.pathname.split("/")[4];
         if (!confirm("정말로 삭제하시겠습니까?")){
             return;
-        }
+        };
         Api.del('/admin/product',productId);
     } catch (err) {
             console.error(err.stack);
@@ -239,5 +248,8 @@ async function deleteProduct() {
         };
 };
 
+// form submit에 이벤트 추가, delete 버튼에 이벤트 추가
 document.querySelector('form').addEventListener('submit', editProduct);
 document.querySelector('#deleteButton').addEventListener('click', deleteProduct);
+// options들 카테고리에서 받아와 갱신
+makeCategoryOptions();

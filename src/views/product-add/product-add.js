@@ -6,17 +6,14 @@ fileInput.onchange = () => {
     if (fileInput.files.length > 0) {
       const fileName = document.querySelector('#file-form-container .file-name');
       fileName.textContent = fileInput.files[0].name;
-    }
-  }
+    };
+};
 
 // CategoryId를 받아오는 함수
 async function getCategoryId(name, gender, recommendAge) {
     try {
-    const datas = await Api.get('/admin/category');
-    const targetData = await datas.find(function(data){
-        return (data.name === name && data.gender === gender && data.recommendAge == recommendAge);
-    });
-    return targetData.categoryId;
+    const categoryId = await Api.get(`/category/${name}/${gender}/${recommendAge}`)
+    return categoryId;
     } catch (err) {
     console.error(err.stack);
     alert(
@@ -24,7 +21,7 @@ async function getCategoryId(name, gender, recommendAge) {
     );
     };
 };
-
+// 미리보기 이미지 구현
 function readImage(input) {
     // 인풋 태그에 파일이 있는 경우
     if(input.files && input.files[0]) {
@@ -33,8 +30,8 @@ function readImage(input) {
         const reader = new FileReader();
         // 이미지가 로드가 된 경우
         reader.onload = e => {
-            const previewImage = document.getElementById("preview-image")
-            previewImage.src = e.target.result
+            const previewImage = document.getElementById("preview-image");
+            previewImage.src = e.target.result;
         };
         // reader가 이미지 읽도록 하기
         reader.readAsDataURL(input.files[0]);
@@ -43,8 +40,28 @@ function readImage(input) {
 // input file에 change 이벤트 부여
 const inputImage = document.getElementById("imageInput")
 inputImage.addEventListener("change", e => {
-    readImage(e.target)
+    readImage(e.target);
 });
+
+// 카테고리로 선택 태그를 만들어주는 함수
+async function makeCategoryOptions() {
+    // 카테고리의 종류대로 option을 추가
+    // gender 남/녀 recommendAge는 10/20/30으로 팀끼리 고정하기로 합의함
+    try {
+    const categorySelectBox = document.querySelector('#categorySelectBox');
+    const options = await Api.get('/category/getName');
+    options.forEach((option) => {
+        categorySelectBox.insertAdjacentElement('beforeend', `
+            <option value="${option}" class="notification"> ${option} </option>
+        `)
+    });
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    };
+};
 
 // 상품 등록 함수
 async function registerProduct(e) {
@@ -57,7 +74,7 @@ async function registerProduct(e) {
         const recommendAge = e.target.recommendAge.value;
         const madeBy = e.target.madeBy.value;
         const description = e.target.description.value;
-        const src = document.querySelector('#imageInput')
+        const src = document.querySelector('#imageInput');
         const inventory = e.target.inventory.value;
         const price = e.target.price.value;
         // form에 value가 입력되었는지 확인
@@ -108,7 +125,7 @@ async function registerProduct(e) {
         // formdata 확인용, 배포 전 삭제
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
-        }
+        };
         
 
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
@@ -124,6 +141,12 @@ async function registerProduct(e) {
     };
 };
 
+
+
+
 // form안의 버튼 클릭했을 시 (submit) 제품 등록.
 let myForm = document.querySelector('form');
 myForm.addEventListener('submit', registerProduct);
+
+// 카테고리 options 갱신
+makeCategoryOptions();
