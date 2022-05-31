@@ -8,6 +8,7 @@ const postalCodeElem = document.querySelector('#postal-code');
 const address1Elem = document.querySelector('#address1');
 const address2Elem = document.querySelector('#address2');
 const customRequestContainer = document.querySelector('#custom-request-container');
+const customRequest = document.querySelector('#custom-request');
 const productInfoElem = document.querySelector('#product-info');
 const productsTotalElem = document.querySelector('#products-total');
 const deliveryFeeElem = document.querySelector('#delivery-fee');
@@ -30,6 +31,7 @@ function addAllElements() {
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
     searchAddressButton.addEventListener('click', addressCallback);
+    requestSelectBox.addEventListener('change', selectCustomRequest);
 }
 
 // 주소 찾기
@@ -59,13 +61,21 @@ function addressCallback() {
 }
 
 // 요청사항 직접입력 선택시 입력창 띄움
-function selectCustomRequest() {}
+function selectCustomRequest() {
+    const selectedOption = requestSelectBox.options[requestSelectBox.selectedIndex].value;
+    if(selectedOption === '6') {
+        customRequestContainer.style.display = 'block';
+        customRequest.focus();
+    }
+}
+
+// 배송지정보 입력 확인
+function checkDeliveryInfo() {
+    
+}
 
 // 결제하기 버튼 클릭시 order 정보를 DB에 보내고 페이지 이동
 function requestCallback() {}
-
-// 배송지정보
-function showDeliveryInfo() {}
 
 // 결제정보
 function showPaymentInfo() {
