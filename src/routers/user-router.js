@@ -65,7 +65,7 @@ userRouter.post('/login', async function (req, res, next) {
             expires: expiryDate,
             httpOnly: true,
             signed: true,
-        }).cookie('login', 'true').status.json(userToken);
+        }).cookie('login', 'true').status(200).json(userToken);
     } catch (error) {
         next(error);
     }
