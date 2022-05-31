@@ -14,7 +14,7 @@ viewsRouter.use('/modify', serveStatic('modify'));
 viewsRouter.use('/my-page', serveStatic('my-page'));
 viewsRouter.use('/admin/addproduct', serveStatic('addproduct'));
 viewsRouter.use('/product/:type/:target', serveStatic('product-list'));
-viewsRouter.use('/productdetail/:productId', serveStatic('product-detail'));
+viewsRouter.use('/product/:productId', serveStatic('product-detail'));
 viewsRouter.use('/cart', serveStatic('cart'));
 viewsRouter.use('/order-history', serveStatic('order-history'));
 viewsRouter.use('/payment', serveStatic('payment'));
