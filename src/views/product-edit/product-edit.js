@@ -157,9 +157,6 @@ async function editProduct(e) {
         };
 
         // 사진의 경우 검사해줄 필요 없음. 등록하지 않으면 갱신하지 않으면 됨.
-        // if (!document.querySelector('#imageInput').files[0]){
-        //     return alert('사진을 업로드해주세요')
-        // }
 
         if (!e.target.inventory.value) {
             return alert('재고를 입력해주세요');
@@ -208,19 +205,17 @@ async function editProduct(e) {
         };
         const formDataLength = checkFormDataLength(formData);
         if (formDataLength == 0){
-            return alert('수정된 값이 존재하지 않습니다.')
+            return alert('수정된 값이 존재하지 않습니다.');
         };
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        // fetch(`http://localhost:5000/admin/product/${productId}`, {
-        //     method: 'patch',
-        //     body: formData
-        // });
-
+        fetch(`http://localhost:5000/admin/product/${productId}`, {
+            method: 'PATCH',
+            body: formData
+        });
         // formdata 확인용, 배포 전 삭제
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
         };
-
     } catch (err) {
         console.error(err.stack);
         alert(

@@ -112,10 +112,10 @@ async function registerProduct(e) {
         
 
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        // await fetch("http://localhost:5000/admin/product/create/", {
-        //     method: 'post',
-        //     body: formData
-        // });
+        await fetch("http://localhost:5000/admin/product/create/", {
+            method: 'POST',
+            body: formData
+        });
     } catch (err) {
         console.error(err.stack);
         alert(

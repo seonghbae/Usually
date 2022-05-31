@@ -119,30 +119,5 @@ async function del(endpoint, params = '', data = {}) {
     return result;
 }
 
-async function getShortId(dest, data) {
-    const destination = dest;
-    // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
-    // 예시: {name: "Kim"} => {"name": "Kim"}
-
-    const bodyData = data;
-
-    console.log(`%cPOST 요청: ${destination}`, 'color: #296aba;');
-    console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
-
-    const res = await fetch(destination, {
-        method: 'POST',
-        body: bodyData,
-    });
-    if (!res.ok) {
-        const errorContent = await res.json();
-        const { reason } = errorContent;
-
-        throw new Error(reason);
-    }
-
-    const result = await res.json();
-
-    return result;
-}
 // 아래처럼 export하면, import * as Api 로 할 시 Api.get, Api.post 등으로 쓸 수 있음.
-export { get, post, patch, getShortId, del as delete };
+export { get, post, patch, del as delete };

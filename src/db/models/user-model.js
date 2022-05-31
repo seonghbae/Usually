@@ -10,8 +10,8 @@ export class UserModel {
     return user;
   }
 
-  async findById(shortId) {
-    const user = await User.findOne({ shortId });
+  async findById(userId) {
+    const user = await User.findOne({ shortId : userId});
     return user;
   }
 
@@ -25,16 +25,16 @@ export class UserModel {
     return users;
   }
 
-  async update({ shortId, update }) {
-    const filter = { shortId };
+  async update({ userId, update }) {
+    const filter = { shortId : userId };
     const option = { returnOriginal: false };
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
   }
 
-  async deleteOneUser({shortId}) {
-    const filter = { shortId };
+  async deleteOneUser({userId}) {
+    const filter = { userId };
     
     const deletedUser = await User.deleteOne(filter);
     return deletedUser;

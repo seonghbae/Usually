@@ -23,8 +23,8 @@
             crossorigin="anonymous"
         ></script>
         <!-- 커스텀 css, js -->
-        <link rel="stylesheet" href="my-page.css" />
-        <script src="my-page.js" type="module" defer></script>
+        <link rel="stylesheet" href="order-history.css" />
+        <script src="order-history.js" type="module" defer></script>
         <!-- navbar, footer 활용을 위한 css, js -->
         <link rel="stylesheet" href="../nav/nav.css">
         <link rel="stylesheet" href="../footer/footer.css">
@@ -42,8 +42,9 @@
           });
         });
       </script>
-
-      <div class="my-page-content-container">
+      
+      <div class="order-history-content-container">
+          <!-- menu sidebar -->
           <div class="my-page-menu-container">
               <div class="my-page-menu-title">
                   <h1>MYPAGE</h1>
@@ -64,18 +65,29 @@
               </ul>
           </div>
 
-          <div class="my-page-info-container">
-              <div class="my-page-info">
-                  <h3>총 주문회수</h3>
-                  <hr>
-                  <p id="my-page-order-count"></p>
+          <div class="order-history-container">
+              <div class="order-history-info">
+                  <h3>주문내역 상세</h3>
               </div>
 
-              <div class="my-page-info">
-                  <h3>총 가격</h3>
-                  <hr>
-                  <p id="my-page-total-price"></p>
+              <div class="table-container">
+                  <table class="table is-fullwidth is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>상품정보</th>
+                            <th>주문번호</th>
+                            <th>주문금액(수량)</th>
+                            <th>배송지</th>
+                            <th>주문상태</th>
+                            <th>주문삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-content">
+                    </tbody>
+                  
+                  </table>
               </div>
+
           </div>
       </div>
       <!--footer-->

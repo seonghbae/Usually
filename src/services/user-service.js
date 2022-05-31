@@ -73,30 +73,27 @@ async addUser(userInfo) {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
         // 2개 프로퍼티를 jwt 토큰에 담음
-        const token = jwt.sign({ shortId: user.shortId }, secretKey);
+        return jwt.sign({ userId: user.shortId }, secretKey);
 
-        return token;
     }
 
     // 사용자 목록을 받음.
     async getUsers() {
-        const users = await this.userModel.findAll();
-        return users;
+        return await this.userModel.findAll();
     }
 
     //사용자 하나를 받음
-    async getUser(shortId){
-        const user = await this.userModel.findById(shortId);
-        return user;
+    async getUser(userId){
+        return await this.userModel.findById(userId);
     }
 
     // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
     async setUser(userInfoRequired, toUpdate) {
         // 객체 destructuring
-        const { shortId, currentPassword } = userInfoRequired;
+        const { userId, currentPassword } = userInfoRequired;
 
         // 우선 해당 id의 유저가 db에 있는지 확인
-        let user = await this.userModel.findById(shortId);
+        let user = await this.userModel.findById(userId);
 
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
@@ -130,7 +127,7 @@ async addUser(userInfo) {
 
         // 업데이트 진행
         user = await this.userModel.update({
-            shortId,
+            userId,
             update: toUpdate,
         });
 
@@ -140,12 +137,12 @@ async addUser(userInfo) {
     async deleteUser(userInfoRequired) {
         // 객체 destructuring
         // const { shortId, currentPassword } = userInfoRequired;
-        const { shortId } = userInfoRequired;
+        const { userId } = userInfoRequired;
 
         // console.log('currentPassword' + currentPassword);
 
         // 우선 해당 id의 유저가 db에 있는지 확인
-        let user = await this.userModel.findById(shortId);
+        let user = await this.userModel.findById(userId);
 
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
@@ -169,7 +166,7 @@ async addUser(userInfo) {
 
         // 유저 삭제 시작
         user = await this.userModel.deleteOneUser({
-            shortId,
+            userId,
         });
         return user;
     }
