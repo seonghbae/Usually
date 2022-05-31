@@ -1,4 +1,4 @@
-.my-page-content-container {
+.order-history-content-container {
     display: flex;
     height: 80vh;
     width: 150vh;
@@ -45,22 +45,18 @@
 .my-page-menu-list a {
     color: black;
 }
-.my-page-info-container {
-    margin-left: 10%;
-    width: 100%;
-}
-.my-page-info-container hr {
-    background-color: black;
+.order-history-container {
+    margin-left: 5%;
     width: 100%;
 }
 
-.my-page-info-container p {
-    font-size: 50px;
-    color: pink;
+.order-history-container .order-history-info {
+    margin-bottom: 20px;
 }
 
-.my-page-info-container .my-page-info {
-    margin-bottom: 100px;
+.order-history-container .table-container thead tr th {
+    color: #ffae96;
+    font-size: 120%;
 }
 
 h3 {
