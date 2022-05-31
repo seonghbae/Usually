@@ -107,6 +107,11 @@ function applyQuantity(productId) {
     showOrder();
 }
 
+// 입력으로 들어오는 상품 상세 페이지로 이동
+function productPage(productId) {
+    window.location.href = `/product/${productId}`;
+}
+
 // 장바구니 목록
 function showCartList() {
     const products = [];
@@ -134,7 +139,7 @@ function showCartList() {
         const image = document.createElement('figure');
         image.className = 'image is-96x96';
         image.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
-        image.addEventListener('click', () => {});
+        image.addEventListener('click', () => {productPage(product.productId)});
 
         const minusButton = document.createElement('button');
         minusButton.className = 'button is-rounded';
