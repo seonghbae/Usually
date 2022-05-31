@@ -17,7 +17,7 @@ function addAllEvents() {}
 
 // 입력으로 들어오는 주소로 이동
 function newPage(productId) {
-    window.location.href = `/product/${productId}`;
+    window.location.href = `/productdetail/${productId}`;
 }
 
 // 상품 목록
