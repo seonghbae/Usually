@@ -1,8 +1,14 @@
-import * as Api from '/api.js';
 import { addCommas, convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const cartProductsContainer = document.querySelector('#cart-products-container');
+const checkboxes = document.querySelectorAll('.product-checkbox');
+const checked = document.querySelectorAll('.product-checkbox:checked');
+const productCounts = document.querySelector('#product-counts');
+const productsTotal = document.querySelector('#products-total');
+const deliveryFee = document.querySelector('#delivery-fee');
+const totalPrice = document.querySelector('#total-price');
+
 const selectAllCheckbox = document.querySelector('#select-all-checkbox');
 const deleteChecked = document.querySelector('#delete-checked');
 const purchaseButton = document.querySelector('#purchase-button');
@@ -25,8 +31,6 @@ function addAllEvents() {
 
 // 모든 체크박스 전체 선택/해제 기능
 function changeAllCheckbox() {
-    const checkboxes = document.querySelectorAll('.product-checkbox');
-
     checkboxes.forEach((checkbox) => {
         checkbox.checked = selectAllCheckbox.checked;
     });
@@ -35,9 +39,6 @@ function changeAllCheckbox() {
 
 // 해당 체크박스 선택 해제에 따라 전체 선택 체크박스 변경
 function changeSelectAllCheckbox() {
-    const checkboxes = document.querySelectorAll('.product-checkbox');
-    const checked = document.querySelectorAll('.product-checkbox:checked');
-
     if(checkboxes.length === checked.length) {
         selectAllCheckbox.checked = true;
     } else {
@@ -48,29 +49,28 @@ function changeSelectAllCheckbox() {
 
 // 선택 상품들 장바구니에서 삭제
 function deleteSelectedProducts() {
-    const checked = document.querySelectorAll('.product-checkbox:checked');
     checked.forEach((product) => {
-        const id = product.parentNode.parentNode.id.split('-')[1];
-        const productItem = document.querySelector(`#item-${id}`);
+        const productId = product.parentNode.parentNode.id.split('-')[1];
+        const productItem = document.querySelector(`#item-${productId}`);
         productItem.remove();
-        localStorage.removeItem(id);
+        localStorage.removeItem(productId);
     });
     showOrder();
 }
 
 // 해당 상품 장바구니에서 삭제
-function deleteProduct(id) {
-    const productItem = document.querySelector(`#item-${id}`);
+function deleteProduct(productId) {
+    const productItem = document.querySelector(`#item-${productId}`);
     productItem.remove();
-    localStorage.removeItem(id);
+    localStorage.removeItem(productId);
     showOrder();
 }
 
 // 장바구니 상품 수량 변경
-function changeQuantity(type, id) {
-    const plusButton = document.querySelector(`#plus-${id}`);
-    const minusButton = document.querySelector(`#minus-${id}`);
-    const input = document.querySelector(`#input-${id}`);
+function changeQuantity(type, productId) {
+    const plusButton = document.querySelector(`#plus-${productId}`);
+    const minusButton = document.querySelector(`#minus-${productId}`);
+    const input = document.querySelector(`#input-${productId}`);
     let inputValue = Number(input.value);
     
     if(type === 'plus') {
@@ -92,15 +92,15 @@ function changeQuantity(type, id) {
     }
 
     input.value = inputValue;
-    applyQuantity(id);
+    applyQuantity(productId);
 }
 
 // 수량 변경 시 가격 반영
-function applyQuantity(id) {
-    const unitPrice = document.querySelector(`#unit-price-${id}`);
-    const quantity = document.querySelector(`#quantity-${id}`);
-    const total = document.querySelector(`#total-${id}`);
-    const input = document.querySelector(`#input-${id}`);
+function applyQuantity(productId) {
+    const unitPrice = document.querySelector(`#unit-price-${productId}`);
+    const quantity = document.querySelector(`#quantity-${productId}`);
+    const total = document.querySelector(`#total-${productId}`);
+    const input = document.querySelector(`#input-${productId}`);
 
     quantity.innerHTML = input.value;
     total.innerHTML = `${addCommas(convertToNumber(unitPrice.innerHTML) * Number(quantity.innerHTML))}원`;
@@ -210,12 +210,6 @@ function showCartList() {
 
 // 결재 관련 정보
 function showOrder() {
-    const checked = document.querySelectorAll('.product-checkbox:checked');
-    const productCounts = document.querySelector('#product-counts');
-    const productsTotal = document.querySelector('#products-total');
-    const deliveryFee = document.querySelector('#delivery-fee');
-    const totalPrice = document.querySelector('#total-price');
-
     let quantity = 0; 
     let total = 0;
     let delivery = 0;
@@ -240,10 +234,20 @@ function showOrder() {
 
 // 선택 상품 아이디 배열 저장, 이동
 function purchaseCallback() {
-    const checked = document.querySelectorAll('.product-checkbox:checked');
-    const productIds = [];
-    checked.forEach((product) => productIds.push(product.parentNode.parentNode.id.split('-')[1]));
-    localStorage.setItem('productIds', JSON.stringify(productIds));
+    const productIds = [], quantities = [];
+    checked.forEach((product) => {
+        const productId = product.parentNode.parentNode.id.split('-')[1];
+        productIds.push(productId);
+        quantities.push(document.querySelector(`#input-${productId}`));
+    });
+    localStorage.setItem('order', {
+        productIds: productIds,
+        quantities: quantities,
+        productCounts: productCounts.innerHTML,
+        productsTotal: productsTotal.innerHTML,
+        deliveryFee: deliveryFee.innerHTML,
+        totalPrice: totalPrice.innerHTML,
+    });
 
     location.href = '/payment';
 }
