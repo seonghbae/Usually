@@ -263,5 +263,5 @@ function purchaseCallback() {
     checked.forEach((product) => productIds.push(product.parentNode.parentNode.id.split('-')[1]));
     localStorage.setItem('productIds', JSON.stringify(productIds));
 
-    location.href = '/order';
+    location.href = '/payment';
 }
