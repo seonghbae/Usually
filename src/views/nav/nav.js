@@ -26,7 +26,7 @@ const navFunc = function () {
                     const adminNav = document.createElement('a');
                     adminNav.setAttribute('class', 'navbar-item');
                     adminNav.setAttribute('href', '/admin-main');
-                    adminNav.innerText = '관리자 페이지';
+                    adminNav.innerText = '관리자페이지';
                     navbarComponent.appendChild(adminNav);
                 }
             });
