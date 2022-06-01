@@ -82,7 +82,6 @@ userRouter.post('/login', async function (req, res, next) {
         const userToken = await userService.getUserToken({ email, password });
         //user가져와서
         //user role 판별하고
-
         //만료 시간을 임의로 정해줌 24시간 * 3일
         const expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 24 * 3);
 
