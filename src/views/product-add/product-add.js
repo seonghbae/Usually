@@ -127,3 +127,5 @@ async function registerProduct(e) {
 // form안의 버튼 클릭했을 시 (submit) 제품 등록.
 let myForm = document.querySelector('form');
 myForm.addEventListener('submit', registerProduct);
+
+
