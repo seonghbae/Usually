@@ -26,7 +26,7 @@
 
 .admin-main-info-container .admin-page-total {
     display: flex;
-    margin-bottom: 8vh;
+    margin-bottom: 3vh;
 }
 
 .admin-main-info-container p {
@@ -41,7 +41,7 @@
 }
 
 .admin-main-info-container .admin-page-info-title {
-    margin-top: 8%;
+    margin-top: 5%;
     text-align: center;
 }
 
