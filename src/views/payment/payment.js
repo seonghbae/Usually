@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-import { addCommas, convertToNumber } from '/useful-functions.js';
+import { convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const nameElem = document.querySelector('#receiver-name');
@@ -24,7 +24,6 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
-    showDeliveryInfo();
     showPaymentInfo();
 }
 
@@ -32,6 +31,7 @@ function addAllElements() {
 function addAllEvents() {
     searchAddressButton.addEventListener('click', addressCallback);
     requestSelectBox.addEventListener('change', selectCustomRequest);
+    paymentButton.addEventListener('click', paymentCallback);
 }
 
 // 주소 찾기
@@ -66,16 +66,64 @@ function selectCustomRequest() {
     if(selectedOption === '6') {
         customRequestContainer.style.display = 'block';
         customRequest.focus();
+    } else {
+        customRequestContainer.style.display = 'none';
     }
 }
 
-// 배송지정보 입력 확인
-function checkDeliveryInfo() {
-    
+function addDashes(phoneNumber) {
+    if(phoneNumber.length === 10) {
+        return `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}`;
+    } else if(phoneNumber.length === 11) {
+        return `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}`;
+    }
+    return false;
 }
 
+// 배송지정보 입력 확인
 // 결제하기 버튼 클릭시 order 정보를 DB에 보내고 페이지 이동
-function requestCallback() {}
+async function paymentCallback() {
+    if(nameElem.value === '') {
+        alert("이름을 입력해 주세요.");
+    } else if(phoneNumberElem.value === '') {
+        alert("전화번호를 입력해 주세요.");
+    } else if(postalCodeElem.value === '' || address1Elem.value === '') {
+        alert("주소를 입력해 주세요.");
+    } else if(address2Elem.value === '') {
+        alert("상세 주소를 입력해 주세요.");
+    } else {
+        alert("결제 및 주문이 정상적으로 완료되었습니다.\n감사합니다.");
+        try {
+            const orderInfo = JSON.parse(localStorage.getItem('order'));
+            const selectedOption = requestSelectBox.options[requestSelectBox.selectedIndex];
+            let message = selectedOption.innerHTML;
+            if (selectedOption.value === '0') {
+                message = '';
+            } else if (selectedOption.value === '6') {
+                message = customRequest.value;
+            }
+            const order = {
+                "phoneNumber": addDashes(phoneNumberElem.value),
+                "address":{
+                    "postalCode": postalCodeElem.value,
+                    "address1": address1Elem.value,
+                    "address2": address2Elem.value
+                },
+                "message": message,
+                "orderedProducts": orderInfo.productInfos.map(({ productId, quantity }) => ({
+                    'productId': productId,
+                    'quantity': Number(quantity)
+                })),
+                "totalPrice": convertToNumber(orderInfo.totalPrice),
+                "totalQuantity": convertToNumber(orderInfo.productCounts)
+            };
+            console.log(order);
+            // await Api.post('/order/purchase', );
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
 // 결제정보
 function showPaymentInfo() {
