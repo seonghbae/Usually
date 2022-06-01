@@ -26,10 +26,8 @@ function loginRequired(req, res, next) {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
         const jwtDecoded = jwt.verify(userToken, secretKey);
 
-        const shortId = jwtDecoded.shortId;
-
         // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
-        req.currentUserId = shortId;
+        req.currentUserId = jwtDecoded.userId;
 
         next();
     } catch (error) {
