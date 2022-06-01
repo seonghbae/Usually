@@ -120,10 +120,10 @@ async function paymentCallback() {
             console.log(order);
             // API로 DB에 order 데이터 넘겨주기
             // await Api.post('/order/purchase', order);
-            // 넘겨준 다음 localStorage에서 데이터 삭제
-            // orderInfo.productInfos.forEach((productInfo) => {
-            //     localStorage.removeItem(productInfo.productId);
-            // });
+            // 결제완료시 localStorage에서 데이터 삭제
+            orderInfo.productInfos.forEach((productInfo) => {
+                localStorage.removeItem(productInfo.productId);
+            });
             window.location.href = '/order-complete';
         } catch (err) {
             console.error(err.stack);
