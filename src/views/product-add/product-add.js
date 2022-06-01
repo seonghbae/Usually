@@ -12,8 +12,8 @@ fileInput.onchange = () => {
 // CategoryId를 받아오는 함수
 async function getCategoryId(name, gender, recommendAge) {
     try {
-    const categoryId = await Api.get(`/category/${name}/${gender}/${recommendAge}`)
-    return categoryId;
+        const categoryId = await Api.get(`/category/${name}/${gender}/${recommendAge}`)
+        return categoryId;
     } catch (err) {
     console.error(err.stack);
     alert(
@@ -51,9 +51,9 @@ async function makeCategoryOptions() {
     const categorySelectBox = document.querySelector('#categorySelectBox');
     const options = await Api.get('/category/getName');
     options.forEach((option) => {
-        categorySelectBox.insertAdjacentElement('beforeend', `
+        categorySelectBox.insertAdjacentHTML('beforeend', `
             <option value="${option}" class="notification"> ${option} </option>
-        `)
+        `);
     });
     } catch (err) {
         console.error(err.stack);

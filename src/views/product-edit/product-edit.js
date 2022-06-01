@@ -18,7 +18,7 @@ async function makeCategoryOptions() {
     const categorySelectBox = document.querySelector('#categorySelectBox');
     const options = await Api.get('/category/getName');
     options.forEach((option) => {
-        categorySelectBox.insertAdjacentElement('beforeend', `
+        categorySelectBox.insertAdjacentHTML('beforeend', `
             <option value="${option}" class="notification"> ${option} </option>
         `)
     });
