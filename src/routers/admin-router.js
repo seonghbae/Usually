@@ -361,7 +361,7 @@ adminRouter.post(
                 age,
             });
 
-            const mainImage = req.file.location;
+            const src = req.file.location;
             const newProduct = await productService.addProduct({
                 categoryId,
                 name,
@@ -369,7 +369,7 @@ adminRouter.post(
                 description,
                 madeBy,
                 inventory,
-                mainImage,
+                src,
             });
             res.status(201).json(newProduct);
         } catch (error) {
@@ -413,11 +413,11 @@ adminRouter.patch(
                 madeBy,
                 inventory,
                 sellCount,
-                mainImage,
+                src,
             } = req.body;
 
             if (req.file.location) {
-                mainImage = req.file.location;
+                src = req.file.location;
             }
             const updatedProductInfo = {
                 ...(categoryId && { categoryId }),
@@ -427,7 +427,7 @@ adminRouter.patch(
                 ...(madeBy && { madeBy }),
                 ...(inventory && { inventory }),
                 ...(sellCount && { sellCount }),
-                ...(mainImage && { mainImage }),
+                ...(src && { src }),
             };
 
             const updatedProduct = await productService.setProduct(
