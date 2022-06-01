@@ -1,15 +1,25 @@
 import { model } from 'mongoose';
-import { OrderSchema } from '../schemas/order-schema';
+import { OrderedProductSchema, OrderSchema, UserSchema } from '../schemas/order-schema';
 
 const Order = model('orders', OrderSchema);
+const OrderedProduct = model('orderedProducts', OrderedProductSchema);
+const User = model('users', UserSchema);
 
 export class OrderModel {
 
   async findByUser(userId) {
-    const orders = await Order.find({ user:userId });
+    const user =  await User.findOne({shortId :userId});
+    const orders = await Order.find({ userId : user._id });
     return orders;
   }
   //User의 shortId로 주문 내역 전부 찾기
+
+  async findShippedByUser(userId) {
+    const user =  await User.findOne({shortId :userId});
+    const orders = await Order.find({ userId : user._id, status : "배송완료" });
+    return orders;
+  }
+  //user의 shortId 중 배송 완료한 주문 내역 전부 찾기
 
   async findById(orderId){
     const order = await Order.findOne({shortId : orderId});
@@ -17,9 +27,21 @@ export class OrderModel {
   }
   //Order의 shortId로 주문 내역 찾기
 
-  async create(orderInfo) {
-    const createdNewOrder = await Order.create(orderInfo);
+  async create(orderInfo, productIds) {
+    const createdNewOrder = await Order.create({
+      phoneNumber:orderInfo.phoneNumber,
+      address:orderInfo.address,
+      userId: orderInfo.userId,
+      totalPrice: orderInfo.totalPrice,
+      totalQuantity:orderInfo.totalQuantity,
+      orderedProducts: productIds,
+    });
     return createdNewOrder;
+  }
+
+  async createOrderedProducts(orderedProductsList){
+    const orderedProducts = await OrderedProduct.create(orderedProductsList);
+    return orderedProducts;
   }
 
   async findAll() {
@@ -28,11 +50,25 @@ export class OrderModel {
   }
   //관리자가 모든 주문 내역 조회
 
-  async deleteOneOrder({shortId}) {
-    const filter = { shortId };
+  async updateOrder(orderId, status){
+
+    const filter = { shortId : orderId };
+    const option = { returnOriginal : false };
+    const update = { status: status };
+
+    const updatedOrder = await Order.updateOne(filter, update, option);
+    return updatedOrder;
+  }
+
+  async deleteOneOrder({orderId}) {
+    const filter = { shortId: orderId };
     
     const deletedOrder = await Order.deleteOne(filter);
     return deletedOrder;
+  }
+
+  async deleteOrderedProducts(orderedProductId){
+    await OrderedProduct.findOneAndDelete({_id : orderedProductId});
   }
 
 }

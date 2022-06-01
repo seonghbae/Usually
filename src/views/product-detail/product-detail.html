@@ -1,80 +1,107 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>쇼핑-데모</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css 관련 -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="../../product-detail/product-detail.css" />
+        <script
+            src="../../product-detail/product-detail.js"
+            type="module"
+            defer
+        ></script>
+        <!-- navbar, footer 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../../nav/nav.css" />
+        <link rel="stylesheet" href="../../footer/footer.css" />
+        <script src="../../nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>쇼핑-데모</title>
-  <!-- 아이콘 -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-  <!-- bulma css 관련 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-  <!-- 폰트 어썸: 아이콘 -->
-  <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-  <!-- 커스텀 css, js -->
-  <link rel="stylesheet" href="product-detail.css" />
-  <script src="product-detail.js" type="module" defer></script>
-  <!-- navbar, footer 활용을 위한 css, js -->
-  <link rel="stylesheet" href="../../nav/nav.css">
-  <link rel="stylesheet" href="../../footer/footer.css">
-  <script src="../../nav/nav.js"></script>
-  <!-- navbar, footer 활용을 위한 jquery -->
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-</head>
+    <body>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
 
-<body>
-  <!--Navigation bar-->
-  <div id="nav-placeholder"></div>
+        <script>
+            $(document).ready(function () {
+                $('#nav-placeholder').load('../../nav/nav.html', () => {
+                    navFunc();
+                });
+            });
+        </script>
 
-  <script>
-    $(document).ready(function() {
-      $('#nav-placeholder').load("../../nav/nav.html", () => {
-        navFunc()
-      });
-    });
-  </script>
-
-  <!-- 제품 상세 설명 -->
-  <section class="section">
-    <div class="container">
-      <div class="tile is-ancestor">
-        <div class="tile is-parent">
-          <div class="tile is-child">
-            <figure class="image">
-              <img id="image" src="" alt="The Loop">
-            </figure>
-          </div>
-        </div>
-        <div class="tile is-parent is-vertical">
-          <div class="tile is-child">
-            <div class="tabs">
-              <ul>
-                <li id="madeBy"></li>
-              </ul>
+        <!-- 제품 상세 설명 -->
+        <section class="section">
+            <div class="container">
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent">
+                        <div class="tile is-child">
+                            <figure class="image">
+                                <img id="image" src="" alt="The Loop" />
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="tile is-parent is-vertical">
+                        <div class="tile is-child">
+                            <div class="tabs">
+                                <ul>
+                                    <li id="madeBy"></li>
+                                </ul>
+                            </div>
+                            <div class="content">
+                                <h1
+                                    class="subtitle is-family-monospace"
+                                    id="name"
+                                ></h1>
+                                <p id="description"></p>
+                                <h1 id="price" style="color: #f2bbc5"></h1>
+                            </div>
+                        </div>
+                        <div class="tile is-child">
+                            <button
+                                class="button is-danger"
+                                id="inventory-button"
+                            >
+                                장바구니 추가하기
+                            </button>
+                            <button
+                                class="button is-danger"
+                                id="purchase-button"
+                            >
+                                바로 구매하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="content">
-              <h1 class="subtitle is-family-monospace" id="name"></h1>
-              <p id="description"></p>
-              <h1 id="price" style="color: #F2BBC5;"></h1>
-            </div>
-          </div>
-          <div class="tile is-child">
-            <button class="button is-danger" id="inventory-button">장바구니 추가하기</button>
-            <button class="button is-danger" id="purchase-button">바로 구매하기</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        </section>
 
-  <!--footer-->
-  <div id="footer-placeholder"></div>
+        <!--footer-->
+        <div id="footer-placeholder"></div>
 
-  <script>
-    $(function () {
-      $("#footer-placeholder").load("../../footer/footer.html");
-    });
-  </script>
-</body>
-
+        <script>
+            $(function () {
+                $('#footer-placeholder').load('../../footer/footer.html');
+            });
+        </script>
+    </body>
 </html>
