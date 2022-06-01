@@ -19,6 +19,17 @@ const navFunc = function () {
         navbarComponent.appendChild(loginNav);
         navbarComponent.appendChild(registerNav);
     } else if (User) {
+        fetch('/users/isAdmin')
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.isAdmin) {
+                    const adminNav = document.createElement('a');
+                    adminNav.setAttribute('class', 'navbar-item');
+                    adminNav.setAttribute('href', '/admin-main');
+                    adminNav.innerText = '관리자페이지';
+                    navbarComponent.appendChild(adminNav);
+                }
+            });
         const mypageNav = document.createElement('a');
         const logoutNav = document.createElement('a');
         const cartNav = document.createElement('a');
