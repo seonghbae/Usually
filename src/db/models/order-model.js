@@ -67,6 +67,10 @@ export class OrderModel {
     return deletedOrder;
   }
 
+  async deleteOrderedProducts(orderedProductId){
+    await OrderedProduct.findOneAndDelete({_id : orderedProductId});
+  }
+
 }
 
 const orderModel = new OrderModel();
