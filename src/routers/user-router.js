@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
+import { APIGateway, ApiGatewayManagementApi } from 'aws-sdk';
 const jwt = require('jsonwebtoken');
 const userRouter = Router();
 
@@ -55,6 +56,10 @@ userRouter.post('/login', async function (req, res, next) {
 
         // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
         const userToken = await userService.getUserToken({ email, password });
+        //user가져와서
+        //user role 판별하고
+        
+        
 
         //만료 시간을 임의로 정해줌 24시간 * 3일
         const expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 24 * 3);

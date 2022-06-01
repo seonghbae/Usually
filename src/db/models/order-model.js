@@ -43,12 +43,14 @@ export class OrderModel {
   }
   //관리자가 모든 주문 내역 조회
 
-  async updateOrder( { orderId, update }){
+  async updateOrder(orderId, status){
 
     const filter = { shortId : orderId };
     const option = { returnOriginal : false };
+    const update = { status: status };
+    console.log(update);
 
-    const updatedOrder = await Order.findByIdAndUpdate(filter, update, option);
+    const updatedOrder = await Order.updateOne(filter, update, option);
     return updatedOrder;
   }
 

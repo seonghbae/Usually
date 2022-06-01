@@ -23,8 +23,6 @@ orderRouter.post('/purchase', loginRequired, async (req, res, next) => {
 
     const user = await userService.getUser(req.currentUserId);
 
-    console.log(user._id);
-
        // 위 데이터를 유저 db에 추가하기
     const newOrder = await orderService.addOrder({
       userId : user._id,
@@ -92,7 +90,7 @@ orderRouter.get('/list/:orderId', loginRequired, async function(req, res, next){
       }
 });
 
-orderRouter.patch('/update/:orderId', loginRequired, async function(req, res, next){
+orderRouter.patch('/:orderId', loginRequired, async function(req, res, next){
     try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -110,21 +108,11 @@ orderRouter.patch('/update/:orderId', loginRequired, async function(req, res, ne
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
-    const toUpdate = {
-      ...(userId && { userId }),
-      ...(phoneNumber && { phoneNumber }),
-      ...(address && { address }),
-      ...(orderedProducts && { orderedProducts }),
-      ...(totalPrice && { totalPrice }),
-      ...(totalQuantity && { totalQuantity }),
-      ...(message && { message }),
-      ...(status && { status }),
-    };
 
     // 사용자 정보를 업데이트함.
     const updatedOrderInfo = await orderService.setOrder(
       orderId,
-      toUpdate
+      status
     );
 
     // 업데이트 이후의 유저 데이터를 프론트에 보내 줌

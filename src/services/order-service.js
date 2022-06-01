@@ -38,7 +38,7 @@ class OrderService {
     return order;
   }
 
-  async setOrder(orderId, toUpdate){
+  async setOrder(orderId, status){
 
     //해당 id의 주문 내역이 db에 있는지 확인
     let order = await this.orderModel.findById(orderId);
@@ -46,11 +46,12 @@ class OrderService {
     if(!order){
       throw new Error('주문 내역이 없습니다. 다시 한 번 확인해 주세요.');
     }
+    console.log(status);
 
-    order = await this.userModel.update({
+    order = await this.orderModel.updateOrder(
       orderId,
-      update: toUpdate,
-  });
+      status,
+  );
 
     return order;
   }
