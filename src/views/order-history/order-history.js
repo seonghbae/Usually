@@ -84,4 +84,6 @@ async function handleOrderDelete(e) {
     }
 }
 
+orderDeleteButton.addEventListener('click', handleOrderDelete);
+
 renderOrder();

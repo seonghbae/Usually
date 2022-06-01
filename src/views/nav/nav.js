@@ -6,7 +6,6 @@ const getCookie = (name) => {
 const navFunc = function () {
     const navbarComponent = document.querySelector('.navbar-end');
     const User = getCookie('login');
-
     if (!User) {
         const loginNav = document.createElement('a');
         const registerNav = document.createElement('a');
