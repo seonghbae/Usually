@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 주소를 가져오기 위한 다음 주소 API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="payment.css" />
     <script src="payment.js" type="module" defer></script>
@@ -156,7 +158,7 @@
                         <div class="order-info">
                             <div class="info">
                                 <p>주문상품</p>
-                                <p id="product-title"></p>
+                                <p id="product-info"></p>
                             </div>
                             <div class="info">
                                 <p>상품총액</p>
