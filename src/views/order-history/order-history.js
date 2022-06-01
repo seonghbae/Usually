@@ -73,7 +73,6 @@ async function renderOrder() {
 
 async function handleOrderDelete(e) {
     e.preventDefault();
-
     try {
         await fetch('/order/cancel/:shortId', {
             method: 'DELETE',
@@ -83,5 +82,7 @@ async function handleOrderDelete(e) {
         alert(`주문삭제에 실패했습니다. ${err.message}`);
     }
 }
+
+orderDeleteButton.addEventListener('click', handleOrderDelete);
 
 renderOrder();
