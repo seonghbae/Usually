@@ -10,7 +10,7 @@ fileInput.onchange = () => {
 }
 
 // localhost:5000/admin/product/edit/:productId/ split으로 productId만 가져오기
-const productId = location.pathname.split("/")[4];
+const productId = location.pathname.split("/")[3];
 // productId로 정보 받아오는 함수
 async function getProductData(productId) {
     try {
@@ -127,7 +127,7 @@ const checkFormDataLength = function(formData) {
 // 상품 수정 함수
 async function editProduct(e) {
     try {
-        const productId = location.pathname.split("/")[4];
+        const productId = location.pathname.split("/")[3];
         e.preventDefault();
         // 기존 상품의 정보 받아오기
         const { name, category, gender, recommendAge, madeBy, description, src, inventory, sellCount, price} = await getProductDataToFormType(productId);
@@ -231,7 +231,7 @@ async function editProduct(e) {
 
 async function deleteProduct() {
     try {
-        const productId = location.pathname.split("/")[4];
+        const productId = location.pathname.split("/")[3];
         if (!confirm("정말로 삭제하시겠습니까?")){
             return;
         }

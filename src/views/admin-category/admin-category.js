@@ -103,7 +103,8 @@ function editCategory(e) {
     const categoryContainer = document.getElementById(`${categoryId}`);
     const name = document.getElementById(`${categoryId}-name`).innerText;
     let gender = document.getElementById(`${categoryId}-gender`).innerText;
-    gender = (gender === '남자') ? 'man' : 'woman';
+    console.log(gender);
+    gender = (gender === '남성') ? 'man' : 'woman';
     const recommendAge = parseInt(document.getElementById(`${categoryId}-recommendAge`).innerText);
     categoryContainer.innerHTML =`
             <div class="column is-2.4"><input type="text" id="${categoryId}-name" class="input category-item"></div>
@@ -165,7 +166,7 @@ async function editCancel(e) {
         const categoryId = e.target.value;
         // 값을 저장
         const data = await Api.get('/admin/category', categoryId);
-        const gender = (data.gender === 'man') ? '남자' : '여자';
+        const gender = (data.gender === 'man') ? '남성' : '여성';
         const categoryContainer = document.getElementById(`${categoryId}`);
         categoryContainer.innerHTML = `
             <div class="column is-2.4" id="${categoryId}-name">${data.name}</div>

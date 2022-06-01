@@ -12,7 +12,7 @@ viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/modify', serveStatic('modify'));
 viewsRouter.use('/my-page', serveStatic('my-page'));
-viewsRouter.use('/admin-category', serveStatic('category-show'));
+viewsRouter.use('/admin-category', serveStatic('admin-category'));
 viewsRouter.use('/admin-product/add', serveStatic('product-add'));
 viewsRouter.use('/admin-product/edit/:productId', serveStatic('product-edit'));
 viewsRouter.use('/product/:type/:target', serveStatic('product-list'));
