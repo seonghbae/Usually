@@ -9,6 +9,7 @@ const description = document.querySelector('#description');
 const price = document.querySelector('#price');
 const inventoryButton = document.querySelector('#inventory-button');
 const purchaseButton = document.querySelector('#purchase-button');
+const reviewContainer = document.querySelector('#review-container');
 
 addAllElements();
 addAllEvents();
@@ -39,6 +40,12 @@ async function addToInventory() {
     }
 }
 
+// 선택 상품 아이디 배열 저장, 이동
+function purchaseCallback() {
+    localStorage.setItem('productIds', JSON.stringify([ location.pathname.split("/")[2] ]));
+    location.href = '/payment';
+}
+
 // 상품 상세
 async function showProductDetail() {
     // /product/:productId 형식이라 split으로 productId만 가져오기
@@ -46,12 +53,12 @@ async function showProductDetail() {
     
     try {
         // api로 데이터를 받아옴
-        const data = await Api.get('/productInfo', productId);
-        image.src = data.src;
-        madeBy.innerHTML = data.madeBy;
-        name.innerHTML = data.name;
-        price.innerHTML = addCommas(data.price) + '원';
-        description.innerHTML = data.description;
+        const product = await Api.get('/productInfo', productId);
+        image.src = product.src;
+        madeBy.innerHTML = product.madeBy;
+        name.innerHTML = product.name;
+        price.innerHTML = addCommas(product.price) + '원';
+        description.innerHTML = product.description;
     } catch (err) {
         console.error(err.stack);
         alert(
@@ -60,8 +67,14 @@ async function showProductDetail() {
     }
 }
 
-// 선택 상품 아이디 배열 저장, 이동
-function purchaseCallback() {
-    localStorage.setItem('productIds', JSON.stringify([ location.pathname.split("/")[2] ]));
-    location.href = '/payment';
+// 리뷰
+async function showReviews() {
+    try {
+        const reviews = '';
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
 }
