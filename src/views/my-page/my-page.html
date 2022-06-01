@@ -44,25 +44,12 @@
       </script>
 
       <div class="my-page-content-container">
-          <div class="my-page-menu-container">
-              <div class="my-page-menu-title">
-                  <h1>MYPAGE</h1>
-                  <hr>
-              </div>
-
-              <h2>❇︎회원정보</h2>
-              <hr>
-              <ul class="my-page-menu-list">
-                  <li><a href="/modify">회원정보 수정</a></li>
-              </ul>
-              <h2>❇︎구매정보</h2>
-              <hr>
-              <ul class="my-page-menu-list">
-                  <li><a href="/cart">내 장바구니</a></li>
-                  <li><a href="/purchase-history">구매내역</a></li>
-                  <li><a href="/order-history">주문내역 상세</a></li>
-              </ul>
-          </div>
+          <div id="my-page-nav-container"></div>
+          <script>
+              $(function(){
+                  $("#my-page-nav-container").load("../my-page-nav/my-page-nav.html");
+              });
+          </script>
 
           <div class="my-page-info-container">
               <div class="my-page-info">
