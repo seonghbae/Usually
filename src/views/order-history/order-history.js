@@ -12,13 +12,29 @@ async function renderOrder() {
         }
         console.log(orderList);
         orderList.forEach((singleOrder) => {
-            for (let i = 0; i < singleOrder.products.length; i++) {
-                let singleOrderInfo = document.createElement('tr');
-                singleOrderInfo.innerHTML += `
+            let singleOrderInfo = document.createElement('tr');
+            let orderedItems = `<div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span>제품정보</span>
+                </button>
+            </div>
+            <div class="dropdown-menu is-" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">`;
+
+            for (let i = 0; i < singleOrder.orderedProducts.length; i++) {
+                let orderedItem = (orderedItems += `<div class="dropdown-item">
+                        <p></p>
+                    </div>
+                    <hr class="dropdown-divider">
+                `);
+            }
+            orderedItems += '</div></div>';
+            singleOrderInfo.innerHTML += `
                 <th>
                     <div>
                     <img src="https://blog.kakaocdn.net/dn/wR5bN/btqSxCsIZD8/0g1pTeaqRwXKvBcxPtqQE0/img.jpg" height="50" width="50">
-                    <p>이름: ${singleOrder.products[i].itemName}</p>
+                    <p>제품명:</p>
                     </div>
                 </th>
                 <th>
@@ -63,8 +79,7 @@ async function renderOrder() {
                 </th>
                 <br>
                 `;
-                tableContent.appendChild(singleOrderInfo);
-            }
+            tableContent.appendChild(singleOrderInfo);
         });
     } catch (err) {
         console.error(err.stack);
@@ -83,6 +98,6 @@ async function handleOrderDelete(e) {
     }
 }
 
-orderDeleteButton.addEventListener('click', handleOrderDelete);
+orderDeleteButton.onClick(handleOrderDelete);
 
 renderOrder();
