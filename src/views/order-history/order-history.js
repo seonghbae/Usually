@@ -73,7 +73,6 @@ async function renderOrder() {
 
 async function handleOrderDelete(e) {
     e.preventDefault();
-
     try {
         await fetch('/order/cancel/:shortId', {
             method: 'DELETE',
