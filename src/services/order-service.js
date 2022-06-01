@@ -67,6 +67,10 @@ class OrderService {
        throw new Error('주문 내역이 없습니다. 다시 한 번 확인해 주세요.');
      }
  
+     for(var i = 0; i<order.orderedProducts.length; i++){
+       await this.orderModel.deleteOrderedProducts(order.orderedProducts[i]._id);
+     }
+
      // 주문 취소 시작
      order = await this.orderModel.deleteOneOrder({
       orderId
