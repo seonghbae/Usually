@@ -102,6 +102,10 @@ async function paymentCallback() {
             } else if (selectedOption.value === '6') {
                 message = customRequest.value;
             }
+            const orderedProducts = orderInfo.productInfos.map(({ productId, quantity }) => ({
+                'productId': JSON.parse(localStorage.getItem(productId))._id,
+                'quantity': Number(quantity)
+            }));
             const order = {
                 "phoneNumber": addDashes(phoneNumberElem.value),
                 "address":{
@@ -110,16 +114,12 @@ async function paymentCallback() {
                     "address2": address2Elem.value
                 },
                 "message": message,
-                "orderedProducts": orderInfo.productInfos.map(({ productId, quantity }) => ({
-                    'productId': productId,
-                    'quantity': Number(quantity)
-                })),
+                "orderedProducts": orderedProducts,
                 "totalPrice": convertToNumber(orderInfo.totalPrice),
                 "totalQuantity": convertToNumber(orderInfo.productCounts)
             };
-            console.log(order);
             // API로 DB에 order 데이터 넘겨주기
-            // await Api.post('/order/purchase', order);
+            await Api.post('/order/purchase', order);
             // 결제완료시 localStorage에서 데이터 삭제
             orderInfo.productInfos.forEach((productInfo) => {
                 localStorage.removeItem(productInfo.productId);
