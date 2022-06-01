@@ -7,6 +7,22 @@ import { APIGateway, ApiGatewayManagementApi } from 'aws-sdk';
 const jwt = require('jsonwebtoken');
 const userRouter = Router();
 
+//isAdmin, role이 어드민인지 아닌지 판별 후 true, false 반환
+userRouter.get('/isAdmin', loginRequired, async function (req, res, next) {
+    try {
+        const user = await userService.getUser(req.currentUserId);
+        if (!user) {
+            throw new Error('없는 회원입니다.');
+        }
+        if (user.role === 'admin') {
+            res.json({ isAdmin: true });
+        } else {
+            res.json({ isAdmin: false });
+        }
+    } catch (err) {
+        next(err);
+    }
+});
 // 회원가입 api (아래는 /register이지만, 실제로는 /users/register로 요청해야 함.)
 userRouter.post('/register', async (req, res, next) => {
     try {
