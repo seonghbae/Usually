@@ -124,6 +124,7 @@ async function paymentCallback() {
             orderInfo.productInfos.forEach((productInfo) => {
                 localStorage.removeItem(productInfo.productId);
             });
+            localStorage.removeItem('order');
             window.location.href = '/order-complete';
         } catch (err) {
             console.error(err.stack);
