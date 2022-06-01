@@ -5,9 +5,9 @@ html 파일에 nav, footer 적용하기
 2. 각 html 파일 header 안에
 
     <!-- navbar, footer 활용을 위한 css, js -->
-    <link rel="stylesheet" href="../nav/nav.css">
-    <link rel="stylesheet" href="../footer/footer.css">
-    <script src="../nav/nav.js"></script>
+    <link rel="stylesheet" href="http://localhost:5000/nav/nav.css">
+    <link rel="stylesheet" href="http://localhost:5000/footer/footer.css">
+    <script src="http://localhost:5000/nav/nav.js"></script>
     <!-- navbar, footer 활용을 위한 jquery -->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -17,7 +17,7 @@ html 파일에 nav, footer 적용하기
 
     <script>
       $(document).ready(function() {
-        $('#nav-placeholder').load("../nav/nav.html", () => {
+        $('#nav-placeholder').load("http://localhost:5000/nav/nav.html", () => {
           navFunc()
         });
       });
@@ -29,6 +29,6 @@ html 파일에 nav, footer 적용하기
 
     <script>
       $(function () {
-        $("#footer-placeholder").load("../footer/footer.html");
+        $("#footer-placeholder").load("http://localhost:5000/footer/footer.html");
       });
     </script>
