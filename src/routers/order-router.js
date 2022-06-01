@@ -68,6 +68,30 @@ orderRouter.get('/list', loginRequired, async function(req, res, next) {
       }
 });
 
+//회원의 주문 목록 확인 api (아래는 /list 이지만, 실제로는 /purchase/list으로 요청해야 함.)
+// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+orderRouter.get('/shippedlist', loginRequired, async function(req, res, next) {
+    
+  try {
+      
+      //loginRequired에서 로그인한 회원의 정보 가져오기
+      const user =  await userService.getUser(req.currentUserId);
+  
+      if(!user){
+          throw new Error('없는 사용자입니다.');
+      }
+  
+      // 주문 목록 전부 반환
+      const orders = await orderService.getShippedOrdersByUser(req.currentUserId);
+      
+      //주묵 목록(배열)을 JSON 형태로 프론트에 보냄
+      res.status(200).json(orders);
+      
+    } catch (error) {
+      next(error);
+    }
+});
+
 //회원의 주문 목록 상세 확인 api (아래는 /list 이지만, 실제로는 /purchase/list으로 요청해야 함.)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 orderRouter.get('/list/:orderId', loginRequired, async function(req, res, next){
@@ -89,6 +113,9 @@ orderRouter.get('/list/:orderId', loginRequired, async function(req, res, next){
         next(error);
       }
 });
+
+
+
 
 orderRouter.patch('/:orderId', loginRequired, async function(req, res, next){
     try {

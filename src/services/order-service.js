@@ -33,6 +33,12 @@ class OrderService {
     return orders;
   }
 
+  async getShippedOrdersByUser(userId){
+    const orders = await this.orderModel.findShippedByUser(userId);
+    return orders;
+  }
+
+
   async getOrder(orderId){
     const order = await this.orderModel.findById(orderId);
     return order;
@@ -46,7 +52,6 @@ class OrderService {
     if(!order){
       throw new Error('주문 내역이 없습니다. 다시 한 번 확인해 주세요.');
     }
-    console.log(status);
 
     order = await this.orderModel.updateOrder(
       orderId,

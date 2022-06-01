@@ -132,7 +132,20 @@ adminRouter.post('/category/create', loginRequired, async (req, res, next) => {
             return;
         }
         const { name, gender, recommendAge } = req.body;
-        const newCategory = await categoryService.AddCategory({
+
+        const existCategoryId = await categoryService.getCategoryId({
+            name,
+            gender,
+            recommendAge,
+        });
+        if (existCategoryId) {
+            res.status(403).json({
+                result: 'forbidden-approach',
+                reason: `${name}, ${gender}, ${recommendAge} 에 해당 하는 카테고리가 있습니다. categoryId : ${existCategoryId} 입니다.`,
+            });
+            return;
+        }
+        const newCategory = await categoryService.addCategory({
             name,
             gender,
             recommendAge,
@@ -169,6 +182,19 @@ adminRouter.patch(
 
             const { categoryId } = req.params;
             const { name, gender, recommendAge } = req.body;
+            const existCategoryId = await categoryService.getCategoryId({
+                name,
+                gender,
+                recommendAge,
+            });
+            if (existCategoryId) {
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: `${name}, ${gender}, ${recommendAge} 에 해당 하는 카테고리가 있습니다. categoryId : ${existCategoryId} 입니다.`,
+                });
+                return;
+            }
+
             const UpdatedCategoryInfo = {
                 ...(name && { name }),
                 ...(gender && { gender }),
@@ -210,7 +236,18 @@ adminRouter.delete(
 
                 return;
             }
+
             const { categoryId } = req.params;
+            const products = await productService.getCategoryProducts(
+                categoryId
+            );
+            if (products.length > 0) {
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: '카테고리에 속한 상품을 비우고 다시 삭제해주세요.',
+                });
+                return;
+            }
             const deletedCategory = await categoryService.deleteCategory(
                 categoryId
             );
