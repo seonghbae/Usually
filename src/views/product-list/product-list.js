@@ -15,9 +15,9 @@ function addAllElements() {
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {}
 
-// 입력으로 들어오는 주소로 이동
-function newPage(productId) {
-    window.location.href = `/productdetail/${productId}`;
+// 입력으로 들어오는 상품 상세 페이지로 이동
+function productPage(productId) {
+    window.location.href = `/product/${productId}`;
 }
 
 // 상품 목록
@@ -41,7 +41,7 @@ async function showProductList() {
             imageTag.classList.add('image', 'is-square');
             imageTag.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
             // 상품 클릭시 해당 상품 상세 페이지로 이동
-            imageTag.addEventListener('click', () => newPage(product.productId));
+            imageTag.addEventListener('click', () => productPage(product.productId));
 
             const contentTag = document.createElement('div');
             contentTag.classList.add('content', 'has-text-centered');
