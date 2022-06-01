@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
+import { APIGateway, ApiGatewayManagementApi } from 'aws-sdk';
 const jwt = require('jsonwebtoken');
 const userRouter = Router();
 
@@ -63,6 +64,8 @@ userRouter.post('/login', async function (req, res, next) {
 
         // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
         const userToken = await userService.getUserToken({ email, password });
+        //user가져와서
+        //user role 판별하고
 
         //만료 시간을 임의로 정해줌 24시간 * 3일
         const expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 24 * 3);
@@ -109,12 +112,8 @@ userRouter.patch('/edit', loginRequired, async function (req, res, next) {
         const userId = req.currentUserId;
 
         // body data 로부터 업데이트할 사용자 정보를 추출함.
-        const fullName = req.body.fullName;
-        const password = req.body.password;
-        const address = req.body.address;
-        const phoneNumber = req.body.phoneNumber;
-        const role = req.body.role;
-        const gender = req.body.gender;
+        const { fullName, password, address, phoneNumber, role, gender } =
+            req.body;
 
         // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
         const currentPassword = req.body.currentPassword;

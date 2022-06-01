@@ -1,4 +1,3 @@
-import * as Api from '/api.js';
 import { addCommas, convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
@@ -12,7 +11,6 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
-    // addToInventory();
     showCartList();
     showOrder();
 }
@@ -22,23 +20,6 @@ function addAllEvents() {
     selectAllCheckbox.addEventListener('change', changeAllCheckbox);
     deleteChecked.addEventListener('click', deleteSelectedProducts);
     purchaseButton.addEventListener('click', purchaseCallback);
-}
-
-// 임시데이터 추가용
-async function addToInventory() {
-    try {
-        const data1 = await Api.get('/productInfo', '29c500');
-        const data2 = await Api.get('/productInfo', '6a980a');
-        const data3 = await Api.get('/productInfo', '604b1d');
-        localStorage.setItem(data1.productId, JSON.stringify(data1));
-        localStorage.setItem(data2.productId, JSON.stringify(data2));
-        localStorage.setItem(data3.productId, JSON.stringify(data3));
-    } catch (err) {
-        console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
-    }
 }
 
 // 모든 체크박스 전체 선택/해제 기능
@@ -68,27 +49,27 @@ function changeSelectAllCheckbox() {
 function deleteSelectedProducts() {
     const checked = document.querySelectorAll('.product-checkbox:checked');
     checked.forEach((product) => {
-        const id = product.parentNode.parentNode.id.split('-')[1];
-        const productItem = document.querySelector(`#item-${id}`);
+        const productId = product.parentNode.parentNode.id.split('-')[1];
+        const productItem = document.querySelector(`#item-${productId}`);
         productItem.remove();
-        localStorage.removeItem(id);
+        localStorage.removeItem(productId);
     });
     showOrder();
 }
 
 // 해당 상품 장바구니에서 삭제
-function deleteProduct(id) {
-    const productItem = document.querySelector(`#item-${id}`);
+function deleteProduct(productId) {
+    const productItem = document.querySelector(`#item-${productId}`);
     productItem.remove();
-    localStorage.removeItem(id);
+    localStorage.removeItem(productId);
     showOrder();
 }
 
 // 장바구니 상품 수량 변경
-function changeQuantity(type, id) {
-    const plusButton = document.querySelector(`#plus-${id}`);
-    const minusButton = document.querySelector(`#minus-${id}`);
-    const input = document.querySelector(`#input-${id}`);
+function changeQuantity(type, productId) {
+    const plusButton = document.querySelector(`#plus-${productId}`);
+    const minusButton = document.querySelector(`#minus-${productId}`);
+    const input = document.querySelector(`#input-${productId}`);
     let inputValue = Number(input.value);
     
     if(type === 'plus') {
@@ -110,15 +91,15 @@ function changeQuantity(type, id) {
     }
 
     input.value = inputValue;
-    applyQuantity(id);
+    applyQuantity(productId);
 }
 
 // 수량 변경 시 가격 반영
-function applyQuantity(id) {
-    const unitPrice = document.querySelector(`#unit-price-${id}`);
-    const quantity = document.querySelector(`#quantity-${id}`);
-    const total = document.querySelector(`#total-${id}`);
-    const input = document.querySelector(`#input-${id}`);
+function applyQuantity(productId) {
+    const unitPrice = document.querySelector(`#unit-price-${productId}`);
+    const quantity = document.querySelector(`#quantity-${productId}`);
+    const total = document.querySelector(`#total-${productId}`);
+    const input = document.querySelector(`#input-${productId}`);
 
     quantity.innerHTML = input.value;
     total.innerHTML = `${addCommas(convertToNumber(unitPrice.innerHTML) * Number(quantity.innerHTML))}원`;
@@ -126,12 +107,17 @@ function applyQuantity(id) {
     showOrder();
 }
 
+// 입력으로 들어오는 상품 상세 페이지로 이동
+function productPage(productId) {
+    window.location.href = `/product/${productId}`;
+}
+
 // 장바구니 목록
 function showCartList() {
     const products = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if(key === 'productIds') continue;
+        if(key === 'order') continue;
         const product = JSON.parse(localStorage.getItem(key));
         products.push(product);
     }
@@ -153,7 +139,7 @@ function showCartList() {
         const image = document.createElement('figure');
         image.className = 'image is-96x96';
         image.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
-        image.addEventListener('click', () => {});
+        image.addEventListener('click', () => {productPage(product.productId)});
 
         const minusButton = document.createElement('button');
         minusButton.className = 'button is-rounded';
@@ -259,9 +245,27 @@ function showOrder() {
 // 선택 상품 아이디 배열 저장, 이동
 function purchaseCallback() {
     const checked = document.querySelectorAll('.product-checkbox:checked');
-    const productIds = [];
-    checked.forEach((product) => productIds.push(product.parentNode.parentNode.id.split('-')[1]));
-    localStorage.setItem('productIds', JSON.stringify(productIds));
+    const productCounts = document.querySelector('#product-counts');
+    const productsTotal = document.querySelector('#products-total');
+    const deliveryFee = document.querySelector('#delivery-fee');
+    const totalPrice = document.querySelector('#total-price');
+
+    const productInfos = [];
+    checked.forEach((product) => {
+        const productId = product.parentNode.parentNode.id.split('-')[1];
+        productInfos.push({
+            productId: productId,
+            quantity: document.querySelector(`#input-${productId}`).value,
+        });
+    });
+    const order = {
+        productInfos: productInfos,
+        productCounts: productCounts.innerHTML,
+        productsTotal: productsTotal.innerHTML,
+        deliveryFee: deliveryFee.innerHTML,
+        totalPrice: totalPrice.innerHTML,
+    };
+    localStorage.setItem('order', JSON.stringify(order));
 
     location.href = '/payment';
 }
