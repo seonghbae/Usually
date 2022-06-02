@@ -1,0 +1,34 @@
+.admin-user-content-container {
+    display: flex;
+    width: 150vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+.admin-user-content-container #admin-nav-container {
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 10vh;
+}
+
+.admin-user-table-container {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.admin-user-content-container .admin-user-title h2 {
+    font-size: 25px;
+}
+
+.admin-user-content-container hr {
+    background-color: black;
+    width: 100%;
+}
+.admin-user-table-container .table-container {
+    display: block;
+    overflow-x: auto;
+}
+.admin-user-content-container .table-container thead tr th {
+    color: #ffae96;
+    font-size: 120%;
+}
