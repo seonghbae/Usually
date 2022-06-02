@@ -146,7 +146,7 @@ async function showReviews() {
 
         pageCallback(1);
 
-        for (let i = 1; i < totalPage; i++) {
+        for (let i = 1; i <= totalPage; i++) {
             const pTag = document.createElement('p');
             pTag.className = 'page-number';
             pTag.innerHTML = i;
