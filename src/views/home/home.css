@@ -16,7 +16,7 @@ div {
 
 .slider {
     overflow: hidden;
-    width: 302vw;
+    width: 502vw;
 }
 
 .slider-image {
@@ -213,3 +213,4 @@ div {
     text-align: center;
     font-size: 0.9rem;
 }
+

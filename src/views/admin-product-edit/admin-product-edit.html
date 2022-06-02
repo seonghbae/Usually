@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>쇼핑-데모</title>
+	<!-- 아이콘 -->
+	<link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+	<!-- bulma css 관련 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+	<!-- 폰트 어썸: 아이콘 -->
+	<script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+	<!-- 커스텀 css, js -->
+	<link rel="stylesheet" href="admin-product-edit.css" />
+	<script src="admin-product-edit.js" type="module" defer></script>
+	<!-- navbar, footer 활용을 위한 css, js -->
+	<link rel="stylesheet" href="http://localhost:5000/nav/nav.css">
+	<link rel="stylesheet" href="http://localhost:5000/footer/footer.css">
+	<script src="http://localhost:5000/nav/nav.js"></script>
+	<!-- navbar, footer 활용을 위한 jquery -->
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<!--Navigation bar-->
+	<div id="nav-placeholder"></div>
+
+	<script>
+		$(document).ready(function() {
+		$('#nav-placeholder').load("http://localhost:5000/nav/nav.html", () => {
+			navFunc()
+		});
+		});
+	</script>
+	<div class="admin-main-content-container">
+		<div id="admin-nav-container"></div>
+			<script>
+				$(function(){
+				$("#admin-nav-container").load("http://localhost:5000/admin-nav/admin-nav.html");
+				});
+			</script>
+		<div class="register-product-form-container">
+			<form class="box register-product-form-box" accept-charset="UTF-8" enctype="multipart/form-data" id="registerProductForm">
+				<div class="title-container">
+					<h1 class="title is-5 has-text-primary">제품 수정</h1>
+					<a href="" class="product-detail-button-link"><button class="button is-link is-light product-detail-button" type="button">제품 상세보기</button></a>
+				</div>
+				<div class="field">
+					<label class="label" for="titleInput">제품 이름</label>
+					<div class="control">
+						<input class="input" id="titleInput" name="name" type="text" placeholder="" autocomplete="on">
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="categorySelectBox">카테고리</label>
+					<div class="control">
+						<div class="select is-fullwidth">
+							<select id="categorySelectBox" name="category"></select>
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="genderSelectBox">성별</label>
+					<div class="control">
+						<div class="select is-fullwidth">
+							<select id="genderSelectBox" name="gender">
+								<option value="man" class="notification is-primary is-light"> 남성 </option>
+								<option value="woman" class="notification is-warning is-light"> 여성 </option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="recommendAgeSelectBox">추천 연령대</label>
+					<div class="control">
+						<div class="select is-fullwidth">
+							<select id="recommendAgeSelectBox" name="recommendAge">
+								<option value="10" class="notification is-primary is-light"> 10대 </option>
+								<option value="20" class="notification is-info is-light"> 20대 </option>
+								<option value="30" class="notification is-danger is-light"> 30대 </option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="madeByInput">제조사</label>
+					<div class="control">
+						<input class="input" id="madeByInput" name="madeBy" type="text" placeholder="" autocomplete="on">
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="descriptionInput">요약 설명</label>
+					<div class="control">
+						<textarea class="textarea" id="descriptionInput" name="description" rows="3" placeholder="제품에 대한 1~2문장의 설명을 적어 주세요." autocomplete="on"></textarea>
+					</div>
+				</div>
+
+				<div class="field is-fullwidth">
+					<label class="label" for="imageInput">제품 사진</label>
+					<img id="preview-image" src="https://dummyimage.com/600x500/ffffff/000000.png&text=preview+image">
+					<div id="file-form-container" class="file has-name is-fullwidth">
+					<label class="file-label">
+						<input class="file-input" id="imageInput" type="file" name="src" accept=".png, .jpeg, .jpg">
+						<span class="file-cta">
+						<span class="file-icon">
+							<i class="fas fa-upload" aria-hidden="true"></i>
+						</span>
+						<span class="file-label"> 사진 업로드 </span>
+						</span>
+						<span class="file-name" id="fileNameSpan">
+							사진파일 (png, jpg, jpeg)
+						</span>
+					</label>
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="inventoryInput">재고 수</label>
+					<div class="control">
+						<input class="input" id="inventoryInput" name="inventory" min="0" type="number" placeholder="10" autocomplete="on">
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="sellCountInput">판매 수</label>
+					<div class="control">
+						<input class="input" id="sellCountInput" name="sellCount" min="0" type="number" placeholder="10" autocomplete="on">
+					</div>
+				</div>
+
+				<div class="field">
+					<label class="label" for="priceInput">가격</label>
+					<div class="field">
+						<div class="control has-icons-right">
+							<input class="input" id="priceInput" name="price" min="0" type="number" placeholder="10000" autocomplete="on">
+							<span class="icon is-small is-right"> 원 </span>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-grouped is-grouped-multiline mt-3" id="keywordContainer"></div>
+
+				<div class="mt-5">
+					<button class="button is-primary is-fullwidth" id="submitButton">
+						제품 수정하기
+					</button>
+				</div>
+
+				<div class="mt-5">
+					<button type="button" class="button is-danger is-fullwidth" id="deleteButton">
+						제품 삭제하기
+					</button>
+				</div>
+			</form>
+		</div>
+		<div class="right-div"></div>
+	</div>
+	<!--footer-->
+	<div id="footer-placeholder"></div>
+	<script>
+		$(function () {
+		$("#footer-placeholder").load("http://localhost:5000/footer/footer.html");
+		});
+	</script>
+	</body>
+</html>
