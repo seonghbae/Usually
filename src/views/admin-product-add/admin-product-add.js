@@ -9,18 +9,6 @@ fileInput.onchange = () => {
     };
 };
 
-// CategoryId를 받아오는 함수
-async function getCategoryId(name, gender, recommendAge) {
-    try {
-        const categoryId = await Api.get(`/category/${name}/${gender}/${recommendAge}`)
-        return categoryId;
-    } catch (err) {
-    console.error(err.stack);
-    alert(
-        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-    );
-    };
-};
 // 미리보기 이미지 구현
 function readImage(input) {
     // 인풋 태그에 파일이 있는 경우
@@ -42,26 +30,6 @@ const inputImage = document.getElementById("imageInput")
 inputImage.addEventListener("change", e => {
     readImage(e.target);
 });
-
-// 카테고리로 선택 태그를 만들어주는 함수
-async function makeCategoryOptions() {
-    // 카테고리의 종류대로 option을 추가
-    // gender 남/녀 recommendAge는 10/20/30으로 팀끼리 고정하기로 합의함
-    try {
-    const categorySelectBox = document.querySelector('#categorySelectBox');
-    const options = await Api.get('/category/getName');
-    options.forEach((option) => {
-        categorySelectBox.insertAdjacentHTML('beforeend', `
-            <option value="${option}" class="notification"> ${option} </option>
-        `);
-    });
-    } catch (err) {
-        console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
-    };
-};
 
 // 상품 등록 함수
 async function registerProduct(e) {
@@ -104,7 +72,7 @@ async function registerProduct(e) {
 
         if (!src.files[0]){
             return alert('사진을 업로드해주세요')
-        }
+        };
 
         if (!inventory) {
             return alert('재고를 입력해주세요');
@@ -115,24 +83,13 @@ async function registerProduct(e) {
         };
         
         let formData = new FormData(myForm);
-        // const categoryId = await getCategoryId(category, gender, recommendAge);
-        // // 받아 온 category, gender, recommendAge를 지우고, categoryId로 변환하여 추가
-        // formData.delete('category');
-        // formData.delete('gender');
-        // formData.delete('recommendAge');
-        // formData.append('categoryId', categoryId); 
-        
-        // formdata 확인용, 배포 전 삭제
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
-        };
-        
-
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
         await fetch("http://localhost:5000/admin/product/create/", {
             method: 'POST',
             body: formData
         });
+        alert('상품 추가를 성공했습니다!');
+        window.location.reload();
     } catch (err) {
         console.error(err.stack);
         alert(
@@ -158,10 +115,8 @@ async function changeSelectOptions() {
     };
 };
 
-changeSelectOptions()
+changeSelectOptions();
 // form안의 버튼 클릭했을 시 (submit) 제품 등록.
 let myForm = document.querySelector('form');
 myForm.addEventListener('submit', registerProduct);
 
-// 카테고리 options 갱신
-makeCategoryOptions();
