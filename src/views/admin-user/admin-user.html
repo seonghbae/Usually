@@ -23,18 +23,19 @@
             crossorigin="anonymous"
         ></script>
         <!-- 커스텀 css, js -->
-        <link rel="stylesheet" href="order-history.css" />
-        <script src="order-history.js" type="module" defer></script>
-        <!-- navbar, footer 활용을 위한 css, js -->
+        <link rel="stylesheet" href="admin-user.css" />
+        <script src="admin-user.js" type="module" defer></script>
+        <!-- navbar, footer, admin-nav 활용을 위한 css, js -->
         <link rel="stylesheet" href="../nav/nav.css">
         <link rel="stylesheet" href="../footer/footer.css">
+        <link rel="stylesheet" href="../admin-nav/admin-nav.css">
         <script src="../nav/nav.js"></script>
         <!-- navbar, footer 활용을 위한 jquery -->
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        
     </head>
       <!--Navigation bar-->
       <div id="nav-placeholder"></div>
-
       <script>
         $(document).ready(function() {
           $('#nav-placeholder').load("../nav/nav.html", () => {
@@ -42,40 +43,40 @@
           });
         });
       </script>
-      
-      <div class="order-history-content-container">
-          <div id="my-page-nav-container"></div>
-          <script>
-              $(function(){
-                  $("#my-page-nav-container").load("../my-page-nav/my-page-nav.html");
-              });
-          </script>
 
-          <div class="order-history-container">
-              <div class="order-history-info">
-                  <h3>주문내역 상세</h3>
-              </div>
+      <div class="admin-user-content-container">
+        <div id="admin-nav-container"></div>
+        <script>
+            $(function(){
+              $("#admin-nav-container").load("../admin-nav/admin-nav.html");
+            });
+        </script>
 
-              <div class="table-container">
-                  <table class="table is-fullwidth is-hoverable">
-                    <thead>
-                        <tr>
-                            <th>상품정보</th>
-                            <th>주문번호</th>
-                            <th>주문금액(수량)</th>
-                            <th>배송지</th>
-                            <th>주문상태</th>
-                            <th>주문삭제</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-content">
-                    </tbody>
-                  </table>
-              </div>
-          </div>
+        <div class="admin-user-table-container">
+            <div class="admin-user-title">
+                <h2>총 유저정보</h2>
+            </div>
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable">
+                  <thead>
+                      <tr>
+                          <th>사용자명</th>
+                          <th>이메일</th>
+                          <th>비밀번호(암호화)</th>
+                          <th>성별</th>
+                          <th>유저정보</th>
+                      </tr>
+                  </thead>
+                  <tbody id="table-content">
+                  </tbody>
+                </table>
+            </div>
+        </div>
       </div>
-      <!--footer-->
       
+
+    </div>
+      <!--footer-->
       <div id="footer-placeholder"></div>
 
       <script>
@@ -85,3 +86,4 @@
       </script>
     </body>
 </html>
+
