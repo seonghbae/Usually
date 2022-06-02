@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-import { addCommas } from '/useful-functions.js';
+import { addCommas, convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const image = document.querySelector('#image');
@@ -50,12 +50,33 @@ async function addToInventory() {
 }
 
 // 선택 상품 아이디 배열 저장, 이동
-function purchaseCallback() {
-    localStorage.setItem(
-        'productIds',
-        JSON.stringify([location.pathname.split('/')[2]])
-    );
-    location.href = '/payment';
+async function purchaseCallback() {
+    const productId = location.pathname.split('/')[2];
+
+    try {
+        // api로 데이터를 받아옴
+        const product = await Api.get('/productInfo', productId);
+        const quantity = 1;
+        const deliveryFee = (Number(product.price) > 500000) ? 0 : 3000;
+        const totalPrice = Number(product.price) + deliveryFee;
+        const order = {
+            productInfos: [{
+                productId: productId,
+                quantity: quantity,
+            }],
+            productCounts: `${quantity}개`,
+            productsTotal: `${addCommas(product.price)}원`,
+            deliveryFee: `${addCommas(deliveryFee)}원`,
+            totalPrice: `${addCommas(totalPrice)}원`,
+        };
+        localStorage.setItem('order', JSON.stringify(order));
+        location.href = '/payment';
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
 }
 
 // 리뷰 작성
