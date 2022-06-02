@@ -29,7 +29,6 @@ export class OrderModel {
   }
   //user의 shortId 중 배송 완료한 주문 내역 전부 찾기
 
-
   async findById(orderId){
     const order = await Order.findOne({shortId : orderId}).populate({
       path : 'orderedProducts',
@@ -70,7 +69,6 @@ export class OrderModel {
     const filter = { shortId : orderId };
     const option = { returnOriginal : false };
     const update = { status: status };
-    console.log(update);
 
     const updatedOrder = await Order.updateOne(filter, update, option);
     return updatedOrder;
