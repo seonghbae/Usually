@@ -75,7 +75,6 @@ async function getCategoryAndShow() {
             <div class="column is-2.4" id="${data.categoryId}-recommendAge">${data.recommendAge}대</div>
             <div class="column is-2.4" id="${data.categoryId}-editButton"><button class="button is-success is-light category-edit" value="${data.categoryId}">카테고리 수정</button></div>
             <div class="column is-2.4" id="${data.categoryId}-deleteButton"><button class="button is-danger is-light category-delete" value="${data.categoryId}">카테고리 삭제</button></div>
-            </div>
         </div>
         `);
         addEventToEditAndDeleteButton();

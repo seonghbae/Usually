@@ -55,18 +55,6 @@ async function getCategoryId(name, gender, recommendAge) {
     };
 };
 
-// form 내의 select태그 option을 category정보로 갱신하는 함수 (아직 구현못함)
-async function changeSelectOptions() {
-    try {
-        const selectNode = document.querySelectorAll('select');
-        
-    } catch (err) {
-        console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
-    };
-};
 // db와 form 형식의 차이를 해결하기 위해 데이터 형식을 form쪽으로 맞춰주는 함수
 async function getProductDataToFormType(productId){
     const { categoryId, name, price, description, madeBy, inventory, sellCount, src } = await getProductData(productId);
@@ -78,6 +66,10 @@ async function getProductDataToFormType(productId){
 };
 // form 내의 value들을 기존 상품 정보로 갱신 및 반환
 async function formValueSetting(productId){
+    // 제품 상세보기 버튼의 href값을 바꿔준다
+    document.querySelector('.product-detail-button-link').setAttribute('href',  `http://localhost:5000/product/${productId}`)
+    // 먼저 option을 가져온다.
+    await changeSelectOptions();
     const { name, category, gender, recommendAge, madeBy, description, src, inventory, sellCount, price} = await getProductDataToFormType(productId);
     document.querySelector('#titleInput').value = name;
     document.querySelector('#categorySelectBox').value = category;
@@ -114,16 +106,36 @@ inputImage.addEventListener("change", e => {
     readImage(e.target)
 });
 
-
 formValueSetting(productId);
 
+// formdata의 길이 체크 함수
 const checkFormDataLength = function(formData) {
     let formDataLength = 0;
     for(const pair of formData.entries()) {
         formDataLength++;
-    }
+    };
     return formDataLength;
-}
+};
+
+// 카테고리의 option들을 갱신해주는 함수
+async function changeSelectOptions() {
+    try {
+        const options = await Api.get('/category/getName');
+        const optionContainer = document.querySelector('#categorySelectBox');
+        options.forEach((option) => {
+            optionContainer.insertAdjacentHTML('beforeend', `
+                <option value="${option}"> ${option} </option>
+            `);
+        });
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    };
+};
+
+
 // 상품 수정 함수
 async function editProduct(e) {
     try {
@@ -211,10 +223,10 @@ async function editProduct(e) {
             return alert('수정된 값이 존재하지 않습니다.')
         };
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        // fetch(`http://localhost:5000/admin/product/${productId}`, {
-        //     method: 'patch',
-        //     body: formData
-        // });
+        fetch(`http://localhost:5000/admin/product/${productId}`, {
+            method: 'patch',
+            body: formData
+        });
 
         // formdata 확인용, 배포 전 삭제
         for(var pair of formData.entries()) {

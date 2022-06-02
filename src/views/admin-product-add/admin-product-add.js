@@ -112,10 +112,27 @@ async function registerProduct(e) {
         
 
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        // await fetch("http://localhost:5000/admin/product/create/", {
-        //     method: 'post',
-        //     body: formData
-        // });
+        await fetch("http://localhost:5000/admin/product/create/", {
+            method: 'POST',
+            body: formData
+        });
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    };
+};
+// 카테고리의 option들을 갱신해주는 함수
+async function changeSelectOptions() {
+    try {
+        const options = await Api.get('/category/getName');
+        const optionContainer = document.querySelector('#categorySelectBox');
+        options.forEach((option) => {
+            optionContainer.insertAdjacentHTML('beforeend', `
+                <option value="${option}"> ${option} </option>
+            `);
+        });
     } catch (err) {
         console.error(err.stack);
         alert(
@@ -124,6 +141,7 @@ async function registerProduct(e) {
     };
 };
 
+changeSelectOptions()
 // form안의 버튼 클릭했을 시 (submit) 제품 등록.
 let myForm = document.querySelector('form');
 myForm.addEventListener('submit', registerProduct);

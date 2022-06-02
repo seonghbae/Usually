@@ -1,0 +1,32 @@
+.admin-main-content-container {
+    display: flex;
+    margin: 5vh;
+}
+
+h1 {
+    margin: 0;
+}
+
+#admin-nav-container {
+    display: flex;
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+.section {
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+}
+
+.item {
+    margin: 0.5rem;
+}
+
+.image {
+    cursor: pointer;
+}

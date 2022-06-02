@@ -7,11 +7,12 @@
 .register-product-form-container{
     display:flex;
     justify-content:center;
-    margin-top: 5rem;
+    width: 100%;
 }
 
 .register-product-form-box{
     width:40rem;
+
 }
 
 .register-product-form-box .title{
@@ -25,4 +26,42 @@
 .register-product-form-box .input:focus,.register-product-form-box .textarea:focus,.register-product-form-box select:focus{
     border-color:#00d1b2;
     box-shadow:0 0 0 .125em rgba(0,209,178,.25);
+}
+
+.admin-main-content-container {
+    display: flex;
+    margin: 5vh;
+}
+
+#admin-nav-container {
+    display: flex;
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 10vh;
+}
+
+.title {
+    color: #ffae96!important;
+    font-size: 1.5rem!important;
+}
+
+.right-div {
+    width: 20%;
+}
+
+.title-container {
+    text-align: center;
+    position: relative;
+    height: 3rem;
+}
+
+h1 {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.product-detail-button {
+    float: right;
 }

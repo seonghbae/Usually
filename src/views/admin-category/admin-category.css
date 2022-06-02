@@ -15,7 +15,7 @@ h1 {
     margin-left: 10vh;
 }
 
-.main-coontainer {
+.main-container {
     display: flex;
     flex-direction: column;
     width: 80%;
