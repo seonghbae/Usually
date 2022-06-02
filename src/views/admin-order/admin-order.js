@@ -39,7 +39,7 @@ async function adminOrderRender(e) {
                         <span>${singleOrder.status}</span>
                     </button>
                 </div>
-                <div class="dropdown-menu is-" id="dropdown-menu" role="menu">
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
                         <div class="dropdown-item">
                             <p>상품준비중</p>
