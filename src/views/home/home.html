@@ -27,9 +27,9 @@
 		<script src="home.js" type="module" defer></script>
 		<script src="carousel.js" type="module" defer></script>
 		<!-- navbar, footer 활용을 위한 css, js -->
-		<link rel="stylesheet" href="http://localhost:5000/nav/nav.css">
-		<link rel="stylesheet" href="http://localhost:5000/footer/footer.css">
-		<script src="http://localhost:5000/nav/nav.js"></script>
+		<link rel="stylesheet" href="../nav/nav.css">
+		<link rel="stylesheet" href="../footer/footer.css">
+		<script src="../nav/nav.js"></script>
 		<!-- navbar, footer 활용을 위한 jquery -->
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
@@ -39,7 +39,7 @@
 
 		<script>
 		$(document).ready(function() {
-			$('#nav-placeholder').load("http://localhost:5000/nav/nav.html", () => {
+			$('#nav-placeholder').load("../nav/nav.html", () => {
 			navFunc()
 			});
 		});
@@ -122,7 +122,7 @@
 		<div id="footer-placeholder"></div>
 		<script>
 		$(function () {
-			$("#footer-placeholder").load("http://localhost:5000/footer/footer.html");
+			$("#footer-placeholder").load("../footer/footer.html");
 		});
 		</script>
 	</body>

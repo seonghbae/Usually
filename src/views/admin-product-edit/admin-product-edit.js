@@ -13,7 +13,7 @@ fileInput.onchange = () => {
     }
 };
 
-// localhost:5000/admin/product/edit/:productId/ split으로 productId만 가져오기
+// /admin-product/edit/:productId/ split으로 productId만 가져오기
 const productId = location.pathname.split('/')[3];
 // productId로 정보 받아오는 함수
 async function getProductData(productId) {
@@ -97,7 +97,7 @@ async function formValueSetting(productId) {
     // 제품 상세보기 버튼의 href값을 바꿔준다
     document
         .querySelector('.product-detail-button-link')
-        .setAttribute('href', `http://localhost:5000/product/${productId}`);
+        .setAttribute('href', `../product/${productId}`);
     // 먼저 option을 가져온다.
     await changeSelectOptions();
     const {
@@ -231,7 +231,7 @@ async function editProduct(e) {
         formData.append('price', e.target.price.value);
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
         let res = await fetch(
-            `http://localhost:5000/admin/product/${productId}`,
+            `/admin/product/${productId}`,
             {
                 method: 'PATCH',
                 body: formData,
