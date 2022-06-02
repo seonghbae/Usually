@@ -9,20 +9,20 @@ const description = document.querySelector('#description');
 const price = document.querySelector('#price');
 const inventoryButton = document.querySelector('#inventory-button');
 const purchaseButton = document.querySelector('#purchase-button');
-const reviewContainer = document.querySelector('#review-container');
 const reviewBody = document.querySelector('#review-body');
-
 const pageNumbers = document.querySelector('#page-numbers');
+const reviewWriteButton = document.querySelector('#review-write-button');
+const reviewInput = document.querySelector('#review-input');
+const reviewCreateContainer = document.querySelector('#review-create-container');
+const reviewCreateButton = document.querySelector('#review-create-button');
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
+    getUserId();
     showProductDetail();
-
-    // addReviews();
-
     showReviews();
 }
 
@@ -30,6 +30,12 @@ function addAllElements() {
 function addAllEvents() {
     inventoryButton.addEventListener('click', addToInventory);
     purchaseButton.addEventListener('click', purchaseCallback);
+    reviewWriteButton.addEventListener('click', reviewWriteCallback);
+    reviewCreateButton.addEventListener('click', reviewCreateCallback);
+}
+
+async function getUserId() {
+    await Api.get('/users/getId');
 }
 
 // 장바구니 클릭시 localStorage에 항목 저장
@@ -54,6 +60,33 @@ function purchaseCallback() {
         JSON.stringify([location.pathname.split('/')[2]])
     );
     location.href = '/payment';
+}
+
+// 리뷰 작성
+function reviewWriteCallback() {
+    reviewCreateContainer.style.display = 'block';
+    reviewWriteButton.style.display = 'none';
+}
+
+// 리뷰 작성 완료
+async function reviewCreateCallback() {
+    const productId = location.pathname.split('/')[2];
+    try {
+        await Api.post('/review', {
+            title: '',
+            content: reviewInput.innerHTML,
+            author: '',
+            productId: productId,
+        });
+    
+        reviewWriteButton.style.display = 'block';
+        reviewCreateContainer.style.display = 'none';
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
 }
 
 // 상품 상세
@@ -129,14 +162,14 @@ async function showReviews() {
     try {
         const { totalPage } = await Api.get('/review', productId);
 
-        showReview(1, totalPage);
+        pageCallback(1, totalPage);
 
         for (let i = 1; i < totalPage; i++) {
             const pTag = document.createElement('p');
             pTag.className = 'page-number';
             pTag.innerHTML = i;
             pTag.addEventListener('click', () => {
-                showReview(i, totalPage);
+                pageCallback(i, totalPage);
             });
             pageNumbers.appendChild(pTag);
         }
@@ -148,19 +181,41 @@ async function showReviews() {
     }
 }
 
-async function showReview(pageNumber, totalPage) {
+async function pageCallback(pageNumber, totalPage) {
     const productId = location.pathname.split('/')[2];
-    
+
     try {
         const { page, reviews, perPage } = await Api.get('/review', `${productId}?page=${pageNumber}`);
         reviewBody.innerHTML = '';
         const pageReviews = (totalPage >= perPage * page) ? reviews.slice(perPage * (page - 1), perPage * page) : reviews.slice(perPage * (page - 1));
         reviews.forEach((review) => {
             reviewBody.innerHTML += 
-            `<div class="review" id="review-${review.reviewId}">
-                <div class="review-content">${review.content}</div>
-                <div class="review-author">${review.author}</div>
+            `<div class="review-body-container">
+                <div class="review" id="review-${review.reviewId}">
+                    <div class="review-content">${review.content}</div>
+                    <div class="review-author">${review.author}</div>
+                    <button class="review-update" id="review-update-icon">
+                        <span class="icon">
+                            <i class="fas fa-pencil" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <button class="review-delete" id="review-delete-icon">
+                        <span class="icon">
+                            <i class="fas fa-trash-can" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="review-update-container" style="display: none;">
+                    <textarea class="review-input" type="text"></textarea>
+                    <div class="review-button">
+                        <button class="button is-danger" id="review-update-button">수정완료</button>
+                    </div>
+                </div>
             </div>`;
+            const reviewUpdateIcon = document.querySelector('#review-update-icon');
+            const reviewDeleteIcon = document.querySelector('#review-delete-icon');
+            const reviewUpdateButton = document.querySelector('#review-update-button');
+            // reviewUpdateIcon.addEventListener('click', );
         });
     } catch (err) {
         console.error(err.stack);
