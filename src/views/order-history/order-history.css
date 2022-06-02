@@ -1,0 +1,65 @@
+.order-history-content-container {
+    display: flex;
+    height: 80vh;
+    width: 150vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+#my-page-nav-container {
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 10vh;
+}
+
+.my-page-menu-list {
+    height: 50px;
+}
+
+.my-page-menu-container h1 {
+    font-size: 25px;
+}
+
+.my-page-menu-container h2 {
+    font-size: 21px;
+}
+
+.my-page-menu-container ul {
+    margin-bottom: 30px;
+}
+
+.my-page-menu-container hr {
+    background-color: lightgray;
+    width: 90%;
+}
+
+.my-page-menu-title hr {
+    background-color: black;
+}
+
+.my-page-menu-list li {
+    list-style: disc;
+    font-size: 15px;
+    margin-left: 20%;
+}
+.my-page-menu-list a {
+    color: black;
+}
+.order-history-container {
+    margin-left: 5%;
+    width: 100%;
+}
+
+.order-history-container .order-history-info {
+    margin-bottom: 20px;
+}
+
+.order-history-container .table-container thead tr th {
+    color: #ffae96;
+    font-size: 120%;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: bold;
+}

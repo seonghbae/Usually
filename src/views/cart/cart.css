@@ -1,7 +1,3 @@
-* {
-    box-sizing: inherit;
-}
-
 .cart-header {
     display: flex;
     border-bottom: 1px solid;
@@ -63,13 +59,21 @@
     display: flex;
 }
 
-.content {
-    text-align: center;
+.cart-product-item .content {
+    display: flex;
+    flex-direction: column;
     font-size: 1.4rem;
     margin-left: 4rem;
+    margin-bottom: 0;
+    align-items: center;
+}
+.content .quantity .button {
+    font-size: .6rem;
 }
 
 .input {
+    height: 1.5rem;
+    width: 2.5rem;
     text-align: center;
 }
 
@@ -126,4 +130,10 @@
     font-weight: 800;
     height: 4rem;
     width: 100%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

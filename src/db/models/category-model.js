@@ -4,47 +4,54 @@ import { CategorySchema } from '../schemas/category-schema';
 const Category = model('category', CategorySchema);
 
 export class CategoryModel {
+    async findByName() {
+        return await Category.distinct('name');
+    }
+
+    async findByGender() {
+        return await Category.distinct('gender');
+    }
+
+    async findByRecommendAge() {
+        return await Category.distinct('recommendAge');
+    }
+
+    async findCategoryId(categoryInfo) {
+        const category = await Category.find(categoryInfo);
+        return category.map((el) => el.categoryId)[0];
+    }
+
     async findByTypeTarget(categoryInfo) {
         let { type, target } = categoryInfo;
         let query = {};
         query[type] = target;
 
-        const categories = await Category.find(query);
-        return categories;
+        return await Category.find(query);
     }
 
     async findAll() {
-        const categories = await Category.find({});
-        return categories;
+        return await Category.find({});
     }
 
     async findById(categoryId) {
-        const category = await Category.findOne({ categoryId });
-        return category;
+        return await Category.findOne({ categoryId });
     }
 
     async create(categoryInfo) {
-        const createdNewCategory = await Category.create(categoryInfo);
-        return createdNewCategory;
+        return await Category.create(categoryInfo);
     }
 
     async update({ categoryId, update }) {
         const filter = { categoryId };
         const option = { returnOriginal: false };
 
-        const updateCategory = await Category.findOneAndUpdate(
-            filter,
-            update,
-            option
-        );
-        return updateCategory;
+        return await Category.findOneAndUpdate(filter, update, option);
     }
 
     async delete({ categoryId }) {
         const filter = { categoryId };
 
-        const deleteCategory = await Category.deleteOne(filter);
-        return deleteCategory;
+        return await Category.deleteOne(filter);
     }
 }
 

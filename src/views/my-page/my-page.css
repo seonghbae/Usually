@@ -1,13 +1,13 @@
 .my-page-content-container {
     display: flex;
-    height: 60vh;
-    width: 120vh;
-    margin-top: 10vh;
-    margin-left: 10vh;
+    height: 80vh;
+    width: 150vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
 }
 
-.my-page-menu-container {
-    width: 30%;
+#my-page-nav-container {
+    width: 20%;
     margin-top: 5vh;
     margin-left: 10vh;
 }

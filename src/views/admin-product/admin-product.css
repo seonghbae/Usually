@@ -1,0 +1,77 @@
+.admin-main-content-container {
+    display: flex;
+    margin: 5vh;
+}
+
+h1 {
+    margin: 0;
+}
+
+#admin-nav-container {
+    display: flex;
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-right: auto;
+}
+
+.section {
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+}
+.title-container{
+    display: flex;
+    padding: 0 3rem;
+}
+
+.title {
+    font-size: 2rem;
+}
+
+.product-add-button-link {
+    margin-left: auto;
+}
+
+.item {
+    margin: 0.5rem;
+}
+
+.image {
+    cursor: pointer;
+}
+
+.category-top {
+    border-bottom:1px solid #aaa;
+    padding:0;
+    text-align:center;
+    color: #ffae96;
+    font-size: 120%;
+    font-weight: 800;
+    padding-top: 2rem;
+    margin: 0 3rem;
+}
+
+.category-value {
+    padding:0;
+    text-align:center;
+    margin: 0 3rem;
+}
+
+select {
+    font-size: 1rem;
+}
+
+option {
+    text-align: center;
+}
