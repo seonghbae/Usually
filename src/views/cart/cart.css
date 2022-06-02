@@ -35,6 +35,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    height: 13vw;
 }
 
 .cart-product-item label {
@@ -48,12 +49,18 @@
     right: -0.5rem;
 }
 
-.image {
+.cart-product-item .image {
     cursor: pointer;
-    position: relative;
-    margin-left: 4rem;
+    margin-left: 2rem;
+    padding: 0;
+    width: 20vw;
 }
 
+.cart-product-item .image img {
+    position: relative;
+    height: 10rem;
+    width: 10rem;
+}
 
 .quantity {
     display: flex;
@@ -63,7 +70,7 @@
     display: flex;
     flex-direction: column;
     font-size: 1.4rem;
-    margin-left: 4rem;
+    width: 40vw;
     margin-bottom: 0;
     align-items: center;
 }
@@ -79,7 +86,8 @@
 
 .calculation {
     display: flex;
-    margin-left: 4rem;
+    /* margin-left: 4rem; */
+    width: 30vw;
 }
 
 .calculation p {
