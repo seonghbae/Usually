@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-import { addCommas } from '/useful-functions.js';
+import { addCommas, convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const image = document.querySelector('#image');
@@ -12,7 +12,7 @@ const purchaseButton = document.querySelector('#purchase-button');
 const reviewBody = document.querySelector('#review-body');
 const pageNumbers = document.querySelector('#page-numbers');
 const reviewWriteButton = document.querySelector('#review-write-button');
-const reviewInput = document.querySelector('#review-input');
+const reviewTextarea = document.querySelector('#review-textarea');
 const reviewCreateContainer = document.querySelector('#review-create-container');
 const reviewCreateButton = document.querySelector('#review-create-button');
 
@@ -50,12 +50,34 @@ async function addToInventory() {
 }
 
 // 선택 상품 아이디 배열 저장, 이동
-function purchaseCallback() {
-    localStorage.setItem(
-        'productIds',
-        JSON.stringify([location.pathname.split('/')[2]])
-    );
-    location.href = '/payment';
+async function purchaseCallback() {
+    const productId = location.pathname.split('/')[2];
+
+    try {
+        // api로 데이터를 받아옴
+        const product = await Api.get('/productInfo', productId);
+        const quantity = 1;
+        const deliveryFee = (Number(product.price) > 500000) ? 0 : 3000;
+        const totalPrice = Number(product.price) + deliveryFee;
+        const order = {
+            productInfos: [{
+                productId: productId,
+                quantity: quantity,
+            }],
+            productCounts: `${quantity}개`,
+            productsTotal: `${addCommas(product.price)}원`,
+            deliveryFee: `${addCommas(deliveryFee)}원`,
+            totalPrice: `${addCommas(totalPrice)}원`,
+        };
+        localStorage.setItem(productId, JSON.stringify(product));
+        localStorage.setItem('order', JSON.stringify(order));
+        location.href = '/payment';
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    }
 }
 
 // 리뷰 작성
@@ -70,19 +92,45 @@ async function reviewCreateCallback() {
     try {
         await Api.post('/review', {
             title: 'test-title',
-            content: reviewInput.value,
+            content: reviewTextarea.value,
             author: 'test-author',
             productId: productId,
         });
-    
+    } catch (err) {
+        console.error(err.stack);
+        alert(err.message);
+    } finally {
+        reviewTextarea.value = null;
         reviewWriteButton.style.display = 'block';
         reviewCreateContainer.style.display = 'none';
         showReviews();
+    }
+}
+
+// 리뷰 수정
+async function reviewUpdateCallback(review, reviewInput, reviewContent, reviewUpdateContainer) {
+    try {
+        await Api.patch('/review', review.reviewId, {
+            ...review,
+            content: reviewInput.value,
+        });
+        reviewContent.innerHTML = reviewInput.value;
     } catch (err) {
         console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
+        alert(err.message);
+    } finally {
+        reviewUpdateContainer.style.display = 'none';
+    }
+}
+
+// 리뷰 삭제
+async function reviewDeleteCallback(review, reviewBodyContainer, reviewBody) {
+    try {
+        await Api.delete('/review', review.reviewId, review);
+        reviewBody.removeChild(reviewBodyContainer);
+    } catch (err) {
+        console.error(err.stack);
+        alert(err.message);
     }
 }
 
@@ -117,7 +165,7 @@ async function showReviews() {
 
         pageCallback(1);
 
-        for (let i = 1; i < totalPage; i++) {
+        for (let i = 1; i <= totalPage; i++) {
             const pTag = document.createElement('p');
             pTag.className = 'page-number';
             pTag.innerHTML = i;
@@ -147,7 +195,7 @@ async function pageCallback(pageNumber) {
 
             const reviewAuthor = document.createElement('div');
             reviewAuthor.className = 'review-author';
-            reviewAuthor.innerHTML = review.author;
+            reviewAuthor.innerHTML = review.author.fullName;
 
             const reviewUpdate = document.createElement('button');
             reviewUpdate.className = 'review-update';
@@ -167,10 +215,7 @@ async function pageCallback(pageNumber) {
             `<span class="icon">
                 <i class="fas fa-trash-can" aria-hidden="true"></i>
             </span>`;
-            reviewDelete.addEventListener('click', async () => {
-                await Api.delete('/review', review.reviewId, review);
-                reviewBody.removeChild(reviewBodyContainer);
-            });
+            reviewDelete.addEventListener('click', () => { reviewDeleteCallback(review, reviewBodyContainer, reviewBody) });
 
             const reviewElem = document.createElement('div');
             reviewElem.className = 'review';
@@ -189,16 +234,7 @@ async function pageCallback(pageNumber) {
             reviewUpdateButton.classList.add('button', 'is-danger');
             reviewUpdateButton.setAttribute('id', `review-update-button-${review.reviewId}`);
             reviewUpdateButton.innerHTML = '수정완료';
-            reviewUpdateButton.addEventListener('click', async () => {
-                reviewContent.innerHTML = reviewInput.value;
-                await Api.patch('/review', review.reviewId, {
-                    title: '',
-                    content: reviewContent.innerHTML,
-                    author: 'test-author',
-                    productId: productId,
-                });
-                reviewUpdateContainer.style.display = 'none';
-            });
+            reviewUpdateButton.addEventListener('click', () => { reviewUpdateCallback(review, reviewInput, reviewContent, reviewUpdateContainer) });
 
             const reviewButton = document.createElement('div');
             reviewButton.className = 'review-button';
