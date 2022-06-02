@@ -86,6 +86,35 @@ async function reviewCreateCallback() {
     }
 }
 
+// 리뷰 수정
+async function reviewUpdateCallback(productId, reviewContent, reviewUpdateContainer) {
+    try {
+        await Api.patch('/review', review.reviewId, {
+            title: '',
+            content: reviewInput.value,
+            author: 'test-author',
+            productId: productId,
+        });
+        reviewContent.innerHTML = reviewInput.value;
+    } catch (err) {
+        console.error(err.stack);
+        alert(err.message);
+    } finally {
+        reviewUpdateContainer.style.display = 'none';
+    }
+}
+
+// 리뷰 삭제
+async function reviewDeleteCallback(review, reviewBodyContainer, reviewBody) {
+    try {
+        await Api.delete('/review', review.reviewId, review);
+        reviewBody.removeChild(reviewBodyContainer);
+    } catch (err) {
+        console.error(err.stack);
+        alert(err.message);
+    }
+}
+
 // 상품 상세
 async function showProductDetail() {
     // /product/:productId 형식이라 split으로 productId만 가져오기
@@ -167,10 +196,7 @@ async function pageCallback(pageNumber) {
             `<span class="icon">
                 <i class="fas fa-trash-can" aria-hidden="true"></i>
             </span>`;
-            reviewDelete.addEventListener('click', async () => {
-                await Api.delete('/review', review.reviewId, review);
-                reviewBody.removeChild(reviewBodyContainer);
-            });
+            reviewDelete.addEventListener('click', () => { reviewDeleteCallback(review, reviewBodyContainer, reviewBody) });
 
             const reviewElem = document.createElement('div');
             reviewElem.className = 'review';
@@ -189,16 +215,7 @@ async function pageCallback(pageNumber) {
             reviewUpdateButton.classList.add('button', 'is-danger');
             reviewUpdateButton.setAttribute('id', `review-update-button-${review.reviewId}`);
             reviewUpdateButton.innerHTML = '수정완료';
-            reviewUpdateButton.addEventListener('click', async () => {
-                reviewContent.innerHTML = reviewInput.value;
-                await Api.patch('/review', review.reviewId, {
-                    title: '',
-                    content: reviewContent.innerHTML,
-                    author: 'test-author',
-                    productId: productId,
-                });
-                reviewUpdateContainer.style.display = 'none';
-            });
+            reviewUpdateButton.addEventListener('click', () => { reviewUpdateCallback(productId, reviewContent, reviewUpdateContainer) });
 
             const reviewButton = document.createElement('div');
             reviewButton.className = 'review-button';
