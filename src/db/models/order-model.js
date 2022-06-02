@@ -1,6 +1,8 @@
 import { model } from 'mongoose';
-import { OrderedProductSchema, OrderSchema, UserSchema } from '../schemas/order-schema';
-
+import { OrderedProductSchema, OrderSchema } from '../schemas/order-schema';
+import { UserSchema } from '../schemas/user-schema';
+import { ProductSchema } from '../schemas/product-schema';
+const Product = model('products', ProductSchema);
 const Order = model('orders', OrderSchema);
 const OrderedProduct = model('orderedProducts', OrderedProductSchema);
 const User = model('users', UserSchema);
@@ -11,6 +13,7 @@ export class OrderModel {
     const user =  await User.findOne({shortId :userId});
     const orders = await Order.find({ userId : user._id }).populate(
       { path : 'orderedProducts',
+        populate : { path : 'productId'}
     });
     return orders;
   }
@@ -18,13 +21,19 @@ export class OrderModel {
 
   async findShippedByUser(userId) {
     const user =  await User.findOne({shortId :userId});
-    const orders = await Order.find({ userId : user._id, status : "배송완료" });
+    const orders = await Order.find({ userId : user._id, status : "배송완료" }).populate(
+      { path : 'orderedProducts',
+        populate : { path : 'productId'}
+    });
     return orders;
   }
   //user의 shortId 중 배송 완료한 주문 내역 전부 찾기
 
   async findById(orderId){
-    const order = await Order.findOne({shortId : orderId});
+    const order = await Order.findOne({shortId : orderId}).populate(
+      { path : 'orderedProducts',
+        populate : { path : 'productId'}
+    });
     return order;
   }
   //Order의 shortId로 주문 내역 찾기
@@ -47,7 +56,10 @@ export class OrderModel {
   }
 
   async findAll() {
-    const orders = await Order.find({});
+    const orders = await Order.find({}).populate(
+      { path : 'orderedProducts',
+        populate : { path : 'productId'}
+    });
     return orders;
   }
   //관리자가 모든 주문 내역 조회
