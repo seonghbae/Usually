@@ -52,16 +52,6 @@ async function renderOrder() {
                 tableContent.appendChild(purchasedOrderInfo);
             }
         });
-        let surplusSpace = document.createElement('tr');
-        surplusSpace.innerHTML = `
-        <th><div></div></th>
-        <th><div></div></th>
-        <th><div style="height:50vh"></div></th>
-        <th><div></div></th>
-        <th><div></div></th>
-        <th><div></div></th>
-                `;
-        tableContent.appendChild(surplusSpace);
     } catch (err) {
         console.error(err.stack);
     }
