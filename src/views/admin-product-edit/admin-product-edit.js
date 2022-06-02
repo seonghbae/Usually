@@ -182,49 +182,51 @@ async function editProduct(e) {
         };
 
         // 카테고리id 가져오기
-        const originCategoryId = await getCategoryId(category, gender, recommendAge);
+        // const originCategoryId = await getCategoryId(category, gender, recommendAge);
         const nowCategoryId = await getCategoryId(e.target.category.value, e.target.gender.value, e.target.recommendAge.value);
         let formData = new FormData();
         // 기존 데이터와 현재 form에 담긴 데이터가 다를 경우에만 append 해줌
-        if (nowCategoryId !== originCategoryId) {
+        // if (nowCategoryId !== originCategoryId) {
             formData.append('categoryId', nowCategoryId);
-        };
+        // };
 
-        if (e.target.name.value !== name) {
+        // if (e.target.name.value !== name) {
             formData.append('name', e.target.name.value);
-        };
+        // };
 
-        if (e.target.madeBy.value !== madeBy) {
+        // if (e.target.madeBy.value !== madeBy) {
             formData.append('madeBy', e.target.madeBy.value);
-        };
+        // };
 
-        if (e.target.description.value !== description) {
+        // if (e.target.description.value !== description) {
             formData.append('description', e.target.description.value);
-        };
+        // };
 
         // 사진 데이터가 존재한다면 append
         if (document.querySelector('#imageInput').files[0]){
             formData.append('src', document.querySelector('#imageInput').files[0]);
-        }
+        } else {
+            formData.append('src', null);
+        };
 
-        if (e.target.inventory.value !== String(inventory)) {
+        // if (e.target.inventory.value !== String(inventory)) {
             formData.append('inventory', e.target.inventory.value);
-        };
+        // };
 
-        if (e.target.sellCount.value !== String(sellCount)) {
+        // if (e.target.sellCount.value !== String(sellCount)) {
             formData.append('sellCount', e.target.sellCount.value);
-        };
+        // };
 
-        if (e.target.price.value !== String(price)) {
+        // if (e.target.price.value !== String(price)) {
             formData.append('price', e.target.price.value);
-        };
-        const formDataLength = checkFormDataLength(formData);
-        if (formDataLength == 0){
-            return alert('수정된 값이 존재하지 않습니다.')
-        };
+        // };
+        // const formDataLength = checkFormDataLength(formData);
+        // if (formDataLength == 0){
+        //     return alert('수정된 값이 존재하지 않습니다.')
+        // };
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
         fetch(`http://localhost:5000/admin/product/${productId}`, {
-            method: 'patch',
+            method: 'PATCH',
             body: formData
         });
 

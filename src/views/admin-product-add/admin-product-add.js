@@ -98,12 +98,12 @@ async function registerProduct(e) {
         };
         
         let formData = new FormData(myForm);
-        const categoryId = await getCategoryId(category, gender, recommendAge);
-        // 받아 온 category, gender, recommendAge를 지우고, categoryId로 변환하여 추가
-        formData.delete('category');
-        formData.delete('gender');
-        formData.delete('recommendAge');
-        formData.append('categoryId', categoryId);
+        // const categoryId = await getCategoryId(category, gender, recommendAge);
+        // // 받아 온 category, gender, recommendAge를 지우고, categoryId로 변환하여 추가
+        // formData.delete('category');
+        // formData.delete('gender');
+        // formData.delete('recommendAge');
+        // formData.append('categoryId', categoryId); 
         
         // formdata 확인용, 배포 전 삭제
         for(var pair of formData.entries()) {
