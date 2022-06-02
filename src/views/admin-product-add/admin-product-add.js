@@ -88,7 +88,7 @@ async function registerProduct(e) {
 
         let formData = new FormData(myForm);
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        let res = await fetch('http://localhost:5000/admin/product/create/', {
+        let res = await fetch('/admin/product/create/', {
             method: 'POST',
             body: formData,
         });
