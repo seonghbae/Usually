@@ -12,7 +12,7 @@ const purchaseButton = document.querySelector('#purchase-button');
 const reviewBody = document.querySelector('#review-body');
 const pageNumbers = document.querySelector('#page-numbers');
 const reviewWriteButton = document.querySelector('#review-write-button');
-const reviewInput = document.querySelector('#review-input');
+const reviewTextarea = document.querySelector('#review-textarea');
 const reviewCreateContainer = document.querySelector('#review-create-container');
 const reviewCreateButton = document.querySelector('#review-create-button');
 
@@ -69,6 +69,7 @@ async function purchaseCallback() {
             deliveryFee: `${addCommas(deliveryFee)}원`,
             totalPrice: `${addCommas(totalPrice)}원`,
         };
+        localStorage.setItem(productId, JSON.stringify(product));
         localStorage.setItem('order', JSON.stringify(order));
         location.href = '/payment';
     } catch (err) {
@@ -91,30 +92,27 @@ async function reviewCreateCallback() {
     try {
         await Api.post('/review', {
             title: 'test-title',
-            content: reviewInput.value,
+            content: reviewTextarea.value,
             author: 'test-author',
             productId: productId,
         });
-    
+    } catch (err) {
+        console.error(err.stack);
+        alert(err.message);
+    } finally {
+        reviewTextarea.value = null;
         reviewWriteButton.style.display = 'block';
         reviewCreateContainer.style.display = 'none';
         showReviews();
-    } catch (err) {
-        console.error(err.stack);
-        alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-        );
     }
 }
 
 // 리뷰 수정
-async function reviewUpdateCallback(productId, reviewContent, reviewUpdateContainer) {
+async function reviewUpdateCallback(review, reviewInput, reviewContent, reviewUpdateContainer) {
     try {
         await Api.patch('/review', review.reviewId, {
-            title: '',
+            ...review,
             content: reviewInput.value,
-            author: 'test-author',
-            productId: productId,
         });
         reviewContent.innerHTML = reviewInput.value;
     } catch (err) {
@@ -197,7 +195,7 @@ async function pageCallback(pageNumber) {
 
             const reviewAuthor = document.createElement('div');
             reviewAuthor.className = 'review-author';
-            reviewAuthor.innerHTML = review.author;
+            reviewAuthor.innerHTML = review.author.fullName;
 
             const reviewUpdate = document.createElement('button');
             reviewUpdate.className = 'review-update';
@@ -236,7 +234,7 @@ async function pageCallback(pageNumber) {
             reviewUpdateButton.classList.add('button', 'is-danger');
             reviewUpdateButton.setAttribute('id', `review-update-button-${review.reviewId}`);
             reviewUpdateButton.innerHTML = '수정완료';
-            reviewUpdateButton.addEventListener('click', () => { reviewUpdateCallback(productId, reviewContent, reviewUpdateContainer) });
+            reviewUpdateButton.addEventListener('click', () => { reviewUpdateCallback(review, reviewInput, reviewContent, reviewUpdateContainer) });
 
             const reviewButton = document.createElement('div');
             reviewButton.className = 'review-button';
