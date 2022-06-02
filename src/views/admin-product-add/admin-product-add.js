@@ -6,25 +6,10 @@ fileInput.onchange = () => {
     if (fileInput.files.length > 0) {
       const fileName = document.querySelector('#file-form-container .file-name');
       fileName.textContent = fileInput.files[0].name;
-    }
-  }
-
-// CategoryId를 받아오는 함수
-async function getCategoryId(name, gender, recommendAge) {
-    try {
-    const datas = await Api.get('/admin/category');
-    const targetData = await datas.find(function(data){
-        return (data.name === name && data.gender === gender && data.recommendAge == recommendAge);
-    });
-    return targetData.categoryId;
-    } catch (err) {
-    console.error(err.stack);
-    alert(
-        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
-    );
     };
 };
 
+// 미리보기 이미지 구현
 function readImage(input) {
     // 인풋 태그에 파일이 있는 경우
     if(input.files && input.files[0]) {
@@ -33,8 +18,8 @@ function readImage(input) {
         const reader = new FileReader();
         // 이미지가 로드가 된 경우
         reader.onload = e => {
-            const previewImage = document.getElementById("preview-image")
-            previewImage.src = e.target.result
+            const previewImage = document.getElementById("preview-image");
+            previewImage.src = e.target.result;
         };
         // reader가 이미지 읽도록 하기
         reader.readAsDataURL(input.files[0]);
@@ -43,7 +28,7 @@ function readImage(input) {
 // input file에 change 이벤트 부여
 const inputImage = document.getElementById("imageInput")
 inputImage.addEventListener("change", e => {
-    readImage(e.target)
+    readImage(e.target);
 });
 
 // 상품 등록 함수
@@ -57,7 +42,7 @@ async function registerProduct(e) {
         const recommendAge = e.target.recommendAge.value;
         const madeBy = e.target.madeBy.value;
         const description = e.target.description.value;
-        const src = document.querySelector('#imageInput')
+        const src = document.querySelector('#imageInput');
         const inventory = e.target.inventory.value;
         const price = e.target.price.value;
         // form에 value가 입력되었는지 확인
@@ -87,7 +72,7 @@ async function registerProduct(e) {
 
         if (!src.files[0]){
             return alert('사진을 업로드해주세요')
-        }
+        };
 
         if (!inventory) {
             return alert('재고를 입력해주세요');
@@ -98,24 +83,30 @@ async function registerProduct(e) {
         };
         
         let formData = new FormData(myForm);
-        const categoryId = await getCategoryId(category, gender, recommendAge);
-        // 받아 온 category, gender, recommendAge를 지우고, categoryId로 변환하여 추가
-        formData.delete('category');
-        formData.delete('gender');
-        formData.delete('recommendAge');
-        formData.append('categoryId', categoryId);
-        
-        // formdata 확인용, 배포 전 삭제
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
-        }
-        
-
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        // await fetch("http://localhost:5000/admin/product/create/", {
-        //     method: 'post',
-        //     body: formData
-        // });
+        await fetch("http://localhost:5000/admin/product/create/", {
+            method: 'POST',
+            body: formData
+        });
+        alert('상품 추가를 성공했습니다!');
+        window.location.reload();
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    };
+};
+// 카테고리의 option들을 갱신해주는 함수
+async function changeSelectOptions() {
+    try {
+        const options = await Api.get('/category/getName');
+        const optionContainer = document.querySelector('#categorySelectBox');
+        options.forEach((option) => {
+            optionContainer.insertAdjacentHTML('beforeend', `
+                <option value="${option}"> ${option} </option>
+            `);
+        });
     } catch (err) {
         console.error(err.stack);
         alert(
@@ -124,8 +115,8 @@ async function registerProduct(e) {
     };
 };
 
+changeSelectOptions();
 // form안의 버튼 클릭했을 시 (submit) 제품 등록.
 let myForm = document.querySelector('form');
 myForm.addEventListener('submit', registerProduct);
-
 
