@@ -9,7 +9,9 @@ export class OrderModel {
 
   async findByUser(userId) {
     const user =  await User.findOne({shortId :userId});
-    const orders = await Order.find({ userId : user._id });
+    const orders = await Order.find({ userId : user._id }).populate(
+      { path : 'orderedProducts',
+    });
     return orders;
   }
   //User의 shortId로 주문 내역 전부 찾기
