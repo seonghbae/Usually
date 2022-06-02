@@ -73,24 +73,23 @@ const navFunc = function () {
         }
     });
     // control-buttons를 y값 기준으로 opeacity,bottom 값 설정
-    const controlButtons = document.querySelector('.control-buttons')
-    window.addEventListener("scroll", function(){
+    const controlButtons = document.querySelector('.control-buttons');
+    window.addEventListener('scroll', function () {
         let y = window.pageYOffset;
-        if(y > 41){
+        if (y > 41) {
             controlButtons.style.opacity = '1';
             controlButtons.style.bottom = '15px';
-        }else{
+        } else {
             controlButtons.style.opacity = '0';
             controlButtons.style.bottom = '-58px';
         }
-    })
+    });
 
     // top버튼 위로 이동하는 함수
-    document.querySelector('.top-button').addEventListener('click', function(e){
-        e.preventDefault();
-        window.scrollTo({top : 0, behavior: 'smooth'}); 
-    })
+    document
+        .querySelector('.top-button')
+        .addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 };
-
-
-    

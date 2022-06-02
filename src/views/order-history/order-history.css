@@ -1,15 +1,41 @@
 .order-history-content-container {
     display: flex;
-    height: 80vh;
     width: 150vh;
     margin-top: 5vh;
     margin-left: 5vh;
 }
 
-#my-page-nav-container {
-    width: 20%;
-    margin-top: 5vh;
+.order-history-content-container .order-history-side-menu-container {
+    width: 25%;
     margin-left: 5vh;
+}
+.order-history-content-container .user-tier-container {
+    display: flex;
+}
+.order-history-content-container
+    .user-tier-container
+    #user-tier-name
+    #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.order-history-content-container .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
+
+.order-history-content-container
+    .user-tier-container
+    #user-tier-name
+    #userNameField {
+    text-align: center;
+    font-size: 15px;
+}
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
 }
 
 .order-history-container {

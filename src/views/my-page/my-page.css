@@ -5,48 +5,40 @@
     margin-left: 5vh;
 }
 
-#my-page-nav-container {
-    width: 20%;
-    margin-top: 5vh;
-    margin-left: 10vh;
+.my-page-content-container .my-page-side-menu-container {
+    width: 25%;
+    margin-left: 5vh;
+}
+.my-page-content-container .user-tier-container {
+    display: flex;
+}
+.my-page-content-container .user-tier-container #user-tier-name {
+    margin-top: 10%;
 }
 
-.my-page-menu-list {
-    height: 50px;
+.my-page-content-container .user-tier-container #user-tier-name #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
 }
 
-.my-page-menu-container h1 {
-    font-size: 25px;
-}
-
-.my-page-menu-container h2 {
-    font-size: 21px;
-}
-
-.my-page-menu-container ul {
-    margin-bottom: 30px;
-}
-
-.my-page-menu-container hr {
-    background-color: lightgray;
-    width: 90%;
-}
-
-.my-page-menu-title hr {
-    background-color: black;
-}
-
-.my-page-menu-list li {
-    list-style: disc;
+.my-page-content-container .user-tier-container #user-tier-name #userNameField {
+    text-align: center;
     font-size: 15px;
-    margin-left: 20%;
 }
-.my-page-menu-list a {
-    color: black;
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
 }
+
 .my-page-info-container {
     margin-left: 10%;
     width: 100%;
+}
+
+.my-page-info-container .my-page-total-used {
+    margin-right: 20%;
 }
 .my-page-info-container hr {
     background-color: black;
@@ -60,6 +52,7 @@
 
 .my-page-info-container .my-page-info {
     margin-bottom: 100px;
+    display: flex;
 }
 
 h3 {
