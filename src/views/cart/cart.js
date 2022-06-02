@@ -137,7 +137,7 @@ function showCartList() {
         deleteButton.addEventListener('click', () => deleteProduct(product.productId));
         
         const image = document.createElement('figure');
-        image.className = 'image is-96x96';
+        image.className = 'image is-square';
         image.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
         image.addEventListener('click', () => {productPage(product.productId)});
 
