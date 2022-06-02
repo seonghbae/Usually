@@ -27,9 +27,9 @@
 		<script src="home.js" type="module" defer></script>
 		<script src="carousel.js" type="module" defer></script>
 		<!-- navbar, footer 활용을 위한 css, js -->
-		<link rel="stylesheet" href="http://localhost:5000/nav/nav.css">
-		<link rel="stylesheet" href="http://localhost:5000/footer/footer.css">
-		<script src="http://localhost:5000/nav/nav.js"></script>
+		<link rel="stylesheet" href="../nav/nav.css">
+		<link rel="stylesheet" href="../footer/footer.css">
+		<script src="../nav/nav.js"></script>
 		<!-- navbar, footer 활용을 위한 jquery -->
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
@@ -39,7 +39,7 @@
 
 		<script>
 		$(document).ready(function() {
-			$('#nav-placeholder').load("http://localhost:5000/nav/nav.html", () => {
+			$('#nav-placeholder').load("../nav/nav.html", () => {
 			navFunc()
 			});
 		});
@@ -84,16 +84,20 @@
 		<div class="main-content">
 			<div class="main-navmenu-container">
 				<ul class="main-navmenu-list">
-				<li><h3 class="main-navmenu-title my-auto">Category</h3></li>
-				<li class="main-navmenu main-navmenu-first"><a href="" class="main-navmenu-clicked main-navmenu-category" name = "ring">반지</a></li>
-				<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "necklace">목걸이</a></li>
-				<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "earring">귀걸이</a></li>
-				<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "bracelet">팔찌</a></li>
-				<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "watch">시계</a></li>
+					<li><h3 class="main-navmenu-title my-auto">Category</h3></li>
+					<li class="main-navmenu main-navmenu-first"><a href="" class="main-navmenu-clicked main-navmenu-category" name = "ring">반지</a></li>
+					<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "necklace">목걸이</a></li>
+					<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "earring">귀걸이</a></li>
+					<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "bracelet">팔찌</a></li>
+					<li class="main-navmenu"><a href="" class="main-navmenu-category" name = "watch">시계</a></li>
 				</ul>
 			</div>
-			<div class="main-products-container main-category">
-				<!-- 여기에 상품 정보가 삽입됩니다. -->
+			<button class="left-button"></button>
+			<button class="right-button"></button>
+			<div class="main-products-slide-container">
+				<div class="main-products-container main-category">
+					<!-- 여기에 상품 정보가 삽입됩니다. -->
+				</div>
 			</div>
 		</div>
 		<!-- main division -->
@@ -105,16 +109,20 @@
 		</div>
 		<!-- Main-byAge  -->
 		<div class="main-content">
-			<div class="main-products-container main-age">
-				<!-- 여기에 상품 정보가 삽입됩니다. -->
-			</div>
-			<div class="main-navmenu-container">
-				<ul class="main-navmenu-list-right">
+			<div class="main-navmenu-container ">
+				<ul class="main-navmenu-list ">
 				<li><h3 class="main-navmenu-title my-auto">연령별</h3></li>
 				<li class="main-navmenu main-navmenu-first"><a href="" class="main-navmenu-age main-navmenu-clicked" name="10">10대</a></li>
 				<li class="main-navmenu"><a href="" class="main-navmenu-age" name="20">20대</a></li>
 				<li class="main-navmenu"><a href="" class="main-navmenu-age" name="30">30대</a></li>
 				</ul>
+			</div>
+			<button class="bottom-left-button"></button>
+			<button class="bottom-right-button"></button>
+			<div class="main-bottom-products-slide-container">
+				<div class="main-bottom-products-container main-age">
+					<!-- 여기에 상품 정보가 삽입됩니다. -->
+				</div>
 			</div>
 		</div>
 		<!--footer-->
@@ -122,7 +130,7 @@
 		<div id="footer-placeholder"></div>
 		<script>
 		$(function () {
-			$("#footer-placeholder").load("http://localhost:5000/footer/footer.html");
+			$("#footer-placeholder").load("../footer/footer.html");
 		});
 		</script>
 	</body>
