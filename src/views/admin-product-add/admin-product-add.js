@@ -115,12 +115,12 @@ async function registerProduct(e) {
         };
         
         let formData = new FormData(myForm);
-        const categoryId = await getCategoryId(category, gender, recommendAge);
-        // 받아 온 category, gender, recommendAge를 지우고, categoryId로 변환하여 추가
-        formData.delete('category');
-        formData.delete('gender');
-        formData.delete('recommendAge');
-        formData.append('categoryId', categoryId);
+        // const categoryId = await getCategoryId(category, gender, recommendAge);
+        // // 받아 온 category, gender, recommendAge를 지우고, categoryId로 변환하여 추가
+        // formData.delete('category');
+        // formData.delete('gender');
+        // formData.delete('recommendAge');
+        // formData.append('categoryId', categoryId); 
         
         // formdata 확인용, 배포 전 삭제
         for(var pair of formData.entries()) {
@@ -140,10 +140,25 @@ async function registerProduct(e) {
         );
     };
 };
+// 카테고리의 option들을 갱신해주는 함수
+async function changeSelectOptions() {
+    try {
+        const options = await Api.get('/category/getName');
+        const optionContainer = document.querySelector('#categorySelectBox');
+        options.forEach((option) => {
+            optionContainer.insertAdjacentHTML('beforeend', `
+                <option value="${option}"> ${option} </option>
+            `);
+        });
+    } catch (err) {
+        console.error(err.stack);
+        alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+        );
+    };
+};
 
-
-
-
+changeSelectOptions()
 // form안의 버튼 클릭했을 시 (submit) 제품 등록.
 let myForm = document.querySelector('form');
 myForm.addEventListener('submit', registerProduct);

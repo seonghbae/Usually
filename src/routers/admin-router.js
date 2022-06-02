@@ -24,7 +24,7 @@ adminRouter.get('/userlist', loginRequired, async function (req, res, next) {
     try {
         const user = await userService.getUser(req.currentUserId);
 
-        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        // 현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
         if (!user) {
             throw new Error('없는 회원입니다.');
         }
@@ -354,14 +354,14 @@ adminRouter.post(
                 gender,
                 age,
             } = req.body;
-
+            console.log(req.body);
             const categoryId = await categoryService.getCategoryId({
                 category,
                 gender,
                 age,
             });
 
-            const mainImage = req.file.location;
+            const src = req.file.location;
             const newProduct = await productService.addProduct({
                 categoryId,
                 name,
@@ -369,7 +369,7 @@ adminRouter.post(
                 description,
                 madeBy,
                 inventory,
-                mainImage,
+                src,
             });
             res.status(201).json(newProduct);
         } catch (error) {
@@ -413,12 +413,15 @@ adminRouter.patch(
                 madeBy,
                 inventory,
                 sellCount,
-                mainImage,
             } = req.body;
-
-            if (req.file.location) {
-                mainImage = req.file.location;
-            }
+            console.log(req.body);
+            let src = '';
+            console.log(req.file);
+            if (req.file) {
+                console.log('hi');
+                src = req.file.location;
+                console.log('hi2');
+            };
             const updatedProductInfo = {
                 ...(categoryId && { categoryId }),
                 ...(name && { name }),
@@ -427,7 +430,7 @@ adminRouter.patch(
                 ...(madeBy && { madeBy }),
                 ...(inventory && { inventory }),
                 ...(sellCount && { sellCount }),
-                ...(mainImage && { mainImage }),
+                ...(src && { src }),
             };
 
             const updatedProduct = await productService.setProduct(

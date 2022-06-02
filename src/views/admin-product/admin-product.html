@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>쇼핑-n팀</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="admin-product.css" />
+        <script src="admin-product.js" type="module" defer></script>
+        <!-- navbar, footer 활용을 위한 css, js -->
+		<link rel="stylesheet" href="http://localhost:5000/nav/nav.css">
+		<link rel="stylesheet" href="http://localhost:5000/footer/footer.css">
+        <script src="http://localhost:5000/nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+	<body>
+
+      <!--Navigation bar-->
+      <div id="nav-placeholder"></div>
+
+      <script>
+        $(document).ready(function() {
+          $('#nav-placeholder').load("http://localhost:5000/nav/nav.html", () => {
+            navFunc()
+          });
+        });
+		</script>
+		<div class="admin-main-content-container">
+			<div id="admin-nav-container"></div>
+				<script>
+					$(function(){
+					$("#admin-nav-container").load("http://localhost:5000/admin-nav/admin-nav.html");
+					});
+				</script>
+            <!-- 제품 목록 -->
+            <section class="section">
+                <div class="container" id="product-item-container">
+                    <!-- api 요청 후 만들어진 제품들 카드 요소가 삽입되는 곳 -->
+                </div>
+            </section>
+		</div>
+      <!--footer-->
+      <div id="footer-placeholder"></div>
+
+      <script>
+        $(function () {
+          $("#footer-placeholder").load("http://localhost:5000/footer/footer.html");
+        });
+      </script>
+    </body>
+</html>
