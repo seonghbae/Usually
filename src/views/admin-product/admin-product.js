@@ -68,17 +68,38 @@ async function filterAndshowProductList() {
     const name = document.querySelector('#nameSelectBox').value;
     const gender = document.querySelector('#genderSelectBox').value;
     const recommendAge = document.querySelector('#recommendAgeSelectBox').value;
+    // const targetData = [];
+    // for (const data of productDatas) {
+    //     const categoryData = await Api.get('/admin/category', data.categoryId);
+    //     if ((categoryData.name === name || !name) &&
+    //         (categoryData.gender === gender || !gender) &&
+    //         (categoryData.recommendAge === Number(recommendAge) || !recommendAge)
+    //         ){
+    //         targetData.push(data);
+    //     };
+    // };
+    // const targetData = productDatas.filter(async (data) => {
+    //     const categoryData = await Api.get('/admin/category', data.categoryId);
+    //     console.log(((categoryData.name === name || !name) &&
+    //     (categoryData.gender === gender || !gender) &&
+    //     (categoryData.recommendAge === Number(recommendAge) || !recommendAge)
+    //     ))
+    //     return ((categoryData.name === name || !name) &&
+    //         (categoryData.gender === gender || !gender) &&
+    //         (categoryData.recommendAge === Number(recommendAge) || !recommendAge)
+    //         )
+    // })
     const targetData = [];
-    for (const data of productDatas) {
+    productDatas.forEach(async (data) => {
         const categoryData = await Api.get('/admin/category', data.categoryId);
-        console.log(categoryData);
         if ((categoryData.name === name || !name) &&
             (categoryData.gender === gender || !gender) &&
             (categoryData.recommendAge === Number(recommendAge) || !recommendAge)
-            ){
-            targetData.push(data);
-        };
-    };
+            ) {
+                targetData.push(data);
+            }
+    })
+    console.log(targetData);
     await showProductList(targetData);
 };
 
