@@ -18,15 +18,15 @@ async function adminOrderRender(e) {
             <th>
             <div>
             <img src="https://blog.kakaocdn.net/dn/wR5bN/btqSxCsIZD8/0g1pTeaqRwXKvBcxPtqQE0/img.jpg" height="50" width="50">
-            <p>이름: ${singleOrder.products[i].itemName}</p>
+            <p>이름: ${singleOrder.orderedProducts[0]}</p>
             </div>
         </th>
         <th>
             ${singleOrder.shortId}
         </th>
         <th>
-            ${singleOrder.products[i].qty}개, 
-            ${addCommas(singleOrder.products[i].price)}원
+            ${singleOrder.totalQuantity}개, 
+            ${addCommas(singleOrder.totalPrice)}원
         </th>
         <th>
             ${singleOrder.address.address1},
@@ -39,7 +39,7 @@ async function adminOrderRender(e) {
                         <span>${singleOrder.status}</span>
                     </button>
                 </div>
-                <div class="dropdown-menu is-" id="dropdown-menu" role="menu">
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
                         <div class="dropdown-item">
                             <p>상품준비중</p>
