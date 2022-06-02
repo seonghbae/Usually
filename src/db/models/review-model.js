@@ -1,19 +1,19 @@
 import { model } from 'mongoose';
 import { ReviewSchema } from '../schemas/review-schema';
-
+import { UserSchema } from '../schemas/user-schema';
 const Review = model('review', ReviewSchema);
-
+const User = model('users', UserSchema);
 export class ReviewModel {
     async findPaginatedReviews({ query, page, perPage, productId }) {
-        //console.log(query + ' ' + page + ' ' + perPage + '' + productId);
-        return await Promise.all([
-            Review.countDocuments(query),
+        const result = await Promise.all([
+            Review.countDocuments({ productId }),
             Review.find({ productId })
                 .sort({ createdAt: -1 })
                 .skip(perPage * (page - 1))
                 .limit(perPage)
-                .populate('author'),
+                .populate({ path: 'author' }),
         ]);
+        return result;
     }
 
     async findById(reviewId) {
