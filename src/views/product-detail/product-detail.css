@@ -2,3 +2,51 @@ img {
     max-width: 600px;
     height: auto
 }
+
+#review-container {
+    margin-top: 3rem;
+}
+
+.review-header {
+    
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.review-header .subtitle {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.review-button {
+    /* display: flex;
+    justify-content: center; */
+    margin-bottom: 1rem;
+}
+
+.review {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.review .review-content {
+    width: 70vw;
+    padding-right: 1rem;
+    border-right: 1px solid #dbdbdb;
+}
+
+.review .review-author {
+    padding-left: 1rem;
+}
+
+.page-numbers {
+    display: flex;
+    justify-content: center;
+    column-gap: .5rem;
+}
+
+.page-number {
+    cursor: pointer;
+}
