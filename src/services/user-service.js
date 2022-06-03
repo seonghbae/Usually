@@ -134,10 +134,10 @@ async addUser(userInfo) {
         return user;
     }
 
-    async deleteUser(userInfoRequired) {
+    async deleteUser(userId) {
         // 객체 destructuring
         // const { shortId, currentPassword } = userInfoRequired;
-        const { userId } = userInfoRequired;
+        //const { userId } = userInfoRequired;
 
         // console.log('currentPassword' + currentPassword);
 
@@ -165,9 +165,7 @@ async addUser(userInfo) {
         // }
 
         // 유저 삭제 시작
-        user = await this.userModel.deleteOneUser({
-            userId,
-        });
+        user = await this.userModel.deleteOneUser(userId);
         return user;
     }
 

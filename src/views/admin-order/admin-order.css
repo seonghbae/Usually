@@ -1,6 +1,5 @@
 .admin-order-content-container {
     display: flex;
-    height: 80vh;
     width: 150vh;
     margin-top: 5vh;
     margin-left: 5vh;
@@ -25,7 +24,10 @@
     background-color: black;
     width: 100%;
 }
-
+.admin-order-table-container .table-container {
+    display: block;
+    overflow-x: auto;
+}
 .admin-order-content-container .table-container thead tr th {
     color: #ffae96;
     font-size: 120%;

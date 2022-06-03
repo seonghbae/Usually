@@ -43,11 +43,17 @@ async function showProductList() {
             // 상품 클릭시 해당 상품 상세 페이지로 이동
             imageTag.addEventListener('click', () => productPage(product.productId));
 
+            const nameTag = document.createElement('strong');
+            nameTag.innerHTML = product.name;
+            nameTag.addEventListener('click', () => productPage(product.productId));
+
+            const priceTag = document.createElement('p');
+            priceTag.innerHTML = `${addCommas(product.price)}원`;
+
             const contentTag = document.createElement('div');
             contentTag.classList.add('content', 'has-text-centered');
-            contentTag.innerHTML = 
-            `<strong>${product.name}</strong>
-            <p>${addCommas(product.price)}원</p>`;
+            contentTag.appendChild(nameTag);
+            contentTag.appendChild(priceTag);
 
             itemTag.appendChild(imageTag);
             itemTag.appendChild(contentTag);

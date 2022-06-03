@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>유주얼리</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="admin-user.css" />
+        <script src="admin-user.js" type="module" defer></script>
+        <!-- navbar, footer, admin-nav 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../nav/nav.css">
+        <link rel="stylesheet" href="../footer/footer.css">
+        <link rel="stylesheet" href="../admin-nav/admin-nav.css">
+        <script src="../nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        
+    </head>
+      <!--Navigation bar-->
+      <div id="nav-placeholder"></div>
+      <script>
+        $(document).ready(function() {
+          $('#nav-placeholder').load("../nav/nav.html", () => {
+            navFunc()
+          });
+        });
+      </script>
+
+      <div class="admin-user-content-container">
+        <div id="admin-nav-container"></div>
+        <script>
+            $(function(){
+              $("#admin-nav-container").load("../admin-nav/admin-nav.html");
+            });
+        </script>
+
+        <div class="admin-user-table-container">
+            <div class="admin-user-title">
+                <h2>총 유저정보</h2>
+            </div>
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable">
+                  <thead>
+                      <tr>
+                          <th>사용자명</th>
+                          <th>이메일</th>
+                          <th>비밀번호(암호화)</th>
+                          <th>성별</th>
+                          <th>유저정보</th>
+                      </tr>
+                  </thead>
+                  <tbody id="table-content">
+                  </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+      
+
+    </div>
+      <!--footer-->
+      <div id="footer-placeholder"></div>
+
+      <script>
+        $(function () {
+          $("#footer-placeholder").load("../footer/footer.html");
+        });
+      </script>
+    </body>
+</html>
+

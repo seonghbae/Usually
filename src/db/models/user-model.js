@@ -33,10 +33,10 @@ export class UserModel {
     return updatedUser;
   }
 
-  async deleteOneUser({userId}) {
-    const filter = { userId };
+  async deleteOneUser(userId) {
+    //const filter = { userId };
     
-    const deletedUser = await User.deleteOne(filter);
+    const deletedUser = await User.deleteOne({ shortId : userId });
     return deletedUser;
   }
 

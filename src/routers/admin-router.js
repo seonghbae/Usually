@@ -24,7 +24,7 @@ adminRouter.get('/userlist', loginRequired, async function (req, res, next) {
     try {
         const user = await userService.getUser(req.currentUserId);
 
-        //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
+        // 현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
         if (!user) {
             throw new Error('없는 회원입니다.');
         }
@@ -132,6 +132,19 @@ adminRouter.post('/category/create', loginRequired, async (req, res, next) => {
             return;
         }
         const { name, gender, recommendAge } = req.body;
+
+        const existCategoryId = await categoryService.getCategoryId({
+            name,
+            gender,
+            recommendAge,
+        });
+        if (existCategoryId) {
+            res.status(403).json({
+                result: 'forbidden-approach',
+                reason: `${name}, ${gender}, ${recommendAge} 에 해당 하는 카테고리가 있습니다. categoryId : ${existCategoryId} 입니다.`,
+            });
+            return;
+        }
         const newCategory = await categoryService.addCategory({
             name,
             gender,
@@ -175,10 +188,22 @@ adminRouter.patch(
                 recommendAge,
             });
             if (existCategoryId) {
-                throw new Error(
-                    `${name}, ${gender}, ${recommendAge} 에 해당 하는 카테고리가 있습니다.\n
-                categoryId : ${existCategoryId} 입니다.`
-                );
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: `${name}, ${gender}, ${recommendAge} 에 해당 하는 카테고리가 있습니다. categoryId : ${existCategoryId} 입니다.`,
+                });
+                return;
+            }
+
+            const products = await productService.getCategoryProducts(
+                categoryId
+            );
+            if (products.length > 0) {
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: '카테고리에 속한 상품을 비우고 수정해주세요.',
+                });
+                return;
             }
 
             const UpdatedCategoryInfo = {
@@ -228,9 +253,11 @@ adminRouter.delete(
                 categoryId
             );
             if (products.length > 0) {
-                throw new Error(
-                    '카테고리에 속한 상품을 비우고 다시 삭제해주세요.'
-                );
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: '카테고리에 속한 상품을 비우고 삭제해주세요.',
+                });
+                return;
             }
             const deletedCategory = await categoryService.deleteCategory(
                 categoryId
@@ -336,16 +363,27 @@ adminRouter.post(
                 inventory,
                 category,
                 gender,
-                age,
+                recommendAge,
             } = req.body;
-
+            console.log(req.body);
             const categoryId = await categoryService.getCategoryId({
-                category,
+                name: category,
                 gender,
-                age,
+                recommendAge,
             });
+            if (!categoryId) {
+                console.log(
+                    '해당하는 카테고리가 없습니다. 카테고리를 먼저 생성해주세요'
+                );
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: '해당하는 카테고리가 없습니다. 카테고리를 먼저 생성해주세요',
+                });
+                return;
+            }
+            console.log(categoryId); //db076b
 
-            const mainImage = req.file.location;
+            const src = req.file.location;
             const newProduct = await productService.addProduct({
                 categoryId,
                 name,
@@ -353,7 +391,7 @@ adminRouter.post(
                 description,
                 madeBy,
                 inventory,
-                mainImage,
+                src,
             });
             res.status(201).json(newProduct);
         } catch (error) {
@@ -390,18 +428,41 @@ adminRouter.patch(
             const { productId } = req.params;
 
             let {
-                categoryId,
                 name,
                 price,
                 description,
                 madeBy,
                 inventory,
                 sellCount,
-                mainImage,
+                category,
+                gender,
+                recommendAge,
             } = req.body;
 
-            if (req.file.location) {
-                mainImage = req.file.location;
+            console.log(req.body);
+
+            const categoryId = await categoryService.getCategoryId({
+                name: category,
+                gender,
+                recommendAge,
+            });
+
+            console.log(categoryId);
+
+            if (!categoryId) {
+                console.log(
+                    '해당하는 카테고리가 없습니다. 카테고리를 먼저 생성해주세요'
+                );
+                res.status(403).json({
+                    result: 'forbidden-approach',
+                    reason: '해당하는 카테고리가 없습니다. 카테고리를 먼저 생성해주세요',
+                });
+                return;
+            }
+
+            let src = '';
+            if (req.file) {
+                src = req.file.location;
             }
             const updatedProductInfo = {
                 ...(categoryId && { categoryId }),
@@ -411,7 +472,7 @@ adminRouter.patch(
                 ...(madeBy && { madeBy }),
                 ...(inventory && { inventory }),
                 ...(sellCount && { sellCount }),
-                ...(mainImage && { mainImage }),
+                ...(src && { src }),
             };
 
             const updatedProduct = await productService.setProduct(
@@ -432,8 +493,13 @@ adminRouter.delete(
     loginRequired,
     async (req, res, next) => {
         try {
+            const user = await userService.getUser(req.currentUserId);
+
             //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
-            if (req.currentUserRole !== 'admin') {
+            if (!user) {
+                throw new Error('없는 회원입니다.');
+            }
+            if (user.role !== 'admin') {
                 console.log(
                     '서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.'
                 );

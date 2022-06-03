@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>유주얼리</title>
+    <!-- 아이콘 -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/elice-rabbit-favicon.png"
+    />
+    <!-- bulma css 관련 -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script
+        defer
+      src="https://kit.fontawesome.com/7630448495.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="admin-category.css" />
+    <script src="admin-category.js" type="module" defer></script>
+    <!-- navbar, footer 활용을 위한 css, js -->
+    <link rel="stylesheet" href="../nav/nav.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <script src="../nav/nav.js"></script>
+    <!-- navbar, footer 활용을 위한 jquery -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+    <script>
+        $(document).ready(function() {
+            $('#nav-placeholder').load("../nav/nav.html", () => {
+                navFunc()
+            });
+        });
+    </script>
+    <div class="admin-main-content-container">
+        <div id="admin-nav-container"></div>
+            <script>
+                $(function(){
+                $("#admin-nav-container").load("../admin-nav/admin-nav.html");
+                });
+            </script>
+        <div class="main-container">
+            <div class="title-container">
+                <div>
+                    <h1 class="title">카테고리 관리</h1>
+                </div>
+                <button class="button is-link is-light category-add">카테고리 추가</button>
+            </div>
+            <div class="category-container" id="categoryContainer">
+                <div class="columns category-top">
+                    <div class="column is-2.4">종류</div>
+                    <div class="column is-2.4">성별</div>
+                    <div class="column is-2.4">연령대</div>
+                    <div class="column is-2.4 nav-edit">수정</div>
+                    <div class="column is-2.4 nav-delete">삭제</div>
+                </div>
+            
+                <div class="columns category-item" id="category-edit-container">
+                    <div class="column is-2.4"><input type="text" class="input category-item add-name"></div>
+                    <div class="column is-2.4">
+                        <select class="select add-gender" id="genderSelectBox" name="gender">
+                            <option value=""></option>
+                            <option value="man" class="notification is-primary is-light"> 남성 </option>
+                            <option value="woman" class="notification is-warning is-light"> 여성 </option>
+                        </select>
+                    </div>
+                    <div class="column is-2.4">
+                        <select class="select add-recommendAge" id="recommendAgeSelectBox" name="recommendAge">
+                            <option value=""></option>
+                            <option value="10" class="notification is-primary is-light"> 10대 </option>
+                            <option value="20" class="notification is-info is-light"> 20대 </option>
+                            <option value="30" class="notification is-danger is-light"> 30대 </option>
+                        </select>
+                    </div>
+                    <div class="column is-2.4"><button class="button is-success is-light add-cancel-button" value="db076b">취소하기</button></div>
+                    <div class="column is-2.4"><button class="button is-link is-light add-confirm-button" value="db076b">추가하기</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    <div id="footer-placeholder"></div>
+    <script>
+        $(function () {
+        $("#footer-placeholder").load("../footer/footer.html");
+        });
+    </script>
+    </body>
+</html>
