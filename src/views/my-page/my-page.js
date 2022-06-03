@@ -33,7 +33,7 @@ async function userTierRender() {
                 <img src="/gold-icon.png" width="60" height="90">
             `;
             currentTier = '골드';
-        } else if (totalPrice > 1000000 && totalPrice < 5000000) {
+        } else if (totalPrice > 1000000) {
             userTierIcon.innerHTML = `
                 <img src="/sapphire-icon.png" width="90" height="90">
             `;
@@ -73,7 +73,7 @@ async function userTierRender() {
         } else if (currentTier === '골드') {
             nextGrade.innerText = addCommas(1000000 - totalUsed);
         } else if (currentTier === '사파이어') {
-            nextGrade.innerText = addCommas(5000000 - totalUsed);
+            nextGrade.innerText = '최고 등급입니다';
         }
     } catch (err) {
         console.error(err.stack);
