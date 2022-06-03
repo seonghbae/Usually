@@ -92,7 +92,7 @@ async function getProductDataToFormType(productId) {
     };
     return formTypeData;
 }
-// form 내의 value들을 기존 상품 정보로 갱신 및 반환
+// form 내의 value들을 기존 제품 정보로 갱신 및 반환
 async function formValueSetting(productId) {
     // 제품 상세보기 버튼의 href값을 바꿔준다
     document
@@ -165,19 +165,19 @@ async function changeSelectOptions() {
     } catch (err) {
         console.error(err.stack);
         alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+            `${err.message}`
         );
     }
 }
 
-// 상품 수정 함수
+// 제품 수정 함수
 async function editProduct(e) {
     try {
         const productId = location.pathname.split('/')[3];
         e.preventDefault();
         // form에 value가 입력되었는지 확인
         if (!e.target.name.value) {
-            return alert('상품명을 입력해주세요');
+            return alert('제품명을 입력해주세요');
         }
 
         if (!e.target.category.value) {
@@ -197,7 +197,7 @@ async function editProduct(e) {
         }
 
         if (!e.target.description.value) {
-            return alert('상품 설명을 작성해주세요');
+            return alert('제품 설명을 작성해주세요');
         }
         // 사진의 경우 검사해줄 필요 없음. 등록하지 않으면 갱신하지 않으면 됨.
         if (!e.target.inventory.value) {
@@ -243,18 +243,18 @@ async function editProduct(e) {
             const { reason } = errorContent;
 
             throw new Error(reason);
-        }
+        };
 
         alert('제품 수정에 성공하였습니다!');
         window.location.reload();
     } catch (err) {
         console.error(err.stack);
         alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+            `${err.message}`
         );
     }
 }
-// 상품 삭제 함수
+// 제품 삭제 함수
 async function deleteProduct() {
     try {
         const productId = location.pathname.split('/')[3];
@@ -267,7 +267,7 @@ async function deleteProduct() {
     } catch (err) {
         console.error(err.stack);
         alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+            `${err.message}`
         );
     };
 };
