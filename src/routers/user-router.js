@@ -178,6 +178,7 @@ userRouter.delete(
     async function (req, res, next) {
         try {
             const userId = req.currentUserId;
+          //  console.log(userId);
 
             // content-type 을 application/json 로 프론트에서
             // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -199,10 +200,10 @@ userRouter.delete(
             // }
 
             // const userInfoRequired = { shortId, currentPassword };
-            const userInfoRequired = { userId };
+            //const userInfoRequired = { userId };
 
             // // 사용자 정보를 삭제함
-            const deletedUser = await userService.deleteUser(userInfoRequired);
+            const deletedUser = await userService.deleteUser(userId);
 
             if (!deletedUser) {
                 throw new Error('삭제가 실패하였습니다.');
