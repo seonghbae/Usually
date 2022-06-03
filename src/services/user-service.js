@@ -34,7 +34,6 @@ class UserService {
 
         // db에 저장
         return await this.userModel.create(newUserInfo);
-
     }
 
     // 로그인
@@ -87,7 +86,7 @@ class UserService {
     // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
     async setUser(userInfoRequired, toUpdate) {
         // 객체 destructuring
-        const { userId, currentPassword, email } = userInfoRequired;
+        const { userId, currentPassword } = userInfoRequired;
 
         // 우선 해당 id의 유저가 db에 있는지 확인
         let user = await this.userModel.findById(userId);
@@ -96,12 +95,7 @@ class UserService {
         if (!user) {
             throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
-        let emailFindedUser = await this.userModel.findByEmail(email);
-        if (emailFindedUser) {
-            throw new Error(
-                '이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요'
-            );
-        }
+
         // 이제, 정보 수정을 위해 사용자가 입력한 비밀번호가 올바른 값인지 확인해야 함
 
         // 비밀번호 일치 여부 확인
@@ -132,11 +126,9 @@ class UserService {
             userId,
             update: toUpdate,
         });
-
     }
 
     async deleteUser(userId) {
-      
         // 우선 해당 id의 유저가 db에 있는지 확인
         let user = await this.userModel.findById(userId);
 
@@ -144,7 +136,6 @@ class UserService {
         if (!user) {
             throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
-
 
         // 유저 삭제 시작
         return await this.userModel.deleteOneUser(userId);

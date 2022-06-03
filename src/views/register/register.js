@@ -28,13 +28,13 @@ async function handleSubmit(e) {
     const email = emailInput.value;
     const password = passwordInput.value;
     const passwordConfirm = passwordConfirmInput.value;
-    let gender = "";
+    let gender = '';
 
     genderNodeList.forEach((node) => {
-        if(node.checked)  {
-          gender = node.value;
+        if (node.checked) {
+            gender = node.value;
         }
-      }) 
+    });
 
     // 잘 입력했는지 확인
     const isFullNameValid = fullName.length >= 2;

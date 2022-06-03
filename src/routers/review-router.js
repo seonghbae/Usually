@@ -178,7 +178,7 @@ reviewRouter.delete('/:reviewId', loginRequired, async (req, res, next) => {
 
         //작성자 여부 확인
         const prevReview = await reviewService.getReview(reviewId);
-        
+
         if (!prevReview.author._id.equals(user._id)) {
             res.status(403).json({
                 result: 'forbidden-approach',

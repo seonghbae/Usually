@@ -22,7 +22,7 @@ h1 {
     margin-right: auto;
 }
 
-.title-container{
+.title-container {
     display: flex;
     width: 70%;
 }
@@ -31,27 +31,27 @@ h1 {
     font-size: 2rem;
 }
 
-.category-add{
+.category-add {
     margin-left: auto;
 }
 
-.category-container{
+.category-container {
     margin-top: 2rem;
     width: 70%;
 }
 
 .category-top {
-    border-bottom:1px solid #aaa;
-    padding:0;
-    text-align:center;
+    border-bottom: 1px solid #aaa;
+    padding: 0;
+    text-align: center;
     color: #ffae96;
     font-size: 120%;
     font-weight: 800;
 }
 
 .category-item {
-    align-items:center;
-    text-align:center;
+    align-items: center;
+    text-align: center;
     border-bottom: 1px solid #aaa;
 }
 

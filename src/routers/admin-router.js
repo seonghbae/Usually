@@ -365,7 +365,7 @@ adminRouter.post(
                 gender,
                 recommendAge,
             } = req.body;
-            
+
             const categoryId = await categoryService.getCategoryId({
                 name: category,
                 gender,
@@ -381,7 +381,6 @@ adminRouter.post(
                 });
                 return;
             }
-           
 
             const src = req.file.location;
             const newProduct = await productService.addProduct({
@@ -438,14 +437,11 @@ adminRouter.patch(
                 recommendAge,
             } = req.body;
 
-
             const categoryId = await categoryService.getCategoryId({
                 name: category,
                 gender,
                 recommendAge,
             });
-
-        
 
             if (!categoryId) {
                 console.log(
