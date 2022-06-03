@@ -178,30 +178,7 @@ userRouter.delete(
     async function (req, res, next) {
         try {
             const userId = req.currentUserId;
-          //  console.log(userId);
-
-            // content-type 을 application/json 로 프론트에서
-            // 설정 안 하고 요청하면, body가 비어 있게 됨.
-            // if (is.emptyObject(req.body)) {
-            //     throw new Error(
-            //         'headers의 Content-Type을 application/json으로 설정해주세요'
-            //     );
-            // }
-
-            // params로부터 id를 가져옴
-            // const shortId = req.currentUserId;
-
-            // // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
-            // const currentPassword = req.body.password;
-
-            // // password 없을 시, 진행 불가
-            // if (!currentPassword) {
-            //     throw new Error('탈퇴를 위해서는 비밀번호가 필요합니다.');
-            // }
-
-            // const userInfoRequired = { shortId, currentPassword };
-            //const userInfoRequired = { userId };
-
+         
             // // 사용자 정보를 삭제함
             const deletedUser = await userService.deleteUser(userId);
 

@@ -33,9 +33,8 @@ class UserService {
         };
 
         // db에 저장
-        const createdNewUser = await this.userModel.create(newUserInfo);
+        return await this.userModel.create(newUserInfo);
 
-        return createdNewUser;
     }
 
     // 로그인
@@ -129,21 +128,15 @@ class UserService {
         }
 
         // 업데이트 진행
-        user = await this.userModel.update({
+        return await this.userModel.update({
             userId,
             update: toUpdate,
         });
 
-        return user;
     }
 
     async deleteUser(userId) {
-        // 객체 destructuring
-        // const { shortId, currentPassword } = userInfoRequired;
-        //const { userId } = userInfoRequired;
-
-        // console.log('currentPassword' + currentPassword);
-
+      
         // 우선 해당 id의 유저가 db에 있는지 확인
         let user = await this.userModel.findById(userId);
 
@@ -152,24 +145,9 @@ class UserService {
             throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
 
-        // 이제, 정보 수정을 위해 사용자가 입력한 비밀번호가 올바른 값인지 확인해야 함
-
-        // 비밀번호 일치 여부 확인
-        // const correctPasswordHash = user.password;
-        // const isPasswordCorrect = await bcrypt.compare(
-        //     currentPassword,
-        //     correctPasswordHash
-        // );
-
-        // if (!isPasswordCorrect) {
-        //     throw new Error(
-        //         '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
-        //     );
-        // }
 
         // 유저 삭제 시작
-        user = await this.userModel.deleteOneUser(userId);
-        return user;
+        return await this.userModel.deleteOneUser(userId);
     }
 }
 
