@@ -1,0 +1,34 @@
+.admin-order-content-container {
+    display: flex;
+    width: 150vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+.admin-order-content-container #admin-nav-container {
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 10vh;
+}
+
+.admin-order-table-container {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.admin-order-content-container .admin-order-title h2 {
+    font-size: 25px;
+}
+
+.admin-order-content-container hr {
+    background-color: black;
+    width: 100%;
+}
+.admin-order-table-container .table-container {
+    display: block;
+    overflow-x: auto;
+}
+.admin-order-content-container .table-container thead tr th {
+    color: #ffae96;
+    font-size: 120%;
+}

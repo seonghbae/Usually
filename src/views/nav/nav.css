@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 li {
     text-decoration: none;
 }
@@ -29,7 +28,20 @@ button {
 .nav-icon {
     padding-right: 0.5vw;
 }
+.logo-link {
+    padding: 0;
+}
 
+.logo-image {
+    display: inline;
+    background: url('/usually-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 11vw;
+    height: 4vw;
+
+}
 /* 세로 가운데 정렬용 */
 .my-auto {
     margin-top: auto !important;
@@ -48,7 +60,7 @@ button {
 }
 
 .navbar-item {
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .navbar-item:hover {
@@ -62,7 +74,7 @@ button {
 /* sticky-nav메뉴 css */
 .main-nav {
     display: flex;
-    height: 55px;
+    height: 60px;
     border-bottom: 1px solid black;
 }
 
@@ -83,13 +95,50 @@ button {
 
 .main-nav-menu {
     padding: 15px 3vw 15px 3vw;
-    font-size: 0.9rem;
-    
+    font-size: 1.2rem;
     font-weight: bold;
 }
-
 
 .main-nav-recommend-menu-container {
     display: flex;
     margin-left: 3vw;
+}
+
+/* control-buttons  */
+.control-buttons {
+    overflow: hidden;
+    position: fixed;
+    z-index: 300;
+    right: 31px;
+    bottom: 0;
+    width: 190px;
+    height: 58px;
+    opacity: 0;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+.control-button-contaier {
+    float: left;
+    width: 60px;
+    margin-right: 3px;
+    height: 100%;
+}
+.control-button {
+    display: inline-block;
+    position: relative;
+    width: 58px;
+    height: 100%;
+    background-color: #ffc0cb;
+    border-radius: 50px;
+}
+
+.control-button-font {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: white;
 }

@@ -10,44 +10,70 @@ class OrderService {
   async addOrder(orderInfo) {
 
     // db에 저장
-    const createdNewOrder = await this.orderModel.create(orderInfo);
+    const productIds = [];
 
-   return createdNewOrder;
+    for(var i = 0; i< orderInfo.orderedProducts.length; i++){
+      const orderedProduct = await this.orderModel.createOrderedProducts(orderInfo.orderedProducts[i]);
+      productIds.push(orderedProduct._id);
+    }
+    
+    return await this.orderModel.create(orderInfo, productIds);
+
   }
 
   // 관리자가 모든 주문 목록을 받음.
   async getOrders() {
-    const orders = await this.orderModel.findAll();
-    return orders;
+    return await this.orderModel.findAll();
   }
 
   async getOrdersByUser(userId){
-    const orders = await this.orderModel.findByUser(userId);
-    return orders;
+    return await this.orderModel.findByUser(userId);
   }
 
-  async getOrder(shortId){
-    const order = await this.orderModel.findById(shortId);
-    return order;
+  async getShippedOrdersByUser(userId){
+    return await this.orderModel.findShippedByUser(userId);
   }
 
-  async deleteOrder(shortId){
+
+  async getOrder(orderId){
+    return await this.orderModel.findById(orderId);
+  }
+
+  async setOrder(orderId, status){
+
+    //해당 id의 주문 내역이 db에 있는지 확인
+    let order = await this.orderModel.findById(orderId);
+
+    if(!order){
+      throw new Error('주문 내역이 없습니다. 다시 한 번 확인해 주세요.');
+    }
+
+    return await this.orderModel.updateOrder(
+      orderId,
+      status,
+  );
+  }
+
+
+  async deleteOrder(orderId){
 
      //해당 주문 정보가 존재하는지 확인
-     let order = await this.orderModel.findById(shortId);
+     let order = await this.orderModel.findById(orderId);
  
      // db에서 찾지 못한 경우, 에러 메시지 반환
      if (!order) {
        throw new Error('주문 내역이 없습니다. 다시 한 번 확인해 주세요.');
      }
  
+     for(var i = 0; i<order.orderedProducts.length; i++){
+       await this.orderModel.deleteOrderedProducts(order.orderedProducts[i]._id);
+     }
+
      // 주문 취소 시작
-     order = await this.orderModel.deleteOneOrder({
-       shortId
+     return await this.orderModel.deleteOneOrder({
+      orderId
      });
  
-     return order;
-
   }
 }
 

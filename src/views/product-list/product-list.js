@@ -2,7 +2,7 @@ import * as Api from '/api.js';
 import { addCommas } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
-const productItemContainer = document.querySelector('#productItemContainer');
+const productItemContainer = document.querySelector('#product-item-container');
 
 addAllElements();
 addAllEvents();
@@ -15,65 +15,50 @@ function addAllElements() {
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {}
 
-// 입력으로 들어오는 주소로 이동
-function newPage(productId) {
+// 입력으로 들어오는 상품 상세 페이지로 이동
+function productPage(productId) {
     window.location.href = `/product/${productId}`;
 }
 
 // 상품 목록
 async function showProductList() {
-    // /product/category/:categoryId 형식이라 split으로 productId만 가져오기
-    const categoryId = location.pathname.split("/")[3];
+    const splitLocation = location.pathname.split('/');
+    const type = splitLocation[2];
+    const target = splitLocation[3];
     try {
-        // api로 데이터를 받아옴
-        const datas = await Api.get('/product/category', categoryId);
+        const products = await Api.get('/productInfo', `${type}/${target}`);
 
         productItemContainer.innerHTML = '';
-        let tileAncestorTag;
 
-        datas.forEach((data, index, array) => {
-            if (index % 4 === 0) {
-                tileAncestorTag = document.createElement('div');
-                tileAncestorTag.classList.add('tile', 'is-ancestor');
-                tileAncestorTag.innerHTML = '';
-            }
-
-            const tileParentTag = document.createElement('div');
-            tileParentTag.classList.add('tile', 'is-parent');
-
-            const tileChildTag = document.createElement('article');
-            tileChildTag.classList.add('tile', 'is-child');
-            tileChildTag.setAttribute('id', data.productId);
+        products.forEach((product) => {
+            const itemTag = document.createElement('div');
+            itemTag.className = 'item';
+            itemTag.setAttribute('id', product.productId);
 
             const imageTag = document.createElement('figure');
             imageTag.classList.add('image', 'is-square');
-            imageTag.innerHTML = `<img src="${data.src}" alt="${data.name}">`;
-            // 상품 클릭시 해당 상품 상세 페이지로 이동
-            imageTag.addEventListener('click', () => newPage(data.productId));
+            imageTag.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
+            imageTag.addEventListener('click', () =>
+                productPage(product.productId)
+            );
+
+            const nameTag = document.createElement('strong');
+            nameTag.innerHTML = product.name;
+            nameTag.addEventListener('click', () =>
+                productPage(product.productId)
+            );
+
+            const priceTag = document.createElement('p');
+            priceTag.innerHTML = `${addCommas(product.price)}원`;
 
             const contentTag = document.createElement('div');
             contentTag.classList.add('content', 'has-text-centered');
-            contentTag.innerHTML = 
-            `<strong>${data.name}</strong>
-            <p>${addCommas(data.price)}원</p>`;
+            contentTag.appendChild(nameTag);
+            contentTag.appendChild(priceTag);
 
-            tileChildTag.appendChild(imageTag);
-            tileChildTag.appendChild(contentTag);
-            tileParentTag.appendChild(tileChildTag);
-            tileAncestorTag.appendChild(tileParentTag);
-
-            if (index % 4 === 3) {
-                productItemContainer.appendChild(tileAncestorTag);
-            } else if (index === array.length - 1 && index % 4 !== 3) {
-                // Bulma css tile로 구성하니까 한 줄에 4개 들어가도록 구성
-                // 한 줄에 넣은 개수대로 1/n 로 한 줄을 채워서 4개 되도록 빈공간 삽입
-                const emptyDivTag = document.createElement('div');
-                emptyDivTag.classList.add('tile', 'is-parent');
-                for (let i = index % 4; i < 3; i++) {
-                    tileAncestorTag.appendChild(emptyDivTag);
-                }
-                productItemContainer.appendChild(tileAncestorTag);
-            }
+            itemTag.appendChild(imageTag);
+            itemTag.appendChild(contentTag);
+            productItemContainer.appendChild(itemTag);
         });
     } catch (err) {
         console.error(err.stack);

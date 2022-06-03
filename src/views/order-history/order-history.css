@@ -1,0 +1,65 @@
+.order-history-content-container {
+    display: flex;
+    width: 150vh;
+    height: 200vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+.order-history-content-container .order-history-side-menu-container {
+    width: 25%;
+    margin-left: 5vh;
+}
+.order-history-content-container .user-tier-container {
+    display: flex;
+}
+.order-history-content-container
+    .user-tier-container
+    #user-tier-name
+    #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.order-history-content-container .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
+
+.order-history-content-container
+    .user-tier-container
+    #user-tier-name
+    #userNameField {
+    text-align: center;
+    font-size: 15px;
+}
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
+}
+
+.order-history-container {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.order-history-container .order-history-info {
+    margin-bottom: 20px;
+}
+
+.order-history-container .table-container tbody tr {
+    height: 10vh;
+}
+.order-history-container .table-container thead tr th {
+    color: #ffae96;
+}
+
+.order-history-container .table-container .dropdown-item {
+    display: flex;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: bold;
+}

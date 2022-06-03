@@ -4,40 +4,38 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 class UserService {
-  // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
-  constructor(userModel) {
-    this.userModel = userModel;
-  }
+    // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
+    constructor(userModel) {
+        this.userModel = userModel;
+    }
 
-
-// 회원가입
-async addUser(userInfo) {
-    // 객체 destructuring
-    const { email, fullName, password, gender, role } = userInfo;
+    // 회원가입
+    async addUser(userInfo) {
+        // 객체 destructuring
+        const { email, fullName, password, gender, role } = userInfo;
 
         // 이메일 중복 확인
-    const user = await this.userModel.findByEmail(email);
-    if (user) {
-        throw new Error(
+        const user = await this.userModel.findByEmail(email);
+        if (user) {
+            throw new Error(
                 '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.'
-        );
-    }
+            );
+        }
         // 우선 비밀번호 해쉬화(암호화)
-    const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { 
-        fullName, 
-        email, 
-        password: hashedPassword, 
-        gender,
-        role,
-    };
+        const newUserInfo = {
+            fullName,
+            email,
+            password: hashedPassword,
+            gender,
+            role,
+        };
 
         // db에 저장
-    const createdNewUser = await this.userModel.create(newUserInfo);
+        return await this.userModel.create(newUserInfo);
 
-    return createdNewUser;
-}
+    }
 
     // 로그인
     async getUserToken(loginInfo) {
@@ -73,36 +71,37 @@ async addUser(userInfo) {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
         // 2개 프로퍼티를 jwt 토큰에 담음
-        const token = jwt.sign({ shortId: user.shortId }, secretKey);
-
-        return token;
+        return jwt.sign({ userId: user.shortId }, secretKey);
     }
 
     // 사용자 목록을 받음.
     async getUsers() {
-        const users = await this.userModel.findAll();
-        return users;
+        return await this.userModel.findAll();
     }
 
     //사용자 하나를 받음
-    async getUser(shortId){
-        const user = await this.userModel.findById(shortId);
-        return user;
+    async getUser(userId) {
+        return await this.userModel.findById(userId);
     }
 
     // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
     async setUser(userInfoRequired, toUpdate) {
         // 객체 destructuring
-        const { shortId, currentPassword } = userInfoRequired;
+        const { userId, currentPassword, email } = userInfoRequired;
 
         // 우선 해당 id의 유저가 db에 있는지 확인
-        let user = await this.userModel.findById(shortId);
+        let user = await this.userModel.findById(userId);
 
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
             throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
-
+        let emailFindedUser = await this.userModel.findByEmail(email);
+        if (emailFindedUser) {
+            throw new Error(
+                '이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요'
+            );
+        }
         // 이제, 정보 수정을 위해 사용자가 입력한 비밀번호가 올바른 값인지 확인해야 함
 
         // 비밀번호 일치 여부 확인
@@ -129,52 +128,27 @@ async addUser(userInfo) {
         }
 
         // 업데이트 진행
-        user = await this.userModel.update({
-            shortId,
+        return await this.userModel.update({
+            userId,
             update: toUpdate,
         });
 
-        return user;
     }
 
-    async deleteUser(userInfoRequired) {
-        // 객체 destructuring
-        // const { shortId, currentPassword } = userInfoRequired;
-        const { shortId } = userInfoRequired;
-
-        // console.log('currentPassword' + currentPassword);
-
+    async deleteUser(userId) {
+      
         // 우선 해당 id의 유저가 db에 있는지 확인
-        let user = await this.userModel.findById(shortId);
+        let user = await this.userModel.findById(userId);
 
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
             throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
         }
 
-        // 이제, 정보 수정을 위해 사용자가 입력한 비밀번호가 올바른 값인지 확인해야 함
-
-        // 비밀번호 일치 여부 확인
-        // const correctPasswordHash = user.password;
-        // const isPasswordCorrect = await bcrypt.compare(
-        //     currentPassword,
-        //     correctPasswordHash
-        // );
-
-        // if (!isPasswordCorrect) {
-        //     throw new Error(
-        //         '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
-        //     );
-        // }
 
         // 유저 삭제 시작
-        user = await this.userModel.deleteOneUser({
-            shortId,
-        });
-        console.log('삭제 성공 ~_~');
-        return user;
+        return await this.userModel.deleteOneUser(userId);
     }
-
 }
 
 const userService = new UserService(userModel);

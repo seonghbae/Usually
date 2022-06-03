@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>쇼핑-데모</title>
+        <title>유주얼리</title>
         <!-- 아이콘 -->
         <link
             rel="icon"
@@ -46,31 +46,23 @@
         <div class="modify-form-container">
             <form class="modify-form-box" id="modifyForm">
                 <div class="field">
-                    <label class="label" for="fullNameInput">이름</label>
-                    <p class="control has-icons-left has-icons-right">
-                        <input
-                            class="input"
-                            type="text"
-                            id="full-name-modify"
-                            value="이름"
-                            readonly
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-x"></i>
-                        </span>
-                    </p>
+                    <label class="label" for="fullNameInput" id="modify-name"
+                        >이름</label
+                    >
+                    <p
+                        class="control has-icons-left has-icons-right"
+                        id="fullNameField"
+                    ></p>
                 </div>
                 <div class="field">
                     <label class="label" for="email-modify">이메일 수정</label>
-                    <p class="control has-icons-left">
+                    <p class="control has-icons-left" id="emailField">
                         <input
                             class="input"
                             type="email"
                             id="email-modify"
-                            placeholder="기존이메일"
+                            name="email-modify"
+                            placeholder="이메일"
                         />
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
@@ -85,7 +77,7 @@
                     <p class="control has-icons-left">
                         <input
                             class="input"
-                            type="text"
+                            type="password"
                             id="password-check"
                             placeholder="*****"
                         />
@@ -101,7 +93,7 @@
                     <p class="control has-icons-left">
                         <input
                             class="input"
-                            type="text"
+                            type="password"
                             id="password-modify"
                             placeholder="*****"
                         />

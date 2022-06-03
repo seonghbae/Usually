@@ -1,0 +1,64 @@
+.admin-main-content-container {
+    display: flex;
+    width: 150vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+.admin-main-content-container #admin-nav-container {
+    width: 20%;
+    margin-top: 5vh;
+    margin-left: 11vh;
+}
+
+.admin-main-info-container {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.admin-main-info-container .admin-page-title h2 {
+    font-size: 25px;
+}
+.admin-main-info-container hr {
+    background-color: black;
+    width: 100%;
+}
+
+.admin-main-info-container .admin-page-total {
+    display: flex;
+    margin-bottom: 3vh;
+}
+
+.admin-main-info-container p {
+    font-size: 30px;
+    color: pink;
+}
+
+.admin-main-info-container .admin-page-total-info {
+    align-items: center;
+    width: 52.5vh;
+    height: 18vh;
+}
+
+.admin-main-info-container .admin-page-info-title {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.admin-main-info-container .admin-page-info-content {
+    text-align: center;
+}
+
+.admin-main-info-container .admin-page-product {
+    display: flex;
+}
+
+.admin-main-info-container .admin-page-product-info {
+    align-items: center;
+    width: 52.5vh;
+    height: 18vh;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: bold;
+}

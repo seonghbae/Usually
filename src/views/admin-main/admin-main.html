@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>유주얼리</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="admin-main.css" />
+        <script src="admin-main.js" type="module" defer></script>
+        <!-- navbar, footer, admin-nav 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../nav/nav.css">
+        <link rel="stylesheet" href="../footer/footer.css">
+        <link rel="stylesheet" href="../admin-nav/admin-nav.css">
+        <script src="../nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        
+    </head>
+      <!--Navigation bar-->
+      <div id="nav-placeholder"></div>
+      <script>
+        $(document).ready(function() {
+          $('#nav-placeholder').load("../nav/nav.html", () => {
+            navFunc()
+          });
+        });
+      </script>
+      <div class="admin-main-content-container">
+        <div id="admin-nav-container"></div>
+        <script>
+            $(function(){
+              $("#admin-nav-container").load("../admin-nav/admin-nav.html");
+            });
+        </script>
+        <div class="admin-main-info-container">
+            <div class="admin-page-title">
+                <h2>총 정보</h2>
+                <hr>
+            </div>
+            <div class="admin-page-total">
+                <div class="admin-page-total-info">
+                    <div class="admin-page-info-title">
+                        <h3>총 사용자 수</h3>
+                    </div>
+                    <div class="admin-page-info-content">
+                        <p id="admin-page-total-user"></p>
+                    </div>
+                </div>
+                <div class="admin-page-total-info">
+                    <div class="admin-page-info-title">
+                        <h3>총 주문회수</h3>
+                    </div>
+                    <div class="admin-page-info-content">
+                        <p id="admin-page-total-order"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-page-title">
+                <h2>제품정보</h2>
+                <hr>
+            </div>
+            <div class="admin-page-product">
+                <div class="admin-page-product-info">
+                    <div class="admin-page-info-title">
+                        <h3>베스트셀러</h3>
+                    </div>
+                    <div class="admin-page-info-content">
+                        <p id="admin-page-bestseller"></p>
+                    </div>
+                </div>
+                <div class="admin-page-product-info">
+                    <div class="admin-page-info-title">
+                        <h3>재고추가가 필요 제품</h3>
+                    </div>
+                    <div class="admin-page-info-content">
+                        <p id="admin-page-need-stock"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+      <!--footer-->
+      <div id="footer-placeholder"></div>
+
+      <script>
+        $(function () {
+          $("#footer-placeholder").load("../footer/footer.html");
+        });
+      </script>
+    </body>
+</html>

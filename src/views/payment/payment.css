@@ -1,0 +1,98 @@
+* {
+    box-sizing: inherit;
+}
+
+.cart-header {
+    display: flex;
+    border-bottom: 1px solid;
+}
+
+.cart-header .title {
+    margin-bottom: 0;
+    padding-top: 2rem;
+}
+
+.title:not(.is-spaced) + .subtitle {
+    margin-top: 0;
+}
+
+.cart-header .subtitle {
+    padding: 3rem 1rem 0;
+}
+
+.subtitle:not(.is-spaced) + .title {
+    margin-top: 0;
+}
+
+.cart-products-container {
+    width: 100%;
+}
+
+.cart-products {
+    flex: none;
+    height: 100%;
+    width: 60%;
+}
+
+.delivery-info {
+    width: 100%;
+}
+
+.label {
+    text-align: left;
+}
+
+.order {
+    background-color: rgb(250, 245, 245);
+    width: 100%;
+}
+
+.order .header {
+    border-bottom: 1px solid;
+    font-size: 1.4rem;
+}
+
+.order-info {
+    border-bottom: 1px solid;
+    padding-bottom: 1.2rem;
+}
+
+.info {
+    display: flex;
+    font-size: 1.1rem;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+}
+
+.info .p {
+    display: block;
+}
+
+#product-info {
+    text-align: right;
+}
+
+.total {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: 700;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.payment {
+    margin-top: 3rem;
+}
+
+.payment button {
+    font-size: 1.4rem;
+    font-weight: 800;
+    height: 4rem;
+    width: 100%;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

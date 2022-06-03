@@ -1,5 +1,43 @@
-* {
-    box-sizing: inherit;
+.section {
+    display: flex;
+    width: 100vw;
+    height: 200vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+    padding: 0;
+}
+
+.section .cart-side-menu-container {
+    width: 15%;
+    margin-left: 5vh;
+}
+
+.section .user-tier-container {
+    display: flex;
+}
+
+.section .user-tier-container #user-tier-name #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.section .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
+
+.section .user-tier-container #user-tier-name #userNameField {
+    text-align: center;
+    font-size: 15px;
+}
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
+}
+
+.cart-info-container {
+    width: 75%;
 }
 
 .cart-header {
@@ -39,6 +77,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    height: 10rem;
 }
 
 .cart-product-item label {
@@ -52,30 +91,45 @@
     right: -0.5rem;
 }
 
-.image {
+.cart-product-item .image {
     cursor: pointer;
-    position: relative;
-    margin-left: 4rem;
+    margin-left: 2rem;
+    padding: 0;
+    width: 8rem;
 }
 
+.cart-product-item .image img {
+    position: relative;
+    height: 7rem;
+    width: 7rem;
+}
 
 .quantity {
     display: flex;
 }
 
-.content {
-    text-align: center;
-    font-size: 1.4rem;
-    margin-left: 4rem;
+.cart-product-item .content {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    width: 20rem;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.content .quantity .button {
+    font-size: 0.6rem;
 }
 
 .input {
+    height: 1.5rem;
+    width: 2.5rem;
     text-align: center;
 }
 
 .calculation {
     display: flex;
-    margin-left: 4rem;
+    width: 20rem;
 }
 
 .calculation p {
@@ -126,4 +180,10 @@
     font-weight: 800;
     height: 4rem;
     width: 100%;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

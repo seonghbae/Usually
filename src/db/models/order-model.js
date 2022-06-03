@@ -1,38 +1,81 @@
 import { model } from 'mongoose';
-import { OrderSchema } from '../schemas/order-schema';
-
+import { OrderedProductSchema, OrderSchema } from '../schemas/order-schema';
+import { UserSchema } from '../schemas/user-schema';
+import { ProductSchema } from '../schemas/product-schema';
 const Order = model('orders', OrderSchema);
+const OrderedProduct = model('orderedProducts', OrderedProductSchema);
+const User = model('users', UserSchema);
+const Product = model('products', ProductSchema);
 
 export class OrderModel {
 
   async findByUser(userId) {
-    const orders = await Order.find({ user:userId });
-    return orders;
+    const user =  await User.findOne({shortId :userId});
+    return await Order.find({ userId : user._id }).populate({
+      path : 'orderedProducts',
+      populate : { path : 'productId'}
+    });
   }
   //User의 shortId로 주문 내역 전부 찾기
 
-  async findById(shortId){
-    const order = await Order.findOne({shortId});
-    return order;
+  async findShippedByUser(userId) {
+    const user =  await User.findOne({ shortId :userId });
+    return await Order.find({ userId : user._id, status : "배송완료" }).populate({
+      path : 'orderedProducts',
+      populate : { path : 'productId'}
+    });
+  }
+  //user의 shortId 중 배송 완료한 주문 내역 전부 찾기
+
+  async findById(orderId){
+    return await Order.findOne({shortId : orderId}).populate({
+      path : 'orderedProducts',
+      populate : { path : 'productId'}
+    });
   }
   //Order의 shortId로 주문 내역 찾기
 
-  async create(orderInfo) {
-    const createdNewOrder = await Order.create(orderInfo);
-    return createdNewOrder;
+  async create(orderInfo, productIds) {
+    return await Order.create({
+      phoneNumber:orderInfo.phoneNumber,
+      address:orderInfo.address,
+      userId: orderInfo.userId,
+      totalPrice: orderInfo.totalPrice,
+      totalQuantity:orderInfo.totalQuantity,
+      message: orderInfo.message,
+      orderedProducts: productIds,
+    });
+  }
+
+  async createOrderedProducts(orderedProductsList){
+    return await OrderedProduct.create(orderedProductsList);
   }
 
   async findAll() {
-    const orders = await Order.find({});
-    return orders;
+    return await Order.find({}).populate({
+      path : 'orderedProducts',
+      populate : { path : 'productId'}
+    });
   }
   //관리자가 모든 주문 내역 조회
 
-  async deleteOneOrder({shortId}) {
-    const filter = { shortId };
+  async updateOrder(orderId, status){
+
+    const filter = { shortId : orderId };
+    const option = { returnOriginal : false };
+    const update = { status: status };
+
+    return await Order.updateOne(filter, update, option);
+  }
+
+  async deleteOneOrder({orderId}) {
+    const filter = { shortId: orderId };
     
-    const deletedOrder = await Order.deleteOne(filter);
-    return deletedOrder;
+    return await Order.deleteOne(filter);
+  }
+
+  async deleteOrderedProducts(orderedProductId){
+    return await OrderedProduct.findOneAndDelete({_id : orderedProductId});
   }
 
 }
@@ -40,3 +83,4 @@ export class OrderModel {
 const orderModel = new OrderModel();
 
 export { orderModel };
+
