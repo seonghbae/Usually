@@ -16,7 +16,10 @@
 .modify-form-box {
     width: 28rem;
 }
-
+.modify-form-box .input:focus {
+    border-color: #fea7ab;
+    box-shadow: 0 0 0 0.125em #ffe9ea;
+}
 .modify-button-container {
     margin-top: 50px;
     text-align: center;

@@ -7,8 +7,46 @@ const passwordCheck = document.querySelector('#password-check');
 const passwordModify = document.querySelector('#password-modify');
 const modifyButton = document.querySelector('#modify-button');
 const deleteButton = document.querySelector('#delete-button');
-
-const token = getCookie('token');
+const fullNameField = document.querySelector('#fullNameField');
+const emailField = document.querySelector('#emailField');
+async function renderModifyName() {
+    try {
+        const result = await Api.get('/users', 'userInfo');
+        if (!result) {
+            throw new Error('가입된 회원정보가 없습니다');
+        }
+        fullNameField.innerHTML = `
+            <input
+                type="text"
+                class="input"
+                name="fullNameInput"
+                id="fullName-modify"
+                readonly
+                value="${result.name}"
+            />
+            <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+            </span>
+            <span class="icon is-small is-right">
+                <i class="fas fa-x"></i>
+            </span>`;
+        emailField.innerHTML = `
+                <input
+                class="input"
+                type="email"
+                id="email-modify"
+                name="email-modify"
+                placeholder="${result.email}"
+            ></input>
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+        `;
+    } catch (err) {
+        console.error(err.stack);
+    }
+}
+renderModifyName();
 
 modifyButton.addEventListener('click', handleModify);
 deleteButton.addEventListener('click', handleDelete);
@@ -40,7 +78,6 @@ async function handleModify(e) {
         }
         alert(`정상적으로 수정되었습니다.`);
 
-        // 로그인 성공
         // 기본 페이지로 이동
         window.location.href = '/';
     } catch (err) {
@@ -66,5 +103,3 @@ async function handleDelete(e) {
         );
     }
 }
-
-drawModify();
