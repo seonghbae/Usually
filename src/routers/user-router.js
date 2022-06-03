@@ -7,6 +7,18 @@ import { APIGateway, ApiGatewayManagementApi } from 'aws-sdk';
 const jwt = require('jsonwebtoken');
 const userRouter = Router();
 
+userRouter.get('/userInfo', loginRequired, async function (req, res, next) {
+    try {
+        const user = await userService.getUser(req.currentUserId);
+        if (!user) {
+            throw new Error('없는 회원입니다.');
+        }
+        res.json({ name: user.fullName, email: user.email });
+    } catch (err) {
+        next(err);
+    }
+});
+
 //isAdmin, role이 어드민인지 아닌지 판별 후 true, false 반환
 userRouter.get('/isAdmin', loginRequired, async function (req, res, next) {
     try {

@@ -82,10 +82,9 @@ button {
 
 .main-nav-menu {
     padding: 15px 3vw 15px 3vw;
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
     font-weight: bold;
 }
-
 
 .main-nav-recommend-menu-container {
     display: flex;
@@ -107,13 +106,13 @@ button {
     transition-delay: 0s;
 }
 
-.control-button-contaier{
+.control-button-contaier {
     float: left;
     width: 60px;
     margin-right: 3px;
     height: 100%;
 }
-.control-button{
+.control-button {
     display: inline-block;
     position: relative;
     width: 58px;
