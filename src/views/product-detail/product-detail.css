@@ -28,7 +28,7 @@ img {
 }
 
 .review .review-content {
-    width: 70vw;
+    width: 69vw;
     padding-right: 1rem;
     border-right: 1px solid #dbdbdb;
 }
@@ -69,6 +69,13 @@ img {
 }
 
 .review-input {
+    width: 100%;
+    height: 10rem;
+    padding: 1rem;
+    resize: none;
+}
+
+.review-textarea {
     width: 100%;
     height: 10rem;
     padding: 1rem;

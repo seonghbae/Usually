@@ -117,7 +117,7 @@ function showCartList() {
     const products = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if(key === 'order') continue;
+        if(key.length !== 6 || /[^0-9a-z]/.test(key)) continue;
         const product = JSON.parse(localStorage.getItem(key));
         products.push(product);
     }
