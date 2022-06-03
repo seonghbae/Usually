@@ -57,7 +57,7 @@ userRouter.post('/register', async (req, res, next) => {
             role,
         } = req.body;
 
-        console.log(role);
+        
         // 위 데이터를 유저 db에 추가하기
         const newUser = await userService.addUser({
             fullName,

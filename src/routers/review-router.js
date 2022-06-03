@@ -19,7 +19,6 @@ reviewRouter.get('/:productId', loginRequired, async (req, res, next) => {
             perPage,
             productId,
         });
-        //console.log(reviews[0].author.fullName);
 
         const totalPage = Math.ceil(total / perPage);
 
@@ -57,7 +56,6 @@ reviewRouter.post('/', loginRequired, async (req, res, next) => {
     try {
         const { title, content, productId } = req.body;
 
-        //console.log(req.currentUserId);
         let author = req.body.author;
 
         //loginRequired에서 로그인한 회원의 정보 가져오기
@@ -121,11 +119,9 @@ reviewRouter.patch('/:reviewId', loginRequired, async (req, res, next) => {
             });
             return;
         }
-        console.log(user._id);
 
         //현재 리뷰의 작성자 확인을 위해 가져오기
         const prevReview = await reviewService.getReview(reviewId);
-        console.log(prevReview.author._id);
 
         //작성자 여부 확인
         if (!prevReview.author._id.equals(user._id)) {
@@ -182,7 +178,7 @@ reviewRouter.delete('/:reviewId', loginRequired, async (req, res, next) => {
 
         //작성자 여부 확인
         const prevReview = await reviewService.getReview(reviewId);
-        //console.log(prevReview.author);
+        
         if (!prevReview.author._id.equals(user._id)) {
             res.status(403).json({
                 result: 'forbidden-approach',
