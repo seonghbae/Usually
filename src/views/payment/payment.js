@@ -39,24 +39,17 @@ function addAllEvents() {
 function addressCallback() {
     new daum.Postcode({
         oncomplete: function (data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            let addr = '';
 
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            let addr = ''; // 주소 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
             if (data.userSelectedType === 'R') {
-                // 사용자가 도로명 주소를 선택했을 경우
                 addr = data.roadAddress;
             } else {
-                // 사용자가 지번 주소를 선택했을 경우(J)
                 addr = data.jibunAddress;
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
             postalCodeElem.value = data.zonecode;
             address1Elem.value = addr;
-            // 커서를 상세주소 필드로 이동한다.
+            
             address2Elem.placeholder = '상세 주소를 입력해 주세요.';
             address2Elem.focus();
         },
@@ -131,9 +124,8 @@ async function paymentCallback() {
                 totalPrice: convertToNumber(orderInfo.totalPrice),
                 totalQuantity: convertToNumber(orderInfo.productCounts),
             };
-            // API로 DB에 order 데이터 넘겨주기
+
             await Api.post('/order/purchase', order);
-            // 결제완료시 localStorage에서 데이터 삭제
             orderInfo.productInfos.forEach((productInfo) => {
                 localStorage.removeItem(productInfo.productId);
             });

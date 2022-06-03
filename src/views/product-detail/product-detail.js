@@ -56,7 +56,6 @@ async function purchaseCallback() {
     const productId = location.pathname.split('/')[2];
 
     try {
-        // api로 데이터를 받아옴
         const product = await Api.get('/productInfo', productId);
         const quantity = 1;
         const deliveryFee = Number(product.price) > 500000 ? 0 : 3000;
@@ -149,7 +148,6 @@ async function showProductDetail() {
     const productId = location.pathname.split('/')[2];
 
     try {
-        // api로 데이터를 받아옴
         const product = await Api.get('/productInfo', productId);
         image.src = product.src;
         image.alt = product.name;
