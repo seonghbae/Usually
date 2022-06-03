@@ -6,7 +6,7 @@ const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
-const genderInput = document.querySelector('#gender');
+const genderNodeList = document.getElementsByName('gender');
 const submitButton = document.querySelector('#submitButton');
 
 addAllElements();
@@ -28,13 +28,20 @@ async function handleSubmit(e) {
     const email = emailInput.value;
     const password = passwordInput.value;
     const passwordConfirm = passwordConfirmInput.value;
-    const gender = genderInput.value;
+    let gender = "";
+
+    genderNodeList.forEach((node) => {
+        if(node.checked)  {
+          gender = node.value;
+        }
+      }) 
 
     // 잘 입력했는지 확인
     const isFullNameValid = fullName.length >= 2;
     const isEmailValid = validateEmail(email);
     const isPasswordValid = password.length >= 4;
     const isPasswordSame = password === passwordConfirm;
+    const isGenderValid = $('input:radio[name-gendr').is(':checked');
 
     if (!isFullNameValid || !isPasswordValid) {
         return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
@@ -46,6 +53,9 @@ async function handleSubmit(e) {
 
     if (!isPasswordSame) {
         return alert('비밀번호가 일치하지 않습니다.');
+    }
+    if (!isGenderValid) {
+        return alert('성별을 선택해 주세요.');
     }
 
     // 회원가입 api 요청

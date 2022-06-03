@@ -102,7 +102,6 @@ function editCategory(e) {
     const categoryContainer = document.getElementById(`${categoryId}`);
     const name = document.getElementById(`${categoryId}-name`).innerText;
     let gender = document.getElementById(`${categoryId}-gender`).innerText;
-    console.log(gender);
     gender = (gender === '남성') ? 'man' : 'woman';
     const recommendAge = parseInt(document.getElementById(`${categoryId}-recommendAge`).innerText);
     categoryContainer.innerHTML =`

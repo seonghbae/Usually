@@ -9,6 +9,7 @@ async function renderOrder() {
             throw new Error('회원 주문정보를 불러오는 것에 실패했습니다');
         }
         orderList.forEach((singleOrder) => {
+            console.log(singleOrder);
             let singleOrderInfo = document.createElement('tr');
             let singleOrderProducts = '';
             for (let i = 0; i < singleOrder.orderedProducts.length; i++) {

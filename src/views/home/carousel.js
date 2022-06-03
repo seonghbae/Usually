@@ -39,6 +39,7 @@ for (let i = 0; i < sliderLength; i++){
 
 // 이전 이미지를 보여주는 함수
 const slidePrev = function () {
+    preventButtonClick()
     currentTranslate = (currentSlide) * 100 + 'vw'
     nextTranslate = (currentSlide - 1) * 100 + 'vw'; 
     // 왼쪽 방향으로 이미지 이동
@@ -60,14 +61,13 @@ const slidePrev = function () {
         slider.style.transform = `translate(-${currentTranslate})`;
     };
     numberButtons[currentSlide - 1].style.background = '#ffae96';
-    preventButtonClick()
 };
 
 // 다음 이미지를 보여주는 함수
 const slideNext = function () {
+    preventButtonClick()
     currentTranslate = (currentSlide) * 100 + 'vw';
     nextTranslate = (currentSlide + 1) * 100 + 'vw'; 
-
     slider.animate({
         transform: [`translate(-${currentTranslate})`, `translate(-${nextTranslate})`]
     }, {
@@ -82,10 +82,9 @@ const slideNext = function () {
         currentSlide = 1;
         currentTranslate = (currentSlide) * 100 + 'vw'; 
         slider.style.transform = `translate(-${currentTranslate})`;
-    }
+    };
     numberButtons[currentSlide - 1].style.background = '#ffae96';
-    preventButtonClick()
-}
+};
 
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
