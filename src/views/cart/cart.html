@@ -1,103 +1,147 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>유주얼리</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css 관련 -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="cart.css" />
+        <script src="cart.js" type="module" defer></script>
+        <script src="../my-page-nav/my-page-nav.js"></script>
+        <!-- navbar, footer 활용을 위한 css, js -->
+        <link rel="stylesheet" href="../../../nav/nav.css" />
+        <link rel="stylesheet" href="../../../footer/footer.css" />
+        <link rel="stylesheet" href="../my-page-nav/my-page-nav.css" />
+        <script src="../../../nav/nav.js"></script>
+        <!-- navbar, footer 활용을 위한 jquery -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>유주얼리</title>
-    <!-- 아이콘 -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-    <!-- bulma css 관련 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-    <!-- 폰트 어썸: 아이콘 -->
-    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-    <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="cart.css" />
-    <script src="cart.js" type="module" defer></script>
-    <!-- navbar, footer 활용을 위한 css, js -->
-    <link rel="stylesheet" href="../../../nav/nav.css">
-    <link rel="stylesheet" href="../../../footer/footer.css">
-    <script src="../../../nav/nav.js"></script>
-    <!-- navbar, footer 활용을 위한 jquery -->
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-</head>
+    <body>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
 
-<body>
-    <!--Navigation bar-->
-    <div id="nav-placeholder"></div>
-
-    <script>
-        $(document).ready(function () {
-            $('#nav-placeholder').load("../../../nav/nav.html", () => {
-                navFunc()
+        <script>
+            $(document).ready(function () {
+                $('#nav-placeholder').load('../nav/nav.html', () => {
+                    navFunc();
+                });
             });
-        });
-    </script>
+        </script>
 
-    <!-- 장바구니 -->
-    <section class="section">
-        <div class="container">
-            <div class="cart-header">
-                <div class="title is-2">장바구니</div>
-                <div class="subtitle is-4">&gt; &nbsp; 주문결제 &nbsp; &gt; &nbsp; 주문완료</div>
+        <!-- 장바구니 -->
+        <section class="section">
+            <div class="cart-side-menu-container">
+                <div class="user-tier-container">
+                    <div id="user-tier-icon"></div>
+                    <div id="user-tier-name"></div>
+                </div>
+                <div id="my-page-nav-container"></div>
+                <script>
+                    $(function () {
+                        $('#my-page-nav-container').load(
+                            '../../../my-page-nav/my-page-nav.html'
+                        );
+                    });
+                </script>
             </div>
-            <div class="tile is-ancester">
-                <div class="tile is-8 is-parent cart-products">
-                    <div class="box cart-products-container" id="cart-products-container">
-                        <div class="cart-products-header is-size-5">
-                            <label class="checkbox">
-                                <input type="checkbox" id="select-all-checkbox" checked> 전체 선택
-                            </label>
-                            <label>
-                                <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-                            </label>
-                            <label class="delete-checked" id="delete-checked">
-                                <p>선택 삭제</p>
-                            </label>
-                        </div>
-                        <!-- 장바구니에 담긴 상품들이 주입되는 곳 -->
+            <div class="cart-info-container">
+                <div class="cart-header">
+                    <div class="title is-2">장바구니</div>
+                    <div class="subtitle is-4">
+                        &gt; &nbsp; 주문결제 &nbsp; &gt; &nbsp; 주문완료
                     </div>
                 </div>
-                <div class="tile is-parent tile-order">
-                    <div class="box order">
-                        <div class="header">
-                            <p>결제정보</p>
-                        </div>
-                        <div class="order-info">
-                            <div class="info">
-                                <p>상품수</p>
-                                <p id="product-counts"></p>
+                <div class="tile is-ancester">
+                    <div class="tile is-8 is-parent cart-products">
+                        <div
+                            class="box cart-products-container"
+                            id="cart-products-container"
+                        >
+                            <div class="cart-products-header is-size-5">
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        id="select-all-checkbox"
+                                        checked
+                                    />
+                                    전체 선택
+                                </label>
+                                <label>
+                                    <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+                                </label>
+                                <label
+                                    class="delete-checked"
+                                    id="delete-checked"
+                                >
+                                    <p>선택 삭제</p>
+                                </label>
                             </div>
-                            <div class="info">
-                                <p>상품금액</p>
-                                <p id="products-total"></p>
-                            </div>
-                            <div class="info">
-                                <p>배송비</p>
-                                <p id="delivery-fee"></p>
-                            </div>
+                            <!-- 장바구니에 담긴 상품들이 주입되는 곳 -->
                         </div>
-                        <div class="total">
-                            <p>총 결제금액</p>
-                            <p id="total-price"></p>
-                        </div>
-                        <div class="purchase">
-                            <button class="button is-danger" id="purchase-button">구매하기</button>
+                    </div>
+                    <div class="tile is-parent tile-order">
+                        <div class="box order">
+                            <div class="header">
+                                <p>결제정보</p>
+                            </div>
+                            <div class="order-info">
+                                <div class="info">
+                                    <p>상품수</p>
+                                    <p id="product-counts"></p>
+                                </div>
+                                <div class="info">
+                                    <p>상품금액</p>
+                                    <p id="products-total"></p>
+                                </div>
+                                <div class="info">
+                                    <p>배송비</p>
+                                    <p id="delivery-fee"></p>
+                                </div>
+                            </div>
+                            <div class="total">
+                                <p>총 결제금액</p>
+                                <p id="total-price"></p>
+                            </div>
+                            <div class="purchase">
+                                <button
+                                    class="button is-danger"
+                                    id="purchase-button"
+                                >
+                                    구매하기
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!--footer-->
-    <div id="footer-placeholder"></div>
+        <!--footer-->
+        <div id="footer-placeholder"></div>
 
-    <script>
-        $(function () {
-            $("#footer-placeholder").load("../../../footer/footer.html");
-        });
-    </script>
-</body>
-
+        <script>
+            $(function () {
+                $('#footer-placeholder').load('../../../footer/footer.html');
+            });
+        </script>
+    </body>
 </html>
