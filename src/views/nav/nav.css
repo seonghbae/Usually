@@ -28,7 +28,20 @@ button {
 .nav-icon {
     padding-right: 0.5vw;
 }
+.logo-link {
+    padding: 0;
+}
 
+.logo-image {
+    display: inline;
+    background: url('/usually-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 11vw;
+    height: 4vw;
+
+}
 /* 세로 가운데 정렬용 */
 .my-auto {
     margin-top: auto !important;

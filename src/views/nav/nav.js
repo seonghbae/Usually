@@ -98,4 +98,6 @@ const navFunc = function () {
         .addEventListener('click', function (e) {
             e.preventDefault();
         });
+    document.querySelector('.nav-user-button').href = window.location.origin + '/' + 'my-page'
+    document.querySelector('.nav-cart-button').href = window.location.origin + '/' + 'cart'
 };

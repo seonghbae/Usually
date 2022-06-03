@@ -18,8 +18,8 @@ slider.style.transform = `translate(-100vw)`;
 // 넘버 버튼 각각마다 클릭 이벤트리스너 추가
 for (let i = 0; i < sliderLength; i++){
     numberButtons[i].addEventListener('click', function(){
-        // 클릭되기 전 현재 버튼 색깔 white로 변경
-        numberButtons[currentSlide - 1].style.background = 'white';
+        // 클릭되기 전 현재 버튼 색깔 변경
+        numberButtons[currentSlide - 1].style.background = '#bcd7d7';
         // 캐러셀이기 때문에 현재 슬라이드는 i+1번째에 존재
         currentSlide = i+1;
         // 버튼 색깔 변경
@@ -52,7 +52,7 @@ const slidePrev = function () {
         fill: "both"
     });
     // 버튼 색깔 변경
-    numberButtons[currentSlide - 1].style.background = 'white';
+    numberButtons[currentSlide - 1].style.background = '#bcd7d7';
     currentSlide--;
     // 만약 왼쪽끝으로 이동되었다면, 다시 맨 오른쪽으로 이동시켜줌
     if (currentSlide == 0){
@@ -76,7 +76,7 @@ const slideNext = function () {
         iterations: 1,
         fill: "both"
     });
-    numberButtons[currentSlide - 1].style.background = 'white';
+    numberButtons[currentSlide - 1].style.background = '#bcd7d7';
     currentSlide++;
     if (currentSlide == sliderLength + 1){
         currentSlide = 1;
