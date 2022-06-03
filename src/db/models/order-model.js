@@ -45,6 +45,7 @@ export class OrderModel {
       userId: orderInfo.userId,
       totalPrice: orderInfo.totalPrice,
       totalQuantity:orderInfo.totalQuantity,
+      message: orderInfo.message,
       orderedProducts: productIds,
     });
     return createdNewOrder;
