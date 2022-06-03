@@ -1,3 +1,49 @@
+.section {
+    display: flex;
+    width: 100vw;
+    height: 200vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+    padding: 0;
+}
+
+.section .cart-side-menu-container {
+    width: 15%;
+    margin-left: 5vh;
+}
+.section .user-tier-container {
+    display: flex;
+}
+.section
+    .user-tier-container
+    #user-tier-name
+    #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.section .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
+
+.section
+    .user-tier-container
+    #user-tier-name
+    #userNameField {
+    text-align: center;
+    font-size: 15px;
+}
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
+}
+
+.cart-info-container {
+    width: 75%;
+}
+
 .cart-header {
     display: flex;
     border-bottom: 1px solid;
@@ -35,7 +81,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    height: 13vw;
+    height: 10rem;
 }
 
 .cart-product-item label {
@@ -53,13 +99,13 @@
     cursor: pointer;
     margin-left: 2rem;
     padding: 0;
-    width: 20vw;
+    width: 8rem;
 }
 
 .cart-product-item .image img {
     position: relative;
-    height: 10rem;
-    width: 10rem;
+    height: 7rem;
+    width: 7rem;
 }
 
 .quantity {
@@ -69,8 +115,8 @@
 .cart-product-item .content {
     display: flex;
     flex-direction: column;
-    font-size: 1.4rem;
-    width: 40vw;
+    font-size: 1.2rem;
+    width: 20rem;
     margin-bottom: 0;
     align-items: center;
 }
@@ -86,8 +132,7 @@
 
 .calculation {
     display: flex;
-    /* margin-left: 4rem; */
-    width: 30vw;
+    width: 20rem;
 }
 
 .calculation p {

@@ -1,3 +1,4 @@
+import * as Api from '/api.js';
 import { addCommas, convertToNumber } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
@@ -6,11 +7,15 @@ const selectAllCheckbox = document.querySelector('#select-all-checkbox');
 const deleteChecked = document.querySelector('#delete-checked');
 const purchaseButton = document.querySelector('#purchase-button');
 
+const userTierName = document.getElementById('user-tier-name');
+const userTierIcon = document.getElementById('user-tier-icon');
+
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
+    userTierRender();
     showCartList();
     showOrder();
 }
@@ -20,6 +25,52 @@ function addAllEvents() {
     selectAllCheckbox.addEventListener('change', changeAllCheckbox);
     deleteChecked.addEventListener('click', deleteSelectedProducts);
     purchaseButton.addEventListener('click', purchaseCallback);
+}
+
+async function userTierRender() {
+    let currentTier;
+    try {
+        let totalPrice = 0;
+        const purchaseList = await Api.get('/order', 'shippedlist');
+        if (!purchaseList) {
+            throw new Error('회원 이름을 불러오는 것에 실패했습니다.');
+        }
+        purchaseList.forEach((singlePurchase) => {
+            totalPrice += singlePurchase.totalPrice;
+        });
+        if (totalPrice <= 50000) {
+            userTierIcon.innerHTML = `
+                <img src="/bronze-icon.png" width="60" height="90">
+            `;
+            currentTier = '브론즈';
+        } else if (totalPrice > 50000 && totalPrice <= 1000000) {
+            userTierIcon.innerHTML = `
+                <img src="/gold-icon.png" width="60" height="90">
+            `;
+            currentTier = '골드';
+        } else if (totalPrice > 1000000 && totalPrice < 5000000) {
+            userTierIcon.innerHTML = `
+                <img src="/sapphire-icon.png" width="90" height="90">
+            `;
+            currentTier = '사파이어';
+        }
+    } catch (err) {
+        console.error(err.stack);
+    }
+
+    try {
+        const userInfo = await Api.get('/users', 'userInfo');
+        if (!userInfo) {
+            throw new Error('회원 이름을 불러오는 것에 실패했습니다.');
+        }
+        userTierName.innerHTML += `
+            <p id="userInfoField">${currentTier}</p>
+            <p id="userNameField">${userInfo.name}님의 등급</p>
+            
+        `;
+    } catch (err) {
+        console.error(err.stack);
+    }
 }
 
 // 모든 체크박스 전체 선택/해제 기능
