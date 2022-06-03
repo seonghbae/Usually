@@ -1,61 +1,92 @@
-# 쇼핑몰 웹 서비스 프로젝트
+# Usually (유주얼리)
+![유주얼리 로고](/src/views/usually-logo.png)
+- 저렴한 목걸이부터 값비싼 시계까지, 지갑사정이 어려운 학생부터 비싸고 희귀한 물품을 찾는 부자까지 모두에게 원하는 주얼리를 제공해주는 쇼핑몰, **유주얼리**입니다.  
+[유주얼리 바로 가기](http://kdt-sw2-seoul-team13.elicecoding.com/)
 
-제품들을 조회하고, 장바구니에 추가하고, 또 주문을 할 수 있는 쇼핑몰 웹 서비스 제작 프로젝트입니다. <br />
-**웹 구현 예시** (링크는 프로젝트 기간에만 유효합니다)
+## 서비스 구성 안내
 
-### http://shopping-demo.elicecoding.com/
+## 1. 서비스 소개
 
-<br>
+### 기술 스택
+  - **프론트엔드**  
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white">
+  <img src="https://img.shields.io/badge/bulma_CSS-000000?style=for-the-badge&logo=bulma&logoColor=00D1B2">
+  
+  - **백엔드**  
+  <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+  <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
+  <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+  <img src="https://img.shields.io/badge/Multer-000000?&style=for-the-badge&logoColor=white">
 
-\*\* 핵심 기능은 하기입니다. (이외에도 더 있으며, 추가 안내 될 프로젝트 평가기준표에서 구체화될 예정입니다.) <br>
+  - **협업도구**  
+  <img src="https://img.shields.io/badge/gitlab-FFFFFF?style=for-the-badge&logo=gitlab&logoColor=white">
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
-1. 회원가입, 로그인, 회원정보 수정 등 **유저 정보 관련 CRUD**
-2. **제품 목록**을 조회 및, **제품 상세 정보**를 조회 가능함.
-3. 장바구니에 제품을 추가할 수 있으며, **장바구니에서 CRUD** 작업이 가능함.
-4. 장바구니는 서버 DB가 아닌, 프론트 단에서 저장 및 관리됨 (localStorage, indexedDB 등)
-5. 장바구니에서 주문을 진행하며, **주문 완료 후 조회 및 삭제**가 가능함.
+  - **언어**  
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
 
-## 주요 사용 기술
 
-### 1. 프론트엔드
+### 엔드유저에게 보이는 웹서비스에 대한 소개
+  - 웹서비스에 대한 자세한 개요
 
--   **Vanilla javascript**, html, css (**Bulma css**)
--   Font-awesome
--   Daum 도로명 주소 api
--   이외
+## 2. 서비스 주요 기능 설명
 
-### 2. 백엔드
+**웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
+  - 주요 기능 (주된 활용성) 및 서브 기능 소개
+  - 프로젝트만의 차별점, 기대 효과
 
--   **Express** (nodemon, babel-node로 실행됩니다.)
--   Mongodb, Mongoose
--   cors
--   이외
+## 3. 서비스 구성도
+  - api 문서화한 링크  
+  [회원 API](https://documenter.getpostman.com/view/20899027/Uz5Aqy17)  
+  [상품 API](https://documenter.getpostman.com/view/20896197/Uz5ArJFm)  
+  [카테고리 API](https://documenter.getpostman.com/view/20896197/Uz5ArJZS)  
+  [주문 API](https://documenter.getpostman.com/view/20899027/Uz5AreRS)  
+  [리뷰 API](https://documenter.getpostman.com/view/20896197/Uz5FHvr9)
 
-## 폴더 구조
+## 4. 프로젝트 팀원 역할 분담
+| 이름 | 담당 업무 |
+| ------ | ------ |
+| 이주연 | 팀장/백엔드 개발 |
+| 이영민 | 백엔드 개발 |
+| 노호연 | 프론트엔드 개발 |
+| 배성현 | 프론트엔드 개발 |
+| 주지호 | 프론트엔드 개발 |
 
--   프론트: `src/views` 폴더
--   백: src/views 이외 폴더 전체
--   실행: **프론트, 백 동시에, express로 실행**
+**멤버별 responsibility**
 
-## 설치 방법
+1. 이주연: 팀장/백엔드 담당
 
-1. **.env 파일 설정 (MONGODB_URL 환경변수를, 개인 로컬 혹은 Atlas 서버 URL로 설정해야 함)**
+    - 상품 API, 카테고리 API, 리뷰 API, AWS S3 이미지 서버 연동
+    
+2. 이영민: 백엔드 담당
 
-2. express 실행
+    - 회원 API, 주문 API, jwt 토큰으로 로그인 인증 및 관리자 인증, Oauth 인증, 간단한 로고 제작
 
-```bash
-# npm 을 쓰는 경우
-npm install
-npm run start
+3. 노호연: 프론트엔드 담당
 
-# yarn 을 쓰는 경우
-yarn
-yarn start
-```
+    - 메인페이지, nav/footer, 관리자 상품 및 카테고리 관리 구현
 
-<br>
+4. 배성현: 프론트엔드 담당
 
----
+    - 상품 목록, 상품 상세, 장바구니, 주문 결제, 주문 완료, 리뷰
 
-본 프로젝트에서 제공하는 모든 코드 등의는 저작권법에 의해 보호받는 ㈜엘리스의 자산이며, 무단 사용 및 도용, 복제 및 배포를 금합니다.
-Copyright 2022 엘리스 Inc. All rights reserved.
+5. 주지호: 프론트엔드 담당
+
+    - 로그인, 회원가입, 마이페이지, 관리자페이지, 주문관리(사용자, 관리자), 구매제품 관리, 유저관리(관리자), 유저정보수정&삭제, 마이페이지&관리자 사이드바, 로그인 관리자 판별로직, 고객 티어(등급) 기능
+
+
+## 5. 실행 방법
+- 백엔드:
+  ```bash
+  1. mongodb 실행
+  2. yarn start (혹은 npm start)
+  ```
+
+## 6. 버전
+  - 1.0.0
+
+## 7. FAQ
+  - 자주 받는 질문 정리
