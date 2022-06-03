@@ -97,7 +97,7 @@ async function formValueSetting(productId) {
     // 제품 상세보기 버튼의 href값을 바꿔준다
     document
         .querySelector('.product-detail-button-link')
-        .setAttribute('href', `../product/${productId}`);
+        .setAttribute('href', `../../../product/${productId}`);
     // 먼저 option을 가져온다.
     await changeSelectOptions();
     const {
@@ -245,7 +245,7 @@ async function editProduct(e) {
             throw new Error(reason);
         }
 
-        alert('상품 수정에 성공하였습니다!');
+        alert('제품 수정에 성공하였습니다!');
         window.location.reload();
     } catch (err) {
         console.error(err.stack);
@@ -260,15 +260,17 @@ async function deleteProduct() {
         const productId = location.pathname.split('/')[3];
         if (!confirm('정말로 삭제하시겠습니까?')) {
             return;
-        }
-        Api.del('/admin/product', productId);
+        };
+        let res = await Api.delete('/admin/product', productId);
+        alert('제품 삭제에 성공하였습니다!');
+        window.location.replace('../../../admin-product');
     } catch (err) {
         console.error(err.stack);
         alert(
             `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
         );
-    }
-}
+    };
+};
 // form submit에 이벤트 추가, delete 버튼에 이벤트 추가
 document.querySelector('form').addEventListener('submit', editProduct);
 document
