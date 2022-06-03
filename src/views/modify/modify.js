@@ -21,8 +21,8 @@ async function renderModifyName() {
                 class="input"
                 name="fullNameInput"
                 id="fullName-modify"
-                placeholder="${result.name}"
                 readonly
+                value="${result.name}"
             />
             <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
@@ -37,7 +37,7 @@ async function renderModifyName() {
                 id="email-modify"
                 name="email-modify"
                 placeholder="${result.email}"
-            />
+            ></input>
             <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
             </span>
