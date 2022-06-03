@@ -49,7 +49,7 @@ async function userTierRender() {
                 <img src="/gold-icon.png" width="60" height="90">
             `;
             currentTier = '골드';
-        } else if (totalPrice > 1000000 && totalPrice < 5000000) {
+        } else if (totalPrice > 1000000) {
             userTierIcon.innerHTML = `
                 <img src="/sapphire-icon.png" width="90" height="90">
             `;
