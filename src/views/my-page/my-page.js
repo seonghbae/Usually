@@ -98,7 +98,6 @@ async function myPageView() {
                 doneOrder++;
             }
         });
-        console.log(orderList);
         prepareOrderCount.innerText = prepareOrder;
         shipOrderCount.innerText = shipOrder;
         doneOrderCount.innerText = doneOrder;

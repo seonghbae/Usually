@@ -19,7 +19,6 @@ const productId = location.pathname.split('/')[3];
 async function getProductData(productId) {
     try {
         const data = await Api.get('/productInfo', productId);
-        console.log(data, productId);
         return data;
     } catch (err) {
         console.error(err.stack);
@@ -164,9 +163,7 @@ async function changeSelectOptions() {
         });
     } catch (err) {
         console.error(err.stack);
-        alert(
-            `${err.message}`
-        );
+        alert(`${err.message}`);
     }
 }
 
@@ -230,28 +227,23 @@ async function editProduct(e) {
         formData.append('sellCount', e.target.sellCount.value);
         formData.append('price', e.target.price.value);
         // header : enctype="multipart/form-data"로 전송됨 코드, 관리자 계정 인증 관련 필요
-        let res = await fetch(
-            `/admin/product/${productId}`,
-            {
-                method: 'PATCH',
-                body: formData,
-            }
-        );
+        let res = await fetch(`/admin/product/${productId}`, {
+            method: 'PATCH',
+            body: formData,
+        });
         // 응답 코드가 4XX 계열일 때 (400, 403 등)
         if (!res.ok) {
             const errorContent = await res.json();
             const { reason } = errorContent;
 
             throw new Error(reason);
-        };
+        }
 
         alert('제품 수정에 성공하였습니다!');
         window.location.reload();
     } catch (err) {
         console.error(err.stack);
-        alert(
-            `${err.message}`
-        );
+        alert(`${err.message}`);
     }
 }
 // 제품 삭제 함수
@@ -260,17 +252,15 @@ async function deleteProduct() {
         const productId = location.pathname.split('/')[3];
         if (!confirm('정말로 삭제하시겠습니까?')) {
             return;
-        };
+        }
         let res = await Api.delete('/admin/product', productId);
         alert('제품 삭제에 성공하였습니다!');
         window.location.replace('../../../admin-product');
     } catch (err) {
         console.error(err.stack);
-        alert(
-            `${err.message}`
-        );
-    };
-};
+        alert(`${err.message}`);
+    }
+}
 // form submit에 이벤트 추가, delete 버튼에 이벤트 추가
 document.querySelector('form').addEventListener('submit', editProduct);
 document

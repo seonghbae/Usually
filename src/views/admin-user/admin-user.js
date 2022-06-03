@@ -6,7 +6,6 @@ async function renderUser() {
         if (!userList) {
             throw new Error('회원정보를 불러오는 것에 실패했습니다');
         }
-        console.log(userList);
         userList.forEach((user) => {
             let singleUserInfo = document.createElement('tr');
             let role = '';
