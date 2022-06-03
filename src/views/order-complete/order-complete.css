@@ -12,7 +12,7 @@
     padding-top: 2rem;
 }
 
-.title:not(.is-spaced)+.subtitle {
+.title:not(.is-spaced) + .subtitle {
     margin-top: 0;
 }
 
@@ -20,7 +20,7 @@
     padding: 3rem 1rem 0;
 }
 
-.subtitle:not(.is-spaced)+.title {
+.subtitle:not(.is-spaced) + .title {
     margin-top: 0;
 }
 

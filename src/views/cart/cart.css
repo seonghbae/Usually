@@ -11,13 +11,12 @@
     width: 15%;
     margin-left: 5vh;
 }
+
 .section .user-tier-container {
     display: flex;
 }
-.section
-    .user-tier-container
-    #user-tier-name
-    #userInfoField {
+
+.section .user-tier-container #user-tier-name #userInfoField {
     text-align: center;
     font-weight: bolder;
     font-size: 20px;
@@ -27,10 +26,7 @@
     margin-top: 10%;
 }
 
-.section
-    .user-tier-container
-    #user-tier-name
-    #userNameField {
+.section .user-tier-container #user-tier-name #userNameField {
     text-align: center;
     font-size: 15px;
 }
@@ -120,8 +116,9 @@
     margin-bottom: 0;
     align-items: center;
 }
+
 .content .quantity .button {
-    font-size: .6rem;
+    font-size: 0.6rem;
 }
 
 .input {
@@ -185,8 +182,8 @@
     width: 100%;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
