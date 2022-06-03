@@ -23,7 +23,7 @@ function productPage(productId) {
 // 상품 목록
 async function showProductList() {
     // /product/category/:categoryId 형식이라 split으로 productId만 가져오기
-    const splitLocation = location.pathname.split("/");
+    const splitLocation = location.pathname.split('/');
     const type = splitLocation[2];
     const target = splitLocation[3];
     try {
@@ -41,11 +41,15 @@ async function showProductList() {
             imageTag.classList.add('image', 'is-square');
             imageTag.innerHTML = `<img src="${product.src}" alt="${product.name}">`;
             // 상품 클릭시 해당 상품 상세 페이지로 이동
-            imageTag.addEventListener('click', () => productPage(product.productId));
+            imageTag.addEventListener('click', () =>
+                productPage(product.productId)
+            );
 
             const nameTag = document.createElement('strong');
             nameTag.innerHTML = product.name;
-            nameTag.addEventListener('click', () => productPage(product.productId));
+            nameTag.addEventListener('click', () =>
+                productPage(product.productId)
+            );
 
             const priceTag = document.createElement('p');
             priceTag.innerHTML = `${addCommas(product.price)}원`;
