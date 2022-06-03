@@ -57,7 +57,6 @@ userRouter.post('/register', async (req, res, next) => {
             role,
         } = req.body;
 
-        
         // 위 데이터를 유저 db에 추가하기
         const newUser = await userService.addUser({
             fullName,
@@ -137,7 +136,7 @@ userRouter.patch('/edit', loginRequired, async function (req, res, next) {
 
         // params로부터 id를 가져옴
         const userId = req.currentUserId;
-
+        g;
         // body data 로부터 업데이트할 사용자 정보를 추출함.
         const { password, email } = req.body;
 
@@ -178,7 +177,7 @@ userRouter.delete(
     async function (req, res, next) {
         try {
             const userId = req.currentUserId;
-         
+
             // // 사용자 정보를 삭제함
             const deletedUser = await userService.deleteUser(userId);
 

@@ -39,14 +39,14 @@ const UserSchema = new Schema(
             default: 'basic-user',
         },
         gender: {
-        type: String,
-        required: true,
-         },
-  },
-  {
-    collection: 'users',
-    timestamps: true,
-  }
+            type: String,
+            required: true,
+        },
+    },
+    {
+        collection: 'users',
+        timestamps: true,
+    }
 );
 
 export { UserSchema };

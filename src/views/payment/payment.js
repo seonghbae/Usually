@@ -49,7 +49,7 @@ function addressCallback() {
 
             postalCodeElem.value = data.zonecode;
             address1Elem.value = addr;
-            
+
             address2Elem.placeholder = '상세 주소를 입력해 주세요.';
             address2Elem.focus();
         },

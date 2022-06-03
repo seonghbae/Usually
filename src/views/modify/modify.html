@@ -47,16 +47,28 @@
             <form class="modify-form-box" id="modifyForm">
                 <div class="field">
                     <label class="label" for="fullNameInput" id="modify-name"
-                        >이름</label
+                        >이름 수정</label
                     >
-                    <p
-                        class="control has-icons-left has-icons-right"
-                        id="fullNameField"
-                    ></p>
+                    <p class="control has-icons-left has-icons-right">
+                        <input
+                            class="input"
+                            type="text"
+                            id="full-name-modify"
+                            placeholder="이름"
+                            readonly
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-x"></i>
+                        </span>
+                    </p>
                 </div>
                 <div class="field">
                     <label class="label" for="email-modify">이메일 수정</label>
-                    <p class="control has-icons-left" id="emailField">
+                    <p class="control has-icons-left">
                         <input
                             class="input"
                             type="email"
