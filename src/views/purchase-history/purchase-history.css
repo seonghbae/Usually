@@ -5,11 +5,30 @@
     margin-top: 5vh;
     margin-left: 5vh;
 }
+.purchase-history-content-container
+    .user-tier-container
+    #user-tier-name
+    #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.purchase-history-content-container .purchase-history-side-menu-container {
+    width: 25%;
+    margin-left: 5vh;
+}
+
+.purchase-history-content-container .user-tier-container {
+    display: flex;
+}
+
+.purchase-history-content-container .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
 
 #my-page-nav-container {
-    width: 20%;
     margin-top: 5vh;
-    margin-left: 5vh;
+    width: 100%;
 }
 
 .purchase-history-container {
