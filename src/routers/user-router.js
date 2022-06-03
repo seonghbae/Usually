@@ -136,7 +136,7 @@ userRouter.patch('/edit', loginRequired, async function (req, res, next) {
 
         // params로부터 id를 가져옴
         const userId = req.currentUserId;
-        g;
+
         // body data 로부터 업데이트할 사용자 정보를 추출함.
         const { password, email } = req.body;
 
