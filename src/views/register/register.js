@@ -41,7 +41,6 @@ async function handleSubmit(e) {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = password.length >= 4;
     const isPasswordSame = password === passwordConfirm;
-    const isGenderValid = $('input:radio[name-gendr').is(':checked');
 
     if (!isFullNameValid || !isPasswordValid) {
         return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
@@ -53,9 +52,6 @@ async function handleSubmit(e) {
 
     if (!isPasswordSame) {
         return alert('비밀번호가 일치하지 않습니다.');
-    }
-    if (!isGenderValid) {
-        return alert('성별을 선택해 주세요.');
     }
 
     // 회원가입 api 요청
