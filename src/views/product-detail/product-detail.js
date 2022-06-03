@@ -195,7 +195,7 @@ async function pageCallback(pageNumber) {
 
             const reviewAuthor = document.createElement('div');
             reviewAuthor.className = 'review-author';
-            reviewAuthor.innerHTML = review.author.fullName;
+            reviewAuthor.innerHTML = (review.author) ? review.author.fullName : '삭제된 계정';
 
             const reviewUpdate = document.createElement('button');
             reviewUpdate.className = 'review-update';
