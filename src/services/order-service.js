@@ -14,9 +14,14 @@ class OrderService {
 
     for(var i = 0; i< orderInfo.orderedProducts.length; i++){
       const orderedProduct = await this.orderModel.createOrderedProducts(orderInfo.orderedProducts[i]);
+      console.log(orderedProduct._id);
+      console.log(orderInfo.orderedProducts[i]);
+      await this.orderModel.setSellCount(
+        orderInfo.orderedProducts[i].productId, 
+        orderInfo.orderedProducts[i].quantity);
       productIds.push(orderedProduct._id);
     }
-    
+
     return await this.orderModel.create(orderInfo, productIds);
 
   }

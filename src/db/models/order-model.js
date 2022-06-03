@@ -36,6 +36,7 @@ export class OrderModel {
   //Order의 shortId로 주문 내역 찾기
 
   async create(orderInfo, productIds) {
+
     return await Order.create({
       phoneNumber:orderInfo.phoneNumber,
       address:orderInfo.address,
@@ -45,6 +46,30 @@ export class OrderModel {
       message: orderInfo.message,
       orderedProducts: productIds,
     });
+  }
+
+  async setSellCount(productId, qty){
+
+       let product = await Product.findOne({ shortId : productId });
+       console.log(product);
+
+        if (!product) {
+            throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
+        }
+        const sellCount = product.sellCount + qty;
+        const inventory = product.inventory - qty;
+
+        console.log(sellCount);
+        console.log(inventory);
+
+        const filter = { shortId : productId };
+        const option = { returnOriginal: false };
+        const update = { 
+          sellCount : sellCount,
+          inventory : inventory,
+        };
+
+        return await Product.findOneAndUpdate(filter, update, option);
   }
 
   async createOrderedProducts(orderedProductsList){
