@@ -4,7 +4,13 @@ import { addCommas } from '../useful-functions.js';
 const userTierName = document.getElementById('user-tier-name');
 const userTierIcon = document.getElementById('user-tier-icon');
 const totalUsedPrice = document.getElementById('total-used');
-const orderTotalPrice = document.getElementById('my-page-total-price');
+const nextGrade = document.getElementById('next-grade');
+const prepareOrderCount = document.getElementById(
+    'my-page-prepare-order-count'
+);
+
+const doneOrderCount = document.getElementById('my-page-delivered-order-count');
+const shipOrderCount = document.getElementById('my-page-ship-order-count');
 
 async function userTierRender() {
     let currentTier;
@@ -38,15 +44,37 @@ async function userTierRender() {
     }
 
     try {
-        const userName = await Api.get('/users', 'userName');
-        if (!userName) {
+        const userInfo = await Api.get('/users', 'userInfo');
+        if (!userInfo) {
             throw new Error('회원 이름을 불러오는 것에 실패했습니다.');
         }
         userTierName.innerHTML += `
             <p id="userInfoField">${currentTier}</p>
-            <p id="userNameField">${userName.name}님의 등급</p>
+            <p id="userNameField">${userInfo.name}님의 등급</p>
             
         `;
+    } catch (err) {
+        console.error(err.stack);
+    }
+
+    try {
+        const purchasedList = await Api.get('/order', 'shippedlist');
+        if (!purchasedList) {
+            throw new Error('회원 구매정보를 불러오는 것에 실패했습니다');
+        }
+
+        let totalUsed = purchasedList.reduce(
+            (prev, curr) => prev + curr.totalPrice,
+            0
+        );
+        totalUsedPrice.innerText = addCommas(totalUsed);
+        if (currentTier === '브론즈') {
+            nextGrade.innerText = addCommas(50000 - totalUsed);
+        } else if (currentTier === '골드') {
+            nextGrade.innerText = addCommas(1000000 - totalUsed);
+        } else if (currentTier === '사파이어') {
+            nextGrade.innerText = addCommas(5000000 - totalUsed);
+        }
     } catch (err) {
         console.error(err.stack);
     }
@@ -54,26 +82,26 @@ async function userTierRender() {
 
 async function myPageView() {
     try {
-        const purchasedList = await Api.get('/order', 'shippedlist');
-        if (!purchasedList) {
-            throw new Error('회원 구매정보를 불러오는 것에 실패했습니다');
-        }
-        console.log(purchasedList);
-
-        let totalUsed = purchasedList.reduce(
-            (prev, curr) => prev + curr.totalPrice,
-            0
-        );
-        totalUsedPrice.innerText = addCommas(totalUsed);
-    } catch (err) {
-        console.error(err.stack);
-    }
-
-    try {
         const orderList = await Api.get('/order', 'list');
         if (!orderList) {
             throw new Error('회원 주문정보를 불러오는 것에 실패했습니다');
         }
+        let prepareOrder = 0;
+        let shipOrder = 0;
+        let doneOrder = 0;
+        orderList.forEach((singleOrder) => {
+            if (singleOrder.status === '상품준비중') {
+                prepareOrder++;
+            } else if (singleOrder.status === '배송중') {
+                shipOrder++;
+            } else {
+                doneOrder++;
+            }
+        });
+        console.log(orderList);
+        prepareOrderCount.innerText = prepareOrder;
+        shipOrderCount.innerText = shipOrder;
+        doneOrderCount.innerText = doneOrder;
     } catch (err) {
         console.error(err.stack);
     }

@@ -55,6 +55,23 @@
     display: flex;
 }
 
+.my-page-info-container .my-page-progress-info .order-container {
+    display: flex;
+}
+
+.my-page-info-container .my-page-progress-info .ongoing-order {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
 h3 {
     font-size: 25px;
     font-weight: bold;

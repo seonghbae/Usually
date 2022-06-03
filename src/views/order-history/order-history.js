@@ -35,13 +35,13 @@ async function userTierRender() {
     }
 
     try {
-        const userName = await Api.get('/users', 'userName');
-        if (!userName) {
+        const userInfo = await Api.get('/users', 'userInfo');
+        if (!userInfo) {
             throw new Error('회원 이름을 불러오는 것에 실패했습니다.');
         }
         userTierName.innerHTML += `
             <p id="userInfoField">${currentTier}</p>
-            <p id="userNameField">${userName.name}님의 등급</p>
+            <p id="userNameField">${userInfo.name}님의 등급</p>
             
         `;
     } catch (err) {
