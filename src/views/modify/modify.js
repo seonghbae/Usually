@@ -8,8 +8,6 @@ const passwordModify = document.querySelector('#password-modify');
 const modifyButton = document.querySelector('#modify-button');
 const deleteButton = document.querySelector('#delete-button');
 
-const token = getCookie('token');
-
 modifyButton.addEventListener('click', handleModify);
 deleteButton.addEventListener('click', handleDelete);
 
@@ -40,7 +38,6 @@ async function handleModify(e) {
         }
         alert(`정상적으로 수정되었습니다.`);
 
-        // 로그인 성공
         // 기본 페이지로 이동
         window.location.href = '/';
     } catch (err) {
@@ -66,5 +63,3 @@ async function handleDelete(e) {
         );
     }
 }
-
-drawModify();
