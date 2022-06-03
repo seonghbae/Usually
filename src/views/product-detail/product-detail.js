@@ -143,6 +143,7 @@ async function showProductDetail() {
         // api로 데이터를 받아옴
         const product = await Api.get('/productInfo', productId);
         image.src = product.src;
+        image.alt = product.name;
         madeBy.innerHTML = product.madeBy;
         name.innerHTML = product.name;
         price.innerHTML = addCommas(product.price) + '원';
