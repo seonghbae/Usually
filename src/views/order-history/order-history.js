@@ -58,7 +58,7 @@ async function renderOrder() {
         }
         orderList.forEach((singleOrder) => {
             console.log(singleOrder);
-            if (!singleOrder.status === '배송완료') {
+            if (singleOrder.status != '배송완료') {
                 let singleOrderInfo = document.createElement('tr');
                 let singleOrderProducts = '';
                 for (let i = 0; i < singleOrder.orderedProducts.length; i++) {

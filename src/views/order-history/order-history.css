@@ -1,6 +1,7 @@
 .order-history-content-container {
     display: flex;
     width: 150vh;
+    height: 200vh;
     margin-top: 5vh;
     margin-left: 5vh;
 }
