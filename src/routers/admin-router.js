@@ -408,7 +408,6 @@ adminRouter.patch(
     async (req, res, next) => {
         try {
             const user = await userService.getUser(req.currentUserId);
-
             //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
             if (!user) {
                 throw new Error('없는 회원입니다.');
@@ -493,8 +492,12 @@ adminRouter.delete(
     loginRequired,
     async (req, res, next) => {
         try {
+            const user = await userService.getUser(req.currentUserId);
             //현재 로그인 아이디의 role을 가져와 admin인지 판단후 아닐 경우 바로 리턴
-            if (req.currentUserRole !== 'admin') {
+            if (!user) {
+                throw new Error('없는 회원입니다.');
+            }
+            if (user.role !== 'admin') {
                 console.log(
                     '서비스 사용 요청이 있습니다. 하지만, admin이 아닙니다.'
                 );

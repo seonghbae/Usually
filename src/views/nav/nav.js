@@ -92,4 +92,10 @@ const navFunc = function () {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+    // 세대별 페이지 새로고침 막기
+    document
+        .querySelector('.is-arrowless')
+        .addEventListener('click', function (e) {
+            e.preventDefault();
+        });
 };

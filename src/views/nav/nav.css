@@ -47,7 +47,7 @@ button {
 }
 
 .navbar-item {
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .navbar-item:hover {
@@ -61,7 +61,7 @@ button {
 /* sticky-nav메뉴 css */
 .main-nav {
     display: flex;
-    height: 55px;
+    height: 60px;
     border-bottom: 1px solid black;
 }
 
@@ -82,7 +82,7 @@ button {
 
 .main-nav-menu {
     padding: 15px 3vw 15px 3vw;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
