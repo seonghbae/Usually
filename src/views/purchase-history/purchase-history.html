@@ -23,19 +23,18 @@
             crossorigin="anonymous"
         ></script>
         <!-- 커스텀 css, js -->
-        <link rel="stylesheet" href="admin-order.css" />
-        <script src="admin-order.js" type="module" defer></script>
-        <!-- navbar, footer, admin-nav 활용을 위한 css, js -->
+        <link rel="stylesheet" href="purchase-history.css" />
+        <script src="purchase-history.js" type="module" defer></script>
+        <!-- navbar, footer 활용을 위한 css, js -->
         <link rel="stylesheet" href="../nav/nav.css">
         <link rel="stylesheet" href="../footer/footer.css">
-        <link rel="stylesheet" href="../admin-nav/admin-nav.css">
         <script src="../nav/nav.js"></script>
         <!-- navbar, footer 활용을 위한 jquery -->
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        
     </head>
       <!--Navigation bar-->
       <div id="nav-placeholder"></div>
+
       <script>
         $(document).ready(function() {
           $('#nav-placeholder').load("../nav/nav.html", () => {
@@ -43,41 +42,38 @@
           });
         });
       </script>
-
-      <div class="admin-order-content-container">
-        <div id="admin-nav-container"></div>
-        <script>
-            $(function(){
-              $("#admin-nav-container").load("../admin-nav/admin-nav.html");
-            });
-        </script>
-
-        <div class="admin-order-table-container">
-            <div class="admin-order-title">
-                <h2>총 주문정보</h2>
-            </div>
-            <div class="table-container">
-                <table class="table is-fullwidth is-hoverable">
-                  <thead>
-                      <tr>
-                          <th>상품정보</th>
-                          <th>주문번호</th>
-                          <th>주문금액(수량)</th>
-                          <th>배송지</th>
-                          <th>주문상태</th>
-                          <th>주문삭제</th>
-                      </tr>
-                  </thead>
-                  <tbody id="table-content">
-                  </tbody>
-                </table>
-            </div>
-        </div>
-      </div>
       
+      <div class="purchase-history-content-container">
+          <div id="my-page-nav-container"></div>
+          <script>
+              $(function(){
+                  $("#my-page-nav-container").load("../my-page-nav/my-page-nav.html");
+              });
+          </script>
 
-    </div>
+          <div class="purchase-history-container">
+              <div class="purchase-history-info">
+                  <h3>내 구매내역</h3>
+              </div>
+
+              <div class="table-container">
+                  <table class="table is-fullwidth is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>상품정보</th>
+                            <th>배송지</th>
+                            <th>제품 수</th>
+                            <th>총 구매금액</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-content">
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
       <!--footer-->
+      
       <div id="footer-placeholder"></div>
 
       <script>
@@ -87,4 +83,3 @@
       </script>
     </body>
 </html>
-

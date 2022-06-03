@@ -21,6 +21,8 @@ body{
 .slider {
     overflow: hidden;
     width: 502vw;
+    transform : translate(-100vw);
+    transition : transform 1s ease;
 }
 
 .slider-image {

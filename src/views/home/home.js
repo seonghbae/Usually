@@ -61,6 +61,7 @@ async function addProductInfo(type, menus, productItemContainer){
             };
             menus[i].classList.add('main-navmenu-clicked');
             showProductList(type, menus[i].name, productItemContainer);
+            // main-slider가 0번째 이미지를 보여주도록 설정
             if (type == 'name'){
                 inner.style.transition =  'none';
                 inner.style.transform = `translate(-0vw)`;
@@ -92,8 +93,10 @@ bottomInner.style.transition =  'transform 1s';
 // 왼쪽 버튼 함수
 function leftSwipe() {
     inner.style.transition =  'transform 1s';
+    // 현재 가장 왼쪽이면 리턴
     if (inner.style.transform  === `translate(-0vw)`) {return};
     mainCurrentSlide = mainCurrentSlide - 3;
+    // 0번째 슬라이드까지만 적용해줌
     if (mainCurrentSlide < 0){
         mainCurrentSlide = 0;
     };
@@ -108,7 +111,6 @@ function rightSwipe() {
     if (mainCurrentSlide >= sliderLength-3){
         mainCurrentSlide = sliderLength-3;
     };
-    console.log(mainCurrentSlide, sliderLength);    
     inner.style.transform  = `translate(-${mainCurrentSlide * 22}vw)`;
 };
 //아래쪽 왼쪽버튼함수
@@ -130,6 +132,5 @@ function bottomRightSwipe() {
     if (bottomMainCurrentSlide >= sliderLength-3){
         bottomMainCurrentSlide = sliderLength-3;
     };
-    console.log(mainCurrentSlide, sliderLength);    
     bottomInner.style.transform  = `translate(-${bottomMainCurrentSlide * 22}vw)`;
 };
