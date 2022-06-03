@@ -6,38 +6,33 @@ const User = model('users', UserSchema);
 export class UserModel {
 
   async findByEmail(email) {
-    const user = await User.findOne({ email });
-    return user;
+    return await User.findOne({ email });
   }
 
   async findById(userId) {
-    const user = await User.findOne({ shortId : userId});
-    return user;
+    return await User.findOne({ shortId : userId});
   }
 
   async create(userInfo) {
-    const createdNewUser = await User.create(userInfo);
-    return createdNewUser;
+    return await User.create(userInfo);
   }
 
   async findAll() {
-    const users = await User.find({});
-    return users;
+    return await User.find({});
   }
 
   async update({ userId, update }) {
     const filter = { shortId : userId };
     const option = { returnOriginal: false };
 
-    const updatedUser = await User.findOneAndUpdate(filter, update, option);
-    return updatedUser;
+    return await User.findOneAndUpdate(filter, update, option);
+
   }
 
   async deleteOneUser(userId) {
     //const filter = { userId };
     
-    const deletedUser = await User.deleteOne({ shortId : userId });
-    return deletedUser;
+    return await User.deleteOne({ shortId : userId });
   }
 
 }

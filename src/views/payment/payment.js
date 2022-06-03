@@ -7,7 +7,9 @@ const phoneNumberElem = document.querySelector('#receiver-phone-number');
 const postalCodeElem = document.querySelector('#postal-code');
 const address1Elem = document.querySelector('#address1');
 const address2Elem = document.querySelector('#address2');
-const customRequestContainer = document.querySelector('#custom-request-container');
+const customRequestContainer = document.querySelector(
+    '#custom-request-container'
+);
 const customRequest = document.querySelector('#custom-request');
 const productInfoElem = document.querySelector('#product-info');
 const productsTotalElem = document.querySelector('#products-total');
@@ -15,9 +17,8 @@ const deliveryFeeElem = document.querySelector('#delivery-fee');
 const totalPriceElem = document.querySelector('#total-price');
 
 const searchAddressButton = document.querySelector('#search-address-button');
-const requestSelectBox = document.querySelector('#request-select-box');;
+const requestSelectBox = document.querySelector('#request-select-box');
 const paymentButton = document.querySelector('#payment-button');
-
 
 addAllElements();
 addAllEvents();
@@ -37,33 +38,29 @@ function addAllEvents() {
 // 주소 찾기
 function addressCallback() {
     new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+        oncomplete: function (data) {
+            let addr = '';
 
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            let addr = ''; // 주소 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            if (data.userSelectedType === 'R') {
                 addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            } else {
                 addr = data.jibunAddress;
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
             postalCodeElem.value = data.zonecode;
             address1Elem.value = addr;
-            // 커서를 상세주소 필드로 이동한다.
-            address2Elem.placeholder = "상세 주소를 입력해 주세요."
+            
+            address2Elem.placeholder = '상세 주소를 입력해 주세요.';
             address2Elem.focus();
-        }
+        },
     }).open();
 }
 
 // 요청사항 직접입력 선택시 입력창 띄움
 function selectCustomRequest() {
-    const selectedOption = requestSelectBox.options[requestSelectBox.selectedIndex].value;
-    if(selectedOption === '6') {
+    const selectedOption =
+        requestSelectBox.options[requestSelectBox.selectedIndex].value;
+    if (selectedOption === '6') {
         customRequestContainer.style.display = 'block';
         customRequest.focus();
     } else {
@@ -72,10 +69,16 @@ function selectCustomRequest() {
 }
 
 function addDashes(phoneNumber) {
-    if(phoneNumber.length === 10) {
-        return `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}`;
-    } else if(phoneNumber.length === 11) {
-        return `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}`;
+    if (phoneNumber.length === 10) {
+        return `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(
+            3,
+            6
+        )}-${phoneNumber.substring(6)}`;
+    } else if (phoneNumber.length === 11) {
+        return `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(
+            3,
+            7
+        )}-${phoneNumber.substring(7)}`;
     }
     return false;
 }
@@ -83,44 +86,46 @@ function addDashes(phoneNumber) {
 // 배송지정보 입력 확인
 // 결제하기 버튼 클릭시 order 정보를 DB에 보내고 페이지 이동
 async function paymentCallback() {
-    if(nameElem.value === '') {
-        alert("이름을 입력해 주세요.");
-    } else if(phoneNumberElem.value === '') {
-        alert("전화번호를 입력해 주세요.");
-    } else if(postalCodeElem.value === '' || address1Elem.value === '') {
-        alert("주소를 입력해 주세요.");
-    } else if(address2Elem.value === '') {
-        alert("상세 주소를 입력해 주세요.");
+    if (nameElem.value === '') {
+        alert('이름을 입력해 주세요.');
+    } else if (phoneNumberElem.value === '') {
+        alert('전화번호를 입력해 주세요.');
+    } else if (postalCodeElem.value === '' || address1Elem.value === '') {
+        alert('주소를 입력해 주세요.');
+    } else if (address2Elem.value === '') {
+        alert('상세 주소를 입력해 주세요.');
     } else {
-        alert("결제 및 주문이 정상적으로 완료되었습니다.\n감사합니다.");
+        alert('결제 및 주문이 정상적으로 완료되었습니다.\n감사합니다.');
         try {
             const orderInfo = JSON.parse(localStorage.getItem('order'));
-            const selectedOption = requestSelectBox.options[requestSelectBox.selectedIndex];
+            const selectedOption =
+                requestSelectBox.options[requestSelectBox.selectedIndex];
             let message = selectedOption.innerHTML;
             if (selectedOption.value === '0') {
                 message = '';
             } else if (selectedOption.value === '6') {
                 message = customRequest.value;
             }
-            const orderedProducts = orderInfo.productInfos.map(({ productId, quantity }) => ({
-                'productId': JSON.parse(localStorage.getItem(productId))._id,
-                'quantity': Number(quantity)
-            }));
+            const orderedProducts = orderInfo.productInfos.map(
+                ({ productId, quantity }) => ({
+                    productId: JSON.parse(localStorage.getItem(productId))._id,
+                    quantity: Number(quantity),
+                })
+            );
             const order = {
-                "phoneNumber": addDashes(phoneNumberElem.value),
-                "address":{
-                    "postalCode": postalCodeElem.value,
-                    "address1": address1Elem.value,
-                    "address2": address2Elem.value
+                phoneNumber: addDashes(phoneNumberElem.value),
+                address: {
+                    postalCode: postalCodeElem.value,
+                    address1: address1Elem.value,
+                    address2: address2Elem.value,
                 },
-                "message": message,
-                "orderedProducts": orderedProducts,
-                "totalPrice": convertToNumber(orderInfo.totalPrice),
-                "totalQuantity": convertToNumber(orderInfo.productCounts)
+                message: message,
+                orderedProducts: orderedProducts,
+                totalPrice: convertToNumber(orderInfo.totalPrice),
+                totalQuantity: convertToNumber(orderInfo.productCounts),
             };
-            // API로 DB에 order 데이터 넘겨주기
+
             await Api.post('/order/purchase', order);
-            // 결제완료시 localStorage에서 데이터 삭제
             orderInfo.productInfos.forEach((productInfo) => {
                 localStorage.removeItem(productInfo.productId);
             });

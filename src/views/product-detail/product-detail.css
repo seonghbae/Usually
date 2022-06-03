@@ -55,7 +55,7 @@
 .page-numbers {
     display: flex;
     justify-content: center;
-    column-gap: .5rem;
+    column-gap: 0.5rem;
     margin-top: 1rem;
 }
 

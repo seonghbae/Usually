@@ -8,7 +8,6 @@ const cartProductsContainer = document.querySelector(
 const selectAllCheckbox = document.querySelector('#select-all-checkbox');
 const deleteChecked = document.querySelector('#delete-checked');
 const purchaseButton = document.querySelector('#purchase-button');
-
 const userTierName = document.getElementById('user-tier-name');
 const userTierIcon = document.getElementById('user-tier-icon');
 
