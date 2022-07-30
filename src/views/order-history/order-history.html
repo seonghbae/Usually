@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>쇼핑-n팀</title>
+        <title>유주얼리</title>
         <!-- 아이콘 -->
         <link
             rel="icon"
@@ -44,12 +44,18 @@
       </script>
       
       <div class="order-history-content-container">
+        <div class="order-history-side-menu-container">
+          <div class="user-tier-container">
+            <div id="user-tier-icon"></div>
+            <div id="user-tier-name"></div>
+          </div>
           <div id="my-page-nav-container"></div>
           <script>
               $(function(){
                   $("#my-page-nav-container").load("../my-page-nav/my-page-nav.html");
               });
           </script>
+        </div>
 
           <div class="order-history-container">
               <div class="order-history-info">
@@ -70,13 +76,12 @@
                     </thead>
                     <tbody id="table-content">
                     </tbody>
-                  
                   </table>
               </div>
-
           </div>
       </div>
       <!--footer-->
+      
       <div id="footer-placeholder"></div>
 
       <script>

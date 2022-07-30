@@ -6,7 +6,7 @@ const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
-const genderInput = document.querySelector('#gender');
+const genderNodeList = document.getElementsByName('gender');
 const submitButton = document.querySelector('#submitButton');
 
 addAllElements();
@@ -28,7 +28,13 @@ async function handleSubmit(e) {
     const email = emailInput.value;
     const password = passwordInput.value;
     const passwordConfirm = passwordConfirmInput.value;
-    const gender = genderInput.value;
+    let gender = '';
+
+    genderNodeList.forEach((node) => {
+        if (node.checked) {
+            gender = node.value;
+        }
+    });
 
     // 잘 입력했는지 확인
     const isFullNameValid = fullName.length >= 2;

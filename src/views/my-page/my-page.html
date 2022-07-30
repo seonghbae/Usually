@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>쇼핑-n팀</title>
+        <title>유주얼리</title>
         <!-- 아이콘 -->
         <link
             rel="icon"
@@ -25,9 +25,11 @@
         <!-- 커스텀 css, js -->
         <link rel="stylesheet" href="my-page.css" />
         <script src="my-page.js" type="module" defer></script>
+        <script src="../my-page-nav/my-page-nav.js"></script>
         <!-- navbar, footer 활용을 위한 css, js -->
         <link rel="stylesheet" href="../nav/nav.css">
         <link rel="stylesheet" href="../footer/footer.css">
+        <link rel="stylesheet" href="../my-page-nav/my-page-nav.css">
         <script src="../nav/nav.js"></script>
         <!-- navbar, footer 활용을 위한 jquery -->
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -44,25 +46,48 @@
       </script>
 
       <div class="my-page-content-container">
+        <div class="my-page-side-menu-container">
+          <div class="user-tier-container">
+            <div id="user-tier-icon"></div>
+            <div id="user-tier-name"></div>
+          </div>
           <div id="my-page-nav-container"></div>
           <script>
               $(function(){
                   $("#my-page-nav-container").load("../my-page-nav/my-page-nav.html");
               });
           </script>
-
+        </div>
           <div class="my-page-info-container">
-              <div class="my-page-info">
-                  <h3>총 주문회수</h3>
-                  <hr>
-                  <p id="my-page-order-count"></p>
+            <div class="my-page-info">
+              <div class="my-page-total-used">
+                <h3>총 사용금액</h3>
+                <p id="total-used"></p>
               </div>
+              <div class="my-page-total-used">
+                <h3>다음 등급까지</h3>
+                <p id="next-grade"></p>
+              </div>
+            </div>
 
-              <div class="my-page-info">
-                  <h3>총 가격</h3>
-                  <hr>
-                  <p id="my-page-total-price"></p>
+            <div class="my-page-progress-info">
+              <h3>진행정보</h3>
+              <hr>
+              <div class="order-container">
+                <div class="ongoing-order">
+                  <h3>배송준비중</h3>
+                  <p id="my-page-prepare-order-count"></p>
+                </div>
+                <div class="ongoing-order">
+                  <h3>배송중</h3>
+                  <p id="my-page-ship-order-count"></p>
+                </div>
+                <div class="ongoing-order">
+                  <h3>배송완료</h3>
+                  <p id="my-page-delivered-order-count"></p>
+                </div>
               </div>
+            </div>
           </div>
       </div>
       <!--footer-->

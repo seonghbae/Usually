@@ -1,4 +1,78 @@
-img {
-    max-width: 600px;
-    height: auto
+#review-container {
+    margin-top: 3rem;
+}
+
+.review-header {
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.review-button {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 1rem;
+}
+
+.review-body-container {
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.review {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+
+.review .review-content {
+    width: 60vw;
+    padding-right: 1rem;
+    border-right: 1px solid #dbdbdb;
+}
+
+.review .review-author {
+    padding-left: 1rem;
+}
+
+.review-update {
+    cursor: pointer;
+}
+
+.review-delete {
+    cursor: pointer;
+}
+
+.icon {
+    color: #dbdbdb;
+}
+
+.review-update-container {
+    display: none;
+}
+
+.review-create-container {
+    display: none;
+}
+
+.page-numbers {
+    display: flex;
+    justify-content: center;
+    column-gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.page-number {
+    cursor: pointer;
+}
+
+.review-input {
+    width: 100%;
+    height: 10rem;
+    padding: 1rem;
+    resize: none;
+}
+
+.review-textarea {
+    width: 100%;
+    height: 10rem;
+    padding: 1rem;
+    resize: none;
 }

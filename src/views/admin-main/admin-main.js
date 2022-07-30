@@ -43,7 +43,6 @@ async function adminMainBestSeller() {
         if (!allProducts) {
             throw new Error('제품정보를 불러오는 것에 실패하였습니다');
         }
-        console.log(allProducts);
         let bestSellerItem = allProducts[0];
         allProducts.forEach((singleProduct) => {
             if (singleProduct.sellCount > bestSellerItem.sellCount) {
@@ -67,7 +66,6 @@ async function adminMainNeedStock() {
         const needStockProducts = await allProducts.filter(
             (singleProduct) => singleProduct.inventory < 5
         );
-        console.log(needStockProducts);
         needStock.innerText = needStockProducts.length + '개';
     } catch (err) {
         console.error(err.stack);

@@ -1,0 +1,71 @@
+.purchase-history-content-container {
+    display: flex;
+    height: 80vh;
+    width: 150vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+.purchase-history-content-container
+    .user-tier-container
+    #user-tier-name
+    #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.purchase-history-content-container .purchase-history-side-menu-container {
+    width: 25%;
+    margin-left: 5vh;
+}
+
+.purchase-history-content-container .user-tier-container {
+    display: flex;
+}
+
+.purchase-history-content-container .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
+}
+
+.purchase-history-container {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.purchase-history-container .purchase-history-info {
+    margin-bottom: 20px;
+}
+
+.purchase-history-container .table-container thead tr th {
+    color: #ffae96;
+}
+
+.purchase-history-container .table-container tbody tr {
+    height: 10vh;
+}
+.purchase-history-container
+    .table-container
+    tbody
+    .single-purchased-product-info {
+    margin-top: 12px;
+}
+.purchase-history-container .table-container tbody img {
+    margin-right: 5px;
+}
+
+.purchase-history-container .table-container tbody p .produc {
+    font-size: 15px;
+}
+
+.purchase-history-container .table-container tbody p .productName {
+    font-size: 15px;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: bold;
+}

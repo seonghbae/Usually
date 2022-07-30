@@ -7,6 +7,18 @@ import { APIGateway, ApiGatewayManagementApi } from 'aws-sdk';
 const jwt = require('jsonwebtoken');
 const userRouter = Router();
 
+userRouter.get('/userInfo', loginRequired, async function (req, res, next) {
+    try {
+        const user = await userService.getUser(req.currentUserId);
+        if (!user) {
+            throw new Error('없는 회원입니다.');
+        }
+        res.json({ name: user.fullName, email: user.email });
+    } catch (err) {
+        next(err);
+    }
+});
+
 //isAdmin, role이 어드민인지 아닌지 판별 후 true, false 반환
 userRouter.get('/isAdmin', loginRequired, async function (req, res, next) {
     try {
@@ -45,7 +57,6 @@ userRouter.post('/register', async (req, res, next) => {
             role,
         } = req.body;
 
-        console.log(role);
         // 위 데이터를 유저 db에 추가하기
         const newUser = await userService.addUser({
             fullName,
@@ -127,8 +138,7 @@ userRouter.patch('/edit', loginRequired, async function (req, res, next) {
         const userId = req.currentUserId;
 
         // body data 로부터 업데이트할 사용자 정보를 추출함.
-        const { fullName, password, address, phoneNumber, role, gender } =
-            req.body;
+        const { password, email } = req.body;
 
         // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
         const currentPassword = req.body.currentPassword;
@@ -138,17 +148,13 @@ userRouter.patch('/edit', loginRequired, async function (req, res, next) {
             throw new Error('정보를 변경하려면, 현재의 비밀번호가 필요합니다.');
         }
 
-        const userInfoRequired = { userId, currentPassword };
+        const userInfoRequired = { userId, currentPassword, email };
 
         // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
         // 보내주었다면, 업데이트용 객체에 삽입함.
         const toUpdate = {
-            ...(fullName && { fullName }),
+            ...(email && { email }),
             ...(password && { password }),
-            ...(address && { address }),
-            ...(phoneNumber && { phoneNumber }),
-            ...(role && { role }),
-            ...(gender && { gender }),
         };
 
         // 사용자 정보를 업데이트함.
@@ -172,30 +178,8 @@ userRouter.delete(
         try {
             const userId = req.currentUserId;
 
-            // content-type 을 application/json 로 프론트에서
-            // 설정 안 하고 요청하면, body가 비어 있게 됨.
-            // if (is.emptyObject(req.body)) {
-            //     throw new Error(
-            //         'headers의 Content-Type을 application/json으로 설정해주세요'
-            //     );
-            // }
-
-            // params로부터 id를 가져옴
-            // const shortId = req.currentUserId;
-
-            // // body data 로부터 탈퇴 및 삭제할 사용자 비밀번호를 추출함.
-            // const currentPassword = req.body.password;
-
-            // // password 없을 시, 진행 불가
-            // if (!currentPassword) {
-            //     throw new Error('탈퇴를 위해서는 비밀번호가 필요합니다.');
-            // }
-
-            // const userInfoRequired = { shortId, currentPassword };
-            const userInfoRequired = { userId };
-
             // // 사용자 정보를 삭제함
-            const deletedUser = await userService.deleteUser(userInfoRequired);
+            const deletedUser = await userService.deleteUser(userId);
 
             if (!deletedUser) {
                 throw new Error('삭제가 실패하였습니다.');

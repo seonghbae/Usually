@@ -7,7 +7,7 @@ class ReviewService {
 
     async getPaginatedReviews(reviewInfo) {
         const { query, page, perPage, productId } = reviewInfo;
-        //console.log(query + ' ' + page + ' ' + perPage + '' + productId);
+
         return await this.reviewModel.findPaginatedReviews({
             query,
             page,

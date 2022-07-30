@@ -1,3 +1,45 @@
+.section {
+    display: flex;
+    width: 100vw;
+    height: 200vh;
+    margin-top: 5vh;
+    margin-left: 5vh;
+    padding: 0;
+}
+
+.section .cart-side-menu-container {
+    width: 15%;
+    margin-left: 5vh;
+}
+
+.section .user-tier-container {
+    display: flex;
+}
+
+.section .user-tier-container #user-tier-name #userInfoField {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.section .user-tier-container #user-tier-name {
+    margin-top: 10%;
+}
+
+.section .user-tier-container #user-tier-name #userNameField {
+    text-align: center;
+    font-size: 15px;
+}
+
+#my-page-nav-container {
+    margin-top: 5vh;
+    width: 100%;
+}
+
+.cart-info-container {
+    width: 75%;
+}
+
 .cart-header {
     display: flex;
     border-bottom: 1px solid;
@@ -35,6 +77,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    height: 10rem;
 }
 
 .cart-product-item label {
@@ -48,12 +91,18 @@
     right: -0.5rem;
 }
 
-.image {
+.cart-product-item .image {
     cursor: pointer;
-    position: relative;
-    margin-left: 4rem;
+    margin-left: 2rem;
+    padding: 0;
+    width: 8rem;
 }
 
+.cart-product-item .image img {
+    position: relative;
+    height: 7rem;
+    width: 7rem;
+}
 
 .quantity {
     display: flex;
@@ -62,13 +111,14 @@
 .cart-product-item .content {
     display: flex;
     flex-direction: column;
-    font-size: 1.4rem;
-    margin-left: 4rem;
+    font-size: 1.2rem;
+    width: 20rem;
     margin-bottom: 0;
     align-items: center;
 }
+
 .content .quantity .button {
-    font-size: .6rem;
+    font-size: 0.6rem;
 }
 
 .input {
@@ -79,7 +129,7 @@
 
 .calculation {
     display: flex;
-    margin-left: 4rem;
+    width: 20rem;
 }
 
 .calculation p {
@@ -132,8 +182,8 @@
     width: 100%;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }

@@ -56,7 +56,6 @@ reviewRouter.post('/', loginRequired, async (req, res, next) => {
     try {
         const { title, content, productId } = req.body;
 
-        //console.log(req.currentUserId);
         let author = req.body.author;
 
         //loginRequired에서 로그인한 회원의 정보 가져오기
@@ -69,15 +68,29 @@ reviewRouter.post('/', loginRequired, async (req, res, next) => {
             });
             return;
         }
-        author = user.shortId;
-        /*console.log(author);
-        const orders = await orderService.getOrdersByUser(author);
-        orders.forEach((el) => {
-            console.log(el.orderedProducts[0]);
-        });
-        console.log(orders);*/
+        author = user._id;
+        let allowedToCreateReview = false;
+        const orders = await orderService.getOrdersByUser(user.shortId);
 
-        //console.log(author);
+        orders.forEach((order) => {
+            //주문마다 확인
+            order.orderedProducts.forEach((product) => {
+                //동시에 주문한 상품마다 확인
+                if (productId === product.productId.productId) {
+                    //현재 상품과 같으면 리뷰 등록 가능
+                    allowedToCreateReview = true;
+                    return;
+                }
+            });
+        });
+        //현재 상품이 주문한 상품 목록에 없으면 리뷰 등록 불가능 오류 처리
+        if (!allowedToCreateReview) {
+            res.status(403).json({
+                result: 'forbidden-approach',
+                reason: `상품을 구매한 사람만 리뷰를 남길 수 있습니다.`,
+            });
+            return;
+        }
         const newReview = await reviewService.createReview({
             title,
             content,
@@ -96,7 +109,6 @@ reviewRouter.patch('/:reviewId', loginRequired, async (req, res, next) => {
         const { reviewId } = req.params;
         const { title, content, productId } = req.body;
 
-        //console.log(req.currentUserId);
         //loginRequired에서 로그인한 회원의 정보 가져오기
         const user = await userService.getUser(req.currentUserId);
         //회원 여부 확인
@@ -107,13 +119,12 @@ reviewRouter.patch('/:reviewId', loginRequired, async (req, res, next) => {
             });
             return;
         }
-        //console.log(user._id);
 
+        //현재 리뷰의 작성자 확인을 위해 가져오기
         const prevReview = await reviewService.getReview(reviewId);
-        //console.log(prevReview.author);
 
         //작성자 여부 확인
-        if (prevReview.author !== user.shortId) {
+        if (!prevReview.author._id.equals(user._id)) {
             res.status(403).json({
                 result: 'forbidden-approach',
                 reason: `작성자가 아닙니다.`,
@@ -121,13 +132,14 @@ reviewRouter.patch('/:reviewId', loginRequired, async (req, res, next) => {
             return;
         }
 
+        //수정된 리뷰만 가져오기
         const reviewInfo = {
             ...(title && { title }),
             ...(content && { content }),
             ...(productId && { productId }),
         };
 
-        //이전 리뷰가 존재하는지 확인
+        //수정할 리뷰 없으면 오류처리
         if (!prevReview.reviewId) {
             res.status(403).json({
                 result: 'forbidden-approach',
@@ -151,7 +163,6 @@ reviewRouter.delete('/:reviewId', loginRequired, async (req, res, next) => {
     try {
         const { reviewId } = req.params;
 
-        //console.log(req.currentUserId);
         //loginRequired에서 로그인한 회원의 정보 가져오기
         const user = await userService.getUser(req.currentUserId);
 
@@ -163,13 +174,12 @@ reviewRouter.delete('/:reviewId', loginRequired, async (req, res, next) => {
             });
             return;
         }
-        //console.log(user);
         //let author = user.shortId;
 
         //작성자 여부 확인
         const prevReview = await reviewService.getReview(reviewId);
-        //console.log(prevReview.author);
-        if (prevReview.author !== user.shortId) {
+
+        if (!prevReview.author._id.equals(user._id)) {
             res.status(403).json({
                 result: 'forbidden-approach',
                 reason: `작성자가 아닙니다.`,
@@ -177,7 +187,7 @@ reviewRouter.delete('/:reviewId', loginRequired, async (req, res, next) => {
             return;
         }
 
-        //이전 리뷰가 존재하는지 확인
+        //수정할 리뷰 없으면 오류처리
         if (!prevReview.reviewId) {
             res.status(403).json({
                 result: 'forbidden-approach',
